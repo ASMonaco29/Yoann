@@ -1,19 +1,22 @@
 package cda;
 
-/*
- * TODOLIST : 
- * Vérifier que chaque question possède au moins une réponse
- * Vérifier que chaque question ait une réponse par défaut
- *
- */
 
 public class Question {
 
   private String question;
-  // Tableau de réponses
+  private boolean choixDeflt;
 
-  public Question(String question) {
+  public Question(String question, boolean cd) {
     this.question = question;
+    this.choixDeflt = cd;
+  }
+
+  public boolean getChoixDeflt() {
+    return choixDeflt;
+  }
+
+  public void setChoixDeflt(boolean choixDeflt) {
+    this.choixDeflt = choixDeflt;
   }
 
   public String getQuestion() {

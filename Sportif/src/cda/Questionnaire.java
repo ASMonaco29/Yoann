@@ -90,8 +90,8 @@ public class Questionnaire {
     }
   }
   
-  public void modifQuestion(Question e, String q){
-    Question quest = new Question(q);
+  public void modifQuestion(Question e, String q, boolean cd){
+    Question quest = new Question(q, cd);
     this.quListe.set(this.quListe.indexOf(e), quest);
   }
   
