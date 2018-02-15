@@ -110,11 +110,11 @@ public class Interface {
     /* Je créé un sportif s1 :
      * 
      * Nom : 56588
-     * Prénom : 
-     * Pseudo : 
-     * Mot de passe : 
-     * Naissance : 
-     * Sport : 
+     * Prénom : Alix
+     * Pseudo : Alix56
+     * Mot de passe : Crypt520
+     * Naissance : 11/07/2000
+     * Sport : Ju_Jitsu
      * 
      * Problème supposé : le NOM
      */
@@ -122,12 +122,12 @@ public class Interface {
     
     /* Je créé un sportif s2 :
      * 
-     * Nom : 
+     * Nom : Fabien
      * Prénom : 45412
-     * Pseudo : 
-     * Mot de passe : 
-     * Naissance : 
-     * Sport : 
+     * Pseudo : Fab45
+     * Mot de passe : 18atcskd2w
+     * Naissance : 23/11/1990
+     * Sport : Billard
      * 
      * Problème supposé : le PRENOM
      */
@@ -135,12 +135,12 @@ public class Interface {
     
     /* Je créé un sportif s3 :
      * 
-     * Nom : 
-     * Prénom : 
+     * Nom : Holdon
+     * Prénom : Kate
      * Pseudo : J'espace'les"noms
-     * Mot de passe : 
-     * Naissance : 
-     * Sport : 
+     * Mot de passe : 1q2w3e4r5t
+     * Naissance : 15/12/1978
+     * Sport : Patinage_artistique
      * 
      * Problème supposé : le PSEUDO
      */
@@ -148,12 +148,12 @@ public class Interface {
     
     /* Je créé un sportif s4 :
      * 
-     * Nom : 
-     * Prénom : 
-     * Pseudo : 
+     * Nom : Daniel
+     * Prénom : Hector
+     * Pseudo : HDaniel
      * Mot de passe : m@tD'passe
-     * Naissance : 
-     * Sport : 
+     * Naissance : 01/09/2001
+     * Sport : Billard
      * 
      * Problème supposé : le MOT DE PASSE
      */
@@ -161,12 +161,12 @@ public class Interface {
     
     /* Je créé un sportif s5 :
      * 
-     * Nom : 
-     * Prénom : 
-     * Pseudo : 
-     * Mot de passe : 
+     * Nom : Vaudou
+     * Prénom : Marc
+     * Pseudo : MVaudou
+     * Mot de passe : password
      * Naissance : 05/08/2019
-     * Sport : 
+     * Sport : Kite_surf
      * 
      * Problème supposé : la DATE DE NAISSANCE
      */
@@ -174,11 +174,11 @@ public class Interface {
     
     /* Je créé un sportif s6 :
      * 
-     * Nom : 
-     * Prénom : 
-     * Pseudo : 
-     * Mot de passe : 
-     * Naissance : 
+     * Nom : Kerinou
+     * Prénom : Mathilde
+     * Pseudo : MKerinou
+     * Mot de passe : 3rjs1la7qe
+     * Naissance : 29/04/1993
      * Sport : Patins à glace
      * 
      * Problème supposé : le SPORT
@@ -226,12 +226,12 @@ public class Interface {
     
     /* Je créé un sportif s10 :
      * 
-     * Nom : 
-     * Prénom : 
-     * Pseudo : 
-     * Mot de passe : 
-     * Naissance : 
-     * Sport : 
+     * Nom : Mestre
+     * Prénom : Quentin
+     * Pseudo : Quentvinght
+     * Mot de passe : MotDepasse33
+     * Naissance : 30/05/1996
+     * Sport : Golf
      * 
      * Problème supposé : sportif DEJA EXISTANT
      */
@@ -328,6 +328,11 @@ public class Interface {
     // Je supprime un sportif qui n'existe pas (s22)
     SupprimerSportif();
     
+    
+    
+    /******************************** QUESTIONNAIRE *********************************/
+    
+    /******************************** TEST 1  *********************************/
     
     System.out.println("QUESTIONNAIRE :");
     
