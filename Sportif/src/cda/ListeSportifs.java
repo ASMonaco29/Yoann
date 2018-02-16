@@ -25,7 +25,7 @@ public class ListeSportifs {
 
 
 
-  int creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+  public int creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
     int result = 0;
     Sportif sportif;
     
@@ -58,7 +58,7 @@ public class ListeSportifs {
    * @param sport
    * @return
    */
-  int modifierSportif(String nom, String prenom, String pseudo, Sport sport) {
+  public int modifierSportif(String nom, String prenom, String pseudo, Sport sport) {
     int result = 0;
     Sportif sportif1 = null;
     
@@ -90,7 +90,7 @@ public class ListeSportifs {
   }
   
   
-  int supprimerSportif(String pseudo) {
+  public int supprimerSportif(String pseudo) {
     int result = 0;
     Sportif sportif1 = null;
     

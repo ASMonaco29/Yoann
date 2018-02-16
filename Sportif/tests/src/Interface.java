@@ -1,6 +1,8 @@
 package src;
 
+import cda.*;
 
+import java.sql.Date;
 
 public class Interface {
 
@@ -11,16 +13,50 @@ public class Interface {
    * Supprimer
    */
   
-  static public void CreerSportif(){
+  static ListeSportifs sportifs = new ListeSportifs();
+  
+  static public void CreerSportif(String nom, String prenom, String pseudo, Date naissance, Sport sport){
+    int creerStatut;
     
+    creerStatut = sportifs.creerSportif(nom, prenom, pseudo, naissance, sport);
+    
+    if(creerStatut == 1) {
+      System.out.println("Le sportif existe déjà \n");
+      
+    } else if(creerStatut == 2) {
+      System.out.println("L'identifiant est déjà utilisé \n");
+    
+    } else {
+      System.out.println("Le sportif est crée \n");
+    }
   }
   
-  static public void ModifierSportif(){
+  static public void ModifierSportif(String nom, String prenom, String pseudo, Sport sport){
+    int creerStatut;
     
+    creerStatut = sportifs.modifierSportif(nom, prenom, pseudo, sport);
+    
+    if(creerStatut == 0) {
+      System.out.println("Le sportif n'existe pas \n");
+      
+    } else if(creerStatut == 1) {
+      System.out.println("Sportif modifié \n");
+    
+    } 
   }
   
-  static public void SupprimerSportif(){
+  static public void SupprimerSportif(String pseudo){
+    int creerStatut;
     
+    creerStatut = sportifs.supprimerSportif(pseudo);
+    
+    if(creerStatut == 1) {
+      System.out.println("Le sportif a été supprimé \n");
+      
+    } else if(creerStatut == 0) {
+      System.out.println("Le sportif n'a pas été supprimé \n");
+    
+    } 
   }
   
   
@@ -68,6 +104,7 @@ public class Interface {
   /* *******************************
    * MAIN - SCENARIO PRINCIPAL
    */
+  @SuppressWarnings("deprecation")
   public static void main(String[] args) {
     
     System.out.println("SPORTIF :");
@@ -84,8 +121,9 @@ public class Interface {
      * Sport : Basketball
      * 
      * Problème supposé : AUCUN
+     * Comportement obtenu : 
      */
-    CreerSportif();
+    CreerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
     
     /* Je MODIFIE s0 :
      * 
@@ -98,10 +136,10 @@ public class Interface {
      * 
      * Problème supposé : AUCUN
      */
-    ModifierSportif();
+    ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     // Je supprime s0
-    SupprimerSportif();
+    SupprimerSportif("Malleno");
     
     
     /******************************** CREATION SPORTIF *********************************/
@@ -117,8 +155,10 @@ public class Interface {
      * Sport : Ju_Jitsu
      * 
      * Problème supposé : le NOM
+     * => Comportement obtenu : Création du sportif : PROBLEMATIQUE mais pas trop
      */
-    CreerSportif();
+    System.out.println("Nom :");
+    CreerSportif("56588", "Alix", "Alix56", new Date(11,07,2000), Sport.Ju_Jitsu);
     
     /* Je créé un sportif s2 :
      * 
@@ -130,8 +170,10 @@ public class Interface {
      * Sport : Billard
      * 
      * Problème supposé : le PRENOM
+     * => Comportement obtenu : Création du sportif : PROBLEMATIQUE mais pas trop
      */
-    CreerSportif();
+    System.out.println("Prénom :");
+    CreerSportif("Fabien", "45412", "Fab45", new Date(23,11,1990), Sport.Billard);
     
     /* Je créé un sportif s3 :
      * 
@@ -142,9 +184,11 @@ public class Interface {
      * Naissance : 15/12/1978
      * Sport : Patinage_artistique
      * 
-     * Problème supposé : le PSEUDO
+     * Problème supposé (mais fonctionnel) : le PSEUDO
+     * => Comportement obtenu : Création du sportif
      */
-    CreerSportif();
+    System.out.println("Pseudo :");
+    CreerSportif("Holdon", "Kate", "J'espace'les\"noms", new Date(15,12,1978), Sport.Patinage_artistique);
     
     /* Je créé un sportif s4 :
      * 
@@ -156,8 +200,10 @@ public class Interface {
      * Sport : Billard
      * 
      * Problème supposé : le MOT DE PASSE
+     * =>  PAS TESTABLE !
      */
-    CreerSportif();
+    //System.out.println("Mot de passe : ");
+    //CreerSportif("Daniel", "Hector", "HDaniel", new Date(01,9,2001), Sport.Billard);
     
     /* Je créé un sportif s5 :
      * 
@@ -169,8 +215,10 @@ public class Interface {
      * Sport : Kite_surf
      * 
      * Problème supposé : la DATE DE NAISSANCE
+     * => Comportement obtenu : Création du sportif : PROBLEMATIQUE 
      */
-    CreerSportif();
+    System.out.println("Date de naissance :");
+    CreerSportif("Vaudou", "Marc", "MVaudou", new Date(05,8,2019), Sport.Kite_surf);
     
     /* Je créé un sportif s6 :
      * 
@@ -182,8 +230,10 @@ public class Interface {
      * Sport : Patins à glace
      * 
      * Problème supposé : le SPORT
+     * =>  PAS TESTABLE !
      */
-    CreerSportif();
+    //System.out.println("Sport :");
+    //CreerSportif("Kerinou", "Mathilde", "MKerinou", new Date(29,04,1993), Sport.Kite_surf);
     
     /* Je créé un sportif s7 :
      * 
@@ -196,7 +246,8 @@ public class Interface {
      * 
      * Problème supposé : AUCUN
      */
-    CreerSportif();
+    System.out.println("Nouvel ajout(s7)");
+    CreerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
     
     /* Je créé un sportif s8 :
      * 
@@ -208,8 +259,10 @@ public class Interface {
      * Sport : Natation
      * 
      * Problème supposé : AUCUN
+     * => Comportement obtenu : Création du sportif
      */
-    CreerSportif();
+    System.out.println("Nouvel ajout (s8)");
+    CreerSportif("Mestre", "Quentin", "Qmestre", new Date(30,05,1996), Sport.Natation);
     
     /* Je créé un sportif s9 :
      * 
@@ -221,8 +274,10 @@ public class Interface {
      * Sport : Basketball
      * 
      * Problème supposé : sportif DEJA EXISTANT
+     * => Comportement obtenu : Identifiant est déjà utilisé
      */
-    CreerSportif();
+    System.out.println("Déjà existant : ");
+    CreerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
     
     /* Je créé un sportif s10 :
      * 
@@ -234,8 +289,10 @@ public class Interface {
      * Sport : Golf
      * 
      * Problème supposé : sportif DEJA EXISTANT
+     * => Comportement obtenu : Création du sportif : PROBLEMATIQUE
      */
-    CreerSportif();
+    System.out.println("Déjà existant : ");
+    CreerSportif("Mestre", "Quentin", "Quentvinght", new Date(30,05,1996), Sport.Golf);
     
     
     /******************************** MODIFICATION SPORTIF *********************************/
@@ -251,7 +308,8 @@ public class Interface {
      * Sport : Basketball
      * 
      */
-    ModifierSportif();
+    System.out.println("Nom :");
+    ModifierSportif("56588", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le PRENOM de s7 :
      * 
@@ -262,7 +320,8 @@ public class Interface {
      * Naissance : 03/05/1997
      * Sport : Basketball
      */
-    ModifierSportif();
+    System.out.println("Prénom :");
+    ModifierSportif("Alleno", "45412", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le PSEUDO de s7 :
      * 
@@ -273,7 +332,8 @@ public class Interface {
      * Naissance : 03/05/1997
      * Sport : Basketball
      */
-    ModifierSportif();
+    System.out.println("Pseudo :");
+    ModifierSportif("Alleno", "Malou", "J'espace'les\"noms", Sport.Basketball);
     
     /* Je MODIFIE le MOT DE PASSE de s7 :
      * 
@@ -283,8 +343,11 @@ public class Interface {
      * Mot de passe : m@tD'passe
      * Naissance : 03/05/1997
      * Sport : Basketball
+     * 
+     * => PAS TESTABLE
      */
-    ModifierSportif();
+    //System.out.println("Mot de passe :");
+    //ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE la NAISSANCE de s7 :
      * 
@@ -294,8 +357,11 @@ public class Interface {
      * Mot de passe : Private29
      * Naissance : 05/08/2019
      * Sport : Basketball
+     * 
+     * => PAS TESTABLE
      */
-    ModifierSportif();
+    //System.out.println("Date de naissance :");
+    //ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le SPORT de s7 :
      * 
@@ -306,9 +372,10 @@ public class Interface {
      * Naissance : 03/05/1997
      * Sport : Patins à glace
      */
-    ModifierSportif();
+    System.out.println("Sport :");
+    ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
-    /* Je MODIFIE le NOM et PRENOM de s7 :
+    /* Je MODIFIE le NOM, PRENOM et DATE DE NAISSANCE de s7 :
      * 
      * Nom : Mestre
      * Prénom : Quentin
@@ -317,16 +384,19 @@ public class Interface {
      * Naissance : 30/05/1996
      * Sport : Basketball
      */
-    ModifierSportif();
+    System.out.println("Nom + Prenom + Date de naissance :");
+    ModifierSportif("Mestre", "Quentin", "Malleno", Sport.Basketball);
     
     
     /******************************** SUPPRESSION SPORTIF *********************************/
     
     // Je supprime s7
-    SupprimerSportif();
+    System.out.println("s7 (existant) :");
+    SupprimerSportif("Malleno");
     
     // Je supprime un sportif qui n'existe pas (s22)
-    SupprimerSportif();
+    System.out.println("Inexistant :");
+    SupprimerSportif("test_faux_pseudo");
     
     
     
