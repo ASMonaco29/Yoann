@@ -68,7 +68,7 @@ public class Interface {
    * Swapper 2 questions
    */
   
-  static ListeQuestionnaire questionnaires = new ListeQuestionnaire();
+  static ListeQuestionnaires questionnaires = new ListeQuestionnaires();
   
   static void creerQuestionnaire(String titre, String sstitre, Date dateD, Date dateF) {
     questionnaires.addQuestionnaire(titre, sstitre, dateD, dateF);
