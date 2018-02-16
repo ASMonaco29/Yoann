@@ -1,7 +1,8 @@
 package cda;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 
 public class Questionnaire {
@@ -15,11 +16,14 @@ public class Questionnaire {
   /**public Questionnaire(String titre, Date dateD, Date dateF).
    * Le constructeur de l'objet Questionnaire
    */
-  public Questionnaire(Date dateD, Date dateF) {
+  public Questionnaire(java.util.Date dateD2, java.util.Date dateF2) {
     super();
-    this.dateD = dateD;
-    this.dateF = dateF;
+    this.dateD = dateD2;
+    this.dateF = dateF2;
     this.quListe = new ArrayList<Question>();
+    this.titre = new String();
+    this.sstitre = new String();
+    this.messageFin = new String();
   }
 
   public String getTitre() {
@@ -73,8 +77,8 @@ public class Questionnaire {
   /** public void addQuestion(Question e).
    * <b>Ajoute une question a la liste de questions du questionnaire</b>
    * <p>
-   * La fonction va ajouter la question e pass�e en argument a la liste question
-   * du questionnaire en utilisant la m�thode add de l'objet ArrayList
+   * La fonction va ajouter la question e passée en argument a la liste question
+   * du questionnaire en utilisant la méthode add de l'objet ArrayList
    * </p>
    * @param e : La question a ajouter au questionnaire.
    */
@@ -84,15 +88,56 @@ public class Questionnaire {
     }
   }
   
-  public void removeQuestion(Question e){
-    if(!this.quListe.remove(e)){
+  /**Supprime une question de la liste de questions du questionnaire.
+   * 
+   * @param index : l'indice de la question à supprimer
+   */
+  public void removeQuestion(int index) {
+    if (index < 0 || index >= this.quListe.size()) {
+      System.out.println("Erreur index invalide");
+      return;
+    }
+    Question q = this.quListe.get(index);
+    if (!this.quListe.remove(q)) {
       System.out.println("Erreur lors de la suppression de la question");
     }
   }
   
-  public void modifQuestion(Question e, String q, boolean cd){
-    Question quest = new Question(q, cd);
-    this.quListe.set(this.quListe.indexOf(e), quest);
+  /**Modifie la réponse par defaut d'une question.
+   * 
+   * @param index : indice de la question à modifier
+   * @param rd : nouvelle réponse par défaut
+   */
+  public void modifQuestionR(int index, boolean rd) {
+    Question quest = this.quListe.get(index);
+    quest.setChoixDeflt(rd);
+    this.quListe.set(index, quest);
   }
   
+  /**Modifie le titre d'une question.
+   * 
+   * @param index : indice de la question à modifier
+   * @param t : nouveau titre de la question
+   */
+  public void modifQuestionT(int index, String t) {
+    Question quest = this.quListe.get(index);
+    quest.setQuestion(t);
+    this.quListe.set(index, quest);
+  }
+  
+  /**Déplace une question dans la liste de question (echange de place deux questions).
+   * 
+   * @param i1 : indice de la première question
+   * @param i2 : indice de la deuxième question
+   */
+  public void switchQuestion(int i1, int i2) {
+    if ((i1 < 0 || i1 >= this.quListe.size()) || (i2 < 0 || i2 >= this.quListe.size())) {
+      System.out.println("Erreur index invalide");
+      return;
+    }
+    Question q1 = this.quListe.get(i1);
+    Question q2 = this.quListe.get(i2);
+    this.quListe.set(i1, q2);
+    this.quListe.set(i2, q1);
+  }
 }

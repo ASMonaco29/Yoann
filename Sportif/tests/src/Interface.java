@@ -15,7 +15,7 @@ public class Interface {
   
   static ListeSportifs sportifs = new ListeSportifs();
   
-  static public void CreerSportif(String nom, String prenom, String pseudo, Date naissance, Sport sport){
+  static void creerSportif(String nom, String prenom, String pseudo, Date naissance, Sport sport) {
     int creerStatut;
     
     creerStatut = sportifs.creerSportif(nom, prenom, pseudo, naissance, sport);
@@ -31,7 +31,7 @@ public class Interface {
     }
   }
   
-  static public void ModifierSportif(String nom, String prenom, String pseudo, Sport sport){
+  static void modifierSportif(String nom, String prenom, String pseudo, Sport sport) {
     int creerStatut;
     
     creerStatut = sportifs.modifierSportif(nom, prenom, pseudo, sport);
@@ -45,7 +45,7 @@ public class Interface {
     } 
   }
   
-  static public void SupprimerSportif(String pseudo){
+  static void supprimerSportif(String pseudo) {
     int creerStatut;
     
     creerStatut = sportifs.supprimerSportif(pseudo);
@@ -65,17 +65,20 @@ public class Interface {
    * Créer
    * Modifier
    * Supprimer
+   * Swapper 2 questions
    */
   
-  static public void CreerQuestionnaire(){
+  static ListeQuestionnaire questionnaires = new ListeQuestionnaire();
+  
+  static void creerQuestionnaire(String titre, String sstitre, Date dateD, Date dateF) {
+    questionnaires.addQuestionnaire(titre, sstitre, dateD, dateF);
+  }
+  
+  static void modifierQuestionnaire() {
     
   }
   
-  static public void ModifierQuestionnaire(){
-    
-  }
-  
-  static public void SupprimerQuestionnaire(){
+  static void supprimerQuestionnaire() {
     
   }
   
@@ -87,15 +90,15 @@ public class Interface {
    * Supprimer
    */
   
-  public void CreerReponse(){
+  static void creerReponse() {
     
   }
   
-  public void ModifierReponse(){
+  static void modifierReponse() {
     
   }
   
-  public void SupprimerReponse(){
+  static void supprimerReponse() {
     
   }
   
@@ -104,7 +107,12 @@ public class Interface {
   /* *******************************
    * MAIN - SCENARIO PRINCIPAL
    */
-  @SuppressWarnings("deprecation")
+  
+  /** Fonction main.
+   * Fonction de test
+   * @param args paramètre obligatoire
+   */
+  @SuppressWarnings("deprecation") 
   public static void main(String[] args) {
     
     System.out.println("SPORTIF :");
@@ -123,7 +131,7 @@ public class Interface {
      * Problème supposé : AUCUN
      * Comportement obtenu : 
      */
-    CreerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
+    creerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
     
     /* Je MODIFIE s0 :
      * 
@@ -136,10 +144,10 @@ public class Interface {
      * 
      * Problème supposé : AUCUN
      */
-    ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
+    modifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     // Je supprime s0
-    SupprimerSportif("Malleno");
+    supprimerSportif("Malleno");
     
     
     /******************************** CREATION SPORTIF *********************************/
@@ -158,7 +166,7 @@ public class Interface {
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE mais pas trop
      */
     System.out.println("Nom :");
-    CreerSportif("56588", "Alix", "Alix56", new Date(11,07,2000), Sport.Ju_Jitsu);
+    creerSportif("56588", "Alix", "Alix56", new Date(11,07,2000), Sport.Ju_Jitsu);
     
     /* Je créé un sportif s2 :
      * 
@@ -173,7 +181,7 @@ public class Interface {
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE mais pas trop
      */
     System.out.println("Prénom :");
-    CreerSportif("Fabien", "45412", "Fab45", new Date(23,11,1990), Sport.Billard);
+    creerSportif("Fabien", "45412", "Fab45", new Date(23,11,1990), Sport.Billard);
     
     /* Je créé un sportif s3 :
      * 
@@ -188,7 +196,7 @@ public class Interface {
      * => Comportement obtenu : Création du sportif
      */
     System.out.println("Pseudo :");
-    CreerSportif("Holdon", "Kate", "J'espace'les\"noms", new Date(15,12,1978), Sport.Patinage_artistique);
+    creerSportif("Holdon", "Kate", "J'espace'les\"noms", new Date(15,12,1978), Sport.Patinage_artistique);
     
     /* Je créé un sportif s4 :
      * 
@@ -218,7 +226,7 @@ public class Interface {
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE 
      */
     System.out.println("Date de naissance :");
-    CreerSportif("Vaudou", "Marc", "MVaudou", new Date(05,8,2019), Sport.Kite_surf);
+    creerSportif("Vaudou", "Marc", "MVaudou", new Date(05,8,2019), Sport.Kite_surf);
     
     /* Je créé un sportif s6 :
      * 
@@ -247,7 +255,7 @@ public class Interface {
      * Problème supposé : AUCUN
      */
     System.out.println("Nouvel ajout(s7)");
-    CreerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
+    creerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
     
     /* Je créé un sportif s8 :
      * 
@@ -262,7 +270,7 @@ public class Interface {
      * => Comportement obtenu : Création du sportif
      */
     System.out.println("Nouvel ajout (s8)");
-    CreerSportif("Mestre", "Quentin", "Qmestre", new Date(30,05,1996), Sport.Natation);
+    creerSportif("Mestre", "Quentin", "Qmestre", new Date(30,05,1996), Sport.Natation);
     
     /* Je créé un sportif s9 :
      * 
@@ -277,7 +285,7 @@ public class Interface {
      * => Comportement obtenu : Identifiant est déjà utilisé
      */
     System.out.println("Déjà existant : ");
-    CreerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
+    creerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
     
     /* Je créé un sportif s10 :
      * 
@@ -292,7 +300,7 @@ public class Interface {
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE
      */
     System.out.println("Déjà existant : ");
-    CreerSportif("Mestre", "Quentin", "Quentvinght", new Date(30,05,1996), Sport.Golf);
+    creerSportif("Mestre", "Quentin", "Quentvinght", new Date(30,05,1996), Sport.Golf);
     
     
     /******************************** MODIFICATION SPORTIF *********************************/
@@ -309,7 +317,7 @@ public class Interface {
      * 
      */
     System.out.println("Nom :");
-    ModifierSportif("56588", "Malou", "Malleno", Sport.Basketball);
+    modifierSportif("56588", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le PRENOM de s7 :
      * 
@@ -321,7 +329,7 @@ public class Interface {
      * Sport : Basketball
      */
     System.out.println("Prénom :");
-    ModifierSportif("Alleno", "45412", "Malleno", Sport.Basketball);
+    modifierSportif("Alleno", "45412", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le PSEUDO de s7 :
      * 
@@ -333,7 +341,7 @@ public class Interface {
      * Sport : Basketball
      */
     System.out.println("Pseudo :");
-    ModifierSportif("Alleno", "Malou", "J'espace'les\"noms", Sport.Basketball);
+    modifierSportif("Alleno", "Malou", "J'espace'les\"noms", Sport.Basketball);
     
     /* Je MODIFIE le MOT DE PASSE de s7 :
      * 
@@ -373,7 +381,7 @@ public class Interface {
      * Sport : Patins à glace
      */
     System.out.println("Sport :");
-    ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
+    modifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le NOM, PRENOM et DATE DE NAISSANCE de s7 :
      * 
@@ -385,18 +393,23 @@ public class Interface {
      * Sport : Basketball
      */
     System.out.println("Nom + Prenom + Date de naissance :");
-    ModifierSportif("Mestre", "Quentin", "Malleno", Sport.Basketball);
+    modifierSportif("Mestre", "Quentin", "Malleno", Sport.Basketball);
     
     
     /******************************** SUPPRESSION SPORTIF *********************************/
     
     // Je supprime s7
     System.out.println("s7 (existant) :");
-    SupprimerSportif("Malleno");
+    supprimerSportif("Malleno");
     
     // Je supprime un sportif qui n'existe pas (s22)
     System.out.println("Inexistant :");
-    SupprimerSportif("test_faux_pseudo");
+    supprimerSportif("test_faux_pseudo");
+    
+    
+    
+    
+    
     
     
     
@@ -406,6 +419,35 @@ public class Interface {
     
     System.out.println("QUESTIONNAIRE :");
     
+    /* Je créé un questionnaire q0 :
+     * 
+     * Titre : Alleno
+     * Sous-titre : Malou
+     * Pseudo : Malleno
+     * Mot de passe : Private29
+     * Naissance : 03/05/1997
+     * Sport : Basketball
+     * 
+     * Problème supposé : AUCUN
+     * Comportement obtenu : 
+     */
+    creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+    
+    /* Je MODIFIE s0 :
+     * 
+     * Nom : Mestre
+     * Prénom : Quentin
+     * Pseudo : Qmestre
+     * Mot de passe : MotDePasse974
+     * Naissance : 30/05/1996
+     * Sport : Natation
+     * 
+     * Problème supposé : AUCUN
+     */
+    modifierQuestionnaire();
+    
+    // Je supprime s0
+    supprimerQuestionnaire();
     
   }
 
