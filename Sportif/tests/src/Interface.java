@@ -119,7 +119,7 @@ public class Interface {
     
     /*********************************** TEST 1 *********************************/
     
-    /* Je créé un sportif s0 :
+    /* Je CREE un sportif s0 :
      * 
      * Nom : Alleno
      * Prénom : Malou
@@ -146,14 +146,14 @@ public class Interface {
      */
     modifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
-    // Je supprime s0
+    // Je SUPPRIME s0
     supprimerSportif("Malleno");
     
     
     /******************************** CREATION SPORTIF *********************************/
     
     
-    /* Je créé un sportif s1 :
+    /* Je CREE un sportif s1 :
      * 
      * Nom : 56588
      * Prénom : Alix
@@ -165,10 +165,10 @@ public class Interface {
      * Problème supposé : le NOM
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE mais pas trop
      */
-    System.out.println("Nom :");
-    creerSportif("56588", "Alix", "Alix56", new Date(11,07,2000), Sport.Ju_Jitsu);
+    System.out.println("CREATION - Nom :");
+    creerSportif("56588", "Alix", "Alix56", new Date(2000 - 1900,11,07), Sport.Ju_Jitsu);
     
-    /* Je créé un sportif s2 :
+    /* Je CREE un sportif s2 :
      * 
      * Nom : Fabien
      * Prénom : 45412
@@ -180,10 +180,10 @@ public class Interface {
      * Problème supposé : le PRENOM
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE mais pas trop
      */
-    System.out.println("Prénom :");
-    creerSportif("Fabien", "45412", "Fab45", new Date(23,11,1990), Sport.Billard);
+    System.out.println("CREATION - Prénom :");
+    creerSportif("Fabien", "45412", "Fab45", new Date(1990 - 1900,23,11), Sport.Billard);
     
-    /* Je créé un sportif s3 :
+    /* Je CREE un sportif s3 :
      * 
      * Nom : Holdon
      * Prénom : Kate
@@ -195,8 +195,9 @@ public class Interface {
      * Problème supposé (mais fonctionnel) : le PSEUDO
      * => Comportement obtenu : Création du sportif
      */
-    System.out.println("Pseudo :");
-    creerSportif("Holdon", "Kate", "J'espace'les\"noms", new Date(15,12,1978), Sport.Patinage_artistique);
+    System.out.println("CREATION - Pseudo :");
+    creerSportif("Holdon", "Kate", "J'espace'les\"noms", new Date(1978 - 1900,15,12), 
+        Sport.Patinage_artistique);
     
     /* Je créé un sportif s4 :
      * 
@@ -210,10 +211,10 @@ public class Interface {
      * Problème supposé : le MOT DE PASSE
      * =>  PAS TESTABLE !
      */
-    //System.out.println("Mot de passe : ");
+    //System.out.println("CREATION - Mot de passe : ");
     //CreerSportif("Daniel", "Hector", "HDaniel", new Date(01,9,2001), Sport.Billard);
     
-    /* Je créé un sportif s5 :
+    /* Je CREE un sportif s5 :
      * 
      * Nom : Vaudou
      * Prénom : Marc
@@ -225,10 +226,10 @@ public class Interface {
      * Problème supposé : la DATE DE NAISSANCE
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE 
      */
-    System.out.println("Date de naissance :");
-    creerSportif("Vaudou", "Marc", "MVaudou", new Date(05,8,2019), Sport.Kite_surf);
+    System.out.println("CREATION - Date de naissance :");
+    creerSportif("Vaudou", "Marc", "MVaudou", new Date(2019 -1900,05,8), Sport.Kite_surf);
     
-    /* Je créé un sportif s6 :
+    /* Je CREE un sportif s6 :
      * 
      * Nom : Kerinou
      * Prénom : Mathilde
@@ -240,10 +241,10 @@ public class Interface {
      * Problème supposé : le SPORT
      * =>  PAS TESTABLE !
      */
-    //System.out.println("Sport :");
-    //CreerSportif("Kerinou", "Mathilde", "MKerinou", new Date(29,04,1993), Sport.Kite_surf);
+    //System.out.println("CREATION - Sport :");
+    //CreerSportif("Kerinou", "Mathilde", "MKerinou", new Date(1993 -1900,29,04), Sport.Kite_surf);
     
-    /* Je créé un sportif s7 :
+    /* Je CREE un sportif s7 :
      * 
      * Nom : Alleno
      * Prénom : Malou
@@ -254,10 +255,10 @@ public class Interface {
      * 
      * Problème supposé : AUCUN
      */
-    System.out.println("Nouvel ajout(s7)");
-    creerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
+    System.out.println("CREATION - Nouvel ajout(s7)");
+    creerSportif("Alleno", "Malou", "Malleno", new Date(1997 - 1900,03,05), Sport.Basketball);
     
-    /* Je créé un sportif s8 :
+    /* Je CREE un sportif s8 :
      * 
      * Nom : Mestre
      * Prénom : Quentin
@@ -269,10 +270,10 @@ public class Interface {
      * Problème supposé : AUCUN
      * => Comportement obtenu : Création du sportif
      */
-    System.out.println("Nouvel ajout (s8)");
-    creerSportif("Mestre", "Quentin", "Qmestre", new Date(30,05,1996), Sport.Natation);
+    System.out.println("CREATION - Nouvel ajout (s8)");
+    creerSportif("Mestre", "Quentin", "Qmestre", new Date(1996 - 1900,30,05), Sport.Natation);
     
-    /* Je créé un sportif s9 :
+    /* Je CREE un sportif s9 :
      * 
      * Nom : Alleno
      * Prénom : Malou
@@ -284,10 +285,10 @@ public class Interface {
      * Problème supposé : sportif DEJA EXISTANT
      * => Comportement obtenu : Identifiant est déjà utilisé
      */
-    System.out.println("Déjà existant : ");
-    creerSportif("Alleno", "Malou", "Malleno", new Date(03,05,1997), Sport.Basketball);
+    System.out.println("CREATION - Déjà existant : ");
+    creerSportif("Alleno", "Malou", "Malleno", new Date(1997 - 1900,03,05), Sport.Basketball);
     
-    /* Je créé un sportif s10 :
+    /* Je CREE un sportif s10 :
      * 
      * Nom : Mestre
      * Prénom : Quentin
@@ -299,8 +300,8 @@ public class Interface {
      * Problème supposé : sportif DEJA EXISTANT
      * => Comportement obtenu : Création du sportif : PROBLEMATIQUE
      */
-    System.out.println("Déjà existant : ");
-    creerSportif("Mestre", "Quentin", "Quentvinght", new Date(30,05,1996), Sport.Golf);
+    System.out.println("CREATION - Déjà existant : ");
+    creerSportif("Mestre", "Quentin", "Quentvinght", new Date(1996 - 1900, 30,05), Sport.Golf);
     
     
     /******************************** MODIFICATION SPORTIF *********************************/
@@ -316,7 +317,7 @@ public class Interface {
      * Sport : Basketball
      * 
      */
-    System.out.println("Nom :");
+    System.out.println("MODIFICATION - Nom :");
     modifierSportif("56588", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le PRENOM de s7 :
@@ -328,7 +329,7 @@ public class Interface {
      * Naissance : 03/05/1997
      * Sport : Basketball
      */
-    System.out.println("Prénom :");
+    System.out.println("MODIFICATION - Prénom :");
     modifierSportif("Alleno", "45412", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le PSEUDO de s7 :
@@ -340,7 +341,7 @@ public class Interface {
      * Naissance : 03/05/1997
      * Sport : Basketball
      */
-    System.out.println("Pseudo :");
+    System.out.println("MODIFICATION - Pseudo :");
     modifierSportif("Alleno", "Malou", "J'espace'les\"noms", Sport.Basketball);
     
     /* Je MODIFIE le MOT DE PASSE de s7 :
@@ -354,7 +355,7 @@ public class Interface {
      * 
      * => PAS TESTABLE
      */
-    //System.out.println("Mot de passe :");
+    //System.out.println("MODIFICATION - Mot de passe :");
     //ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE la NAISSANCE de s7 :
@@ -368,7 +369,7 @@ public class Interface {
      * 
      * => PAS TESTABLE
      */
-    //System.out.println("Date de naissance :");
+    //System.out.println("MODIFICATION - Date de naissance :");
     //ModifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le SPORT de s7 :
@@ -380,7 +381,7 @@ public class Interface {
      * Naissance : 03/05/1997
      * Sport : Patins à glace
      */
-    System.out.println("Sport :");
+    System.out.println("MODIFICATION - Sport :");
     modifierSportif("Alleno", "Malou", "Malleno", Sport.Basketball);
     
     /* Je MODIFIE le NOM, PRENOM et DATE DE NAISSANCE de s7 :
@@ -392,18 +393,18 @@ public class Interface {
      * Naissance : 30/05/1996
      * Sport : Basketball
      */
-    System.out.println("Nom + Prenom + Date de naissance :");
+    System.out.println("MODIFICATION - Nom + Prenom + Date de naissance :");
     modifierSportif("Mestre", "Quentin", "Malleno", Sport.Basketball);
     
     
     /******************************** SUPPRESSION SPORTIF *********************************/
     
-    // Je supprime s7
-    System.out.println("s7 (existant) :");
+    // Je SUPPRIME s7
+    System.out.println("SUPPRESSION - s7 (existant) :");
     supprimerSportif("Malleno");
     
-    // Je supprime un sportif qui n'existe pas (s22)
-    System.out.println("Inexistant :");
+    // Je SUPPRIME un sportif qui n'existe pas (s22)
+    System.out.println("SUPPRESSION - Inexistant :");
     supprimerSportif("test_faux_pseudo");
     
     
@@ -419,36 +420,477 @@ public class Interface {
     
     System.out.println("QUESTIONNAIRE :");
     
-    /* Je créé un questionnaire q0 :
+    /* Je CREE un questionnaire q0 :
      * 
-     * Titre : Alleno
-     * Sous-titre : Malou
-     * Pseudo : Malleno
-     * Mot de passe : Private29
-     * Naissance : 03/05/1997
-     * Sport : Basketball
+     * Titre : Santé
+     * Sous-titre : Bien-être
+     * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+     * Date début : le jour courant (format : JJ/MM/AAAA)
+     * Date fin : 7 jours après (format : JJ/MM/AAAA)
+     * 
+     * Liste de questions : 
+     *  a - Vous êtes-vous entrainé aujourd'hui ? 
+     *    choix par défaut : Oui
+     *  b - Sentez-vous une progression dans votre entraînement ?
+     *    choix par défaut : Non
      * 
      * Problème supposé : AUCUN
      * Comportement obtenu : 
      */
     creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
     
-    /* Je MODIFIE s0 :
+    /* Je MODIFIE un questionnaire q0 :
      * 
-     * Nom : Mestre
-     * Prénom : Quentin
-     * Pseudo : Qmestre
-     * Mot de passe : MotDePasse974
-     * Naissance : 30/05/1996
-     * Sport : Natation
+     * Titre : Le mal
+     * Sous-titre : Portez-vous mieux
+     * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous mieux.
+     * Date début : le jour courant (format : JJ/MM/AAAA)
+     * Date fin : 7 jours après (format : JJ/MM/AAAA)
+     * 
+     * Liste de questions : 
+     *  a - Ne vous êtes vous pas entrainé aujourd'hui ? 
+     *    choix par défaut : Non
+     *  b - Sentez-vous une régression dans votre entraînement ?
+     *    choix par défaut : Oui
      * 
      * Problème supposé : AUCUN
+     * Comportement obtenu : 
      */
     modifierQuestionnaire();
     
-    // Je supprime s0
+    // Je SUPPRIME s0
     supprimerQuestionnaire();
     
-  }
+    
+  
+  
+  /******************************** CREATION QUESTIONNAIRE *******************************/
+  
+  /* Je CREE un questionnaire q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : AUCUN
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Nouvel ajout(q1) :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je CREE un questionnaire q2 :
+   * 
+   * Titre : Blessure
+   * Sous-titre : Fragilité/Solidité
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous mieux.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous-êtes vous blessé récemment ? 
+   *    choix par défaut : VIDE
+   *  b - Etes-vous régulièrement malade ?
+   *    choix par défaut : VIDE
+   * 
+   * Problème supposé : pas de CHOIX PAR DEFAULT aux questions
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Choix par défaut :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je CREE un questionnaire q3 :
+   * 
+   * Titre : Formation
+   * Sous-titre : Goûts
+   * Message fin : Merci d'avoir répondu à ce questionnaire. 
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : hier (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Aimez-vous la formation que vous suivez ? 
+   *    choix par défaut : Oui
+   *  b - Souhaiteriez-vous pouvoir essayer d'autres formations ?
+   *    choix par défaut : Oui
+   * 
+   * Problème supposé : DATE
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Date fin :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je CREE un questionnaire q4 :
+   * 
+   * Titre : Formation
+   * Sous-titre : Goûts
+   * Message fin : Merci d'avoir répondu à ce questionnaire. 
+   * Date début : hier (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Aimez-vous la formation que vous suivez ? 
+   *    choix par défaut : Oui
+   *  b - Souhaiteriez-vous pouvoir essayer d'autres formations ?
+   *    choix par défaut : Oui
+   * 
+   * Problème supposé : DATE
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Date début :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je CREE un questionnaire q5 :
+   * 
+   * Titre : Pourquoi ?
+   * Sous-titre : Vous ne saurez rien.
+   * Message fin : Merci de ne pas avoir répondu à ce questionnaire. 
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  VIDE
+   * 
+   * Problème supposé : PAS DE QUESTIONS
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Pas de questions :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je CREE un questionnaire q6 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : DEJA EXISTANT (q1)
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Dejà existant (q1) :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je CREE un questionnaire q7 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Non
+   *  c - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   * 
+   * Problème supposé : 3 fois la MEME QUESTION
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - 3 fois la même question :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE un questionnaire q8 :
+   * 
+   * Titre : Blessure
+   * Sous-titre : Fragilité/Solidité
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous mieux.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous-êtes vous blessé récemment ? 
+   *    choix par défaut : Oui
+   *  b - Etes-vous régulièrement malade ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : AUCUN
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Nouvel ajout (q8) :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  
+  
+  /***************************** MODIFICATION QUESTIONNAIRE *******************************/
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Non
+   *  c - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   * 
+   * Problème supposé : 3 fois la MEME QUESTION
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - 3 fois la meme question :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Blessure
+   * Sous-titre : Fragilité/Solidité
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous mieux.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous-êtes vous blessé récemment ? 
+   *    choix par défaut : Oui
+   *  b - Etes-vous régulièrement malade ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : DEJA EXISTANT (q8)
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - Déjà existant (q8) :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : hier (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : DATE
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - Date fin :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 3 jours après la date fixée de base (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : AUCUN - changement de la DATE
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - Date fin :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : 2 jours après le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : AUCUN - changement de la DATE
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - Date début :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : hier (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : DATE
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - Date début :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *    VIDE
+   * 
+   * Problème supposé : PAS DE QUESTION
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - Pas de question :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : VIDE
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : VIDE
+   * 
+   * Problème supposé : pas de CHOIX PAR DEFAULT aux questions
+   * Comportement obtenu : 
+   */
+  System.out.println("MODIFICATION - Pas de choix par défaut :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE q1 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions :   
+   *  a - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   *  b - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   * 
+   * Problème supposé : AUCUN - On swap les questions a et b
+   * Comportement obtenu : 
+   */
+  System.out.println("CREATION - Nouvel ajout(q1) :");
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  
+  /***************************** SUPPRESSION QUESTIONNAIRE *******************************/
+  
+  // Je SUPPRIME q1
+  System.out.println("SUPPRESSION - q1 (existant) :");
+  supprimerSportif("Malleno");
+  
+  // Je SUPPRIME un questionnaires qui n'existe pas (q22)
+  System.out.println("SUPPRESSION - Inexistant :");
+  supprimerSportif("test_faux_pseudo");
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /************************************** REPONSES ****************************************/
+  
+  /******************************** TEST 1  *********************************/
+  
+  System.out.println("REPONSES :");
+  
+  /* Je CREE un questionnaire r0 :
+   * 
+   * Titre : Santé
+   * Sous-titre : Bien-être
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous bien.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Vous êtes-vous entrainé aujourd'hui ? 
+   *    choix par défaut : Oui
+   *  b - Sentez-vous une progression dans votre entraînement ?
+   *    choix par défaut : Non
+   * 
+   * Problème supposé : AUCUN
+   * Comportement obtenu : 
+   */
+  creerQuestionnaire("Titre", "Sous-titre", new Date(02,05,1997), new Date(03,05,1997));
+  
+  /* Je MODIFIE un questionnaire r0 :
+   * 
+   * Titre : Le mal
+   * Sous-titre : Portez-vous mieux
+   * Message fin : Merci d'avoir répondu à ce questionnaire. Portez-vous mieux.
+   * Date début : le jour courant (format : JJ/MM/AAAA)
+   * Date fin : 7 jours après (format : JJ/MM/AAAA)
+   * 
+   * Liste de questions : 
+   *  a - Ne vous êtes vous pas entrainé aujourd'hui ? 
+   *    choix par défaut : Non
+   *  b - Sentez-vous une régression dans votre entraînement ?
+   *    choix par défaut : Oui
+   * 
+   * Problème supposé : AUCUN
+   * Comportement obtenu : 
+   */
+  modifierQuestionnaire();
+  
+  // Je SUPPRIME r0
+  supprimerQuestionnaire();
+  
+  
 
+
+/******************************** CREATION QUESTIONNAIRE *******************************/
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  }
 }

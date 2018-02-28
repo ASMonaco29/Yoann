@@ -1,15 +1,17 @@
 package cda;
 
+import java.util.Arrays;
+
 public class Question {
 
   private String question;
   private boolean choixDeflt;
-  private boolean[] choixRep;
+  private boolean[] choixRep = new boolean[2];
 
-  /** Constructeur de l'objet question.
+  /**Constructeur de l'objet question.
    * 
    * @param question : chaine de caractere constituant la question
-   * @param cd : la réponse par defaut
+   * @param cd : la r�ponse par defaut
    */
   public Question(String question, boolean cd) {
     this.question = question;
@@ -32,6 +34,12 @@ public class Question {
 
   public void setQuestion(String question) {
     this.question = question;
+  }
+
+  @Override
+  public String toString() {
+    return "Question [question=" + question + ", choixDeflt=" + choixDeflt + ", choixRep=" + Arrays.toString(choixRep)
+        + "]";
   }
 
 }
