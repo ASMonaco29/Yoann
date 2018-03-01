@@ -10,7 +10,7 @@ public class ListeQuestionnaires {
 
   public ListeQuestionnaires() {
     super();
-    this.listQ = new ArrayList<Questionnaire>();
+    listQ = new ArrayList<Questionnaire>();
   }
 
   public ArrayList<Questionnaire> getListQ() {
@@ -21,47 +21,119 @@ public class ListeQuestionnaires {
     this.listQ = listQ;
   }
   
-  /**Ajoute un questionnaire.
+  
+  /**Ajoute/Crée un questionnaire.
    * 
    * @param titre : titre du question.
    * @param sstitre : sous titre du question.
-   * @param dateD : date de debut du questionnaire.
+   * @param dateD : date de début du questionnaire.
    * @param dateF : date de fin du questionnaire.
+   * @return 
    */
-  @SuppressWarnings("resource")
-  public void addQuestionnaire(String titre, String sstitre, Date dateD, Date dateF) {
+  public int addQuestionnaire(String titre, String sstitre, String msgFin,
+      Date dateD, Date dateF, Question[] quliste) {
     Questionnaire quest = new Questionnaire(dateD, dateF);
     quest.setTitre(titre);
     quest.setSstitre(sstitre);
+    quest.setMessageFin(msgFin);
     
-    Scanner sc = new Scanner(System.in);
-    String scanne = "o";
-    String rd;
-    Question q;
-    
-    while (scanne.toUpperCase().equals("O") == true) {
-      System.out.println("Saisissez l'intitulé de la question : ");
-      scanne = sc.nextLine();
-      System.out.println("Réponse par défaut [0 = oui / 1 = non] : ");
-      rd = sc.nextLine();
-      if (Integer.parseInt(rd) == 0) {
-        q = new Question(scanne, true);
-      } else {
-        q = new Question(scanne, false);
-      }
-      quest.addQuestion(q);
+    for (int i = 0; i < quliste.length; i++) {
+      quest.addQuestion(quliste[i]);
     }
-    
-    this.listQ.add(quest);
+    listQ.add(quest);
+    return 0;
   }
+  
+  public Object addQuestionnaire(String titre, String sstitre, Date dateD, Date dateF) {
+    return addQuestionnaire(titre, sstitre, null, dateD, dateF, null);
+  }
+  
   
   /**Modifie un Questionnaire.
    * 
-   * @param quest : questionnaire a modifier
+   * @param quest : questionnaire à modifier
    */
+  @SuppressWarnings("resource")
   public void modifQuestionnaire(Questionnaire quest) {
-    Date currD = new Date();
+    int statut = testModifQuestionnaire(quest);
+    Scanner sc = new Scanner(System.in);
+    int choix;
+    
+    switch (statut) {
+      case -2:
+        System.out.println("Le questionnaire peut être modifié");
+        break;
+      case -1:
+        System.out.println("Le questionnaire ne peut être modifié, il est ouvert.");
+        break;
+      case 0:
+        System.out.println("Le questionnaire est fermé, il peut être modifié.");
+        System.out.println("Que voulez-vous modifier?");
+        System.out.println("\t1. Les dates");
+        choix = sc.nextInt();
+        if (choix == 1) {
+          modifDates(quest);
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+  
+  
+  /** Test si on peu modifier un questionnaire par rapport a la date courante
+   * et à ses dates de début et de fin.
+   * 
+   * @param quest : le questionnaire a modifier
+   * @return : -2 questionnaire non commencé , -1 questionnaire commencé, 0 questionnaire est fermé.
+   */
+  public int testModifQuestionnaire(Questionnaire quest) {
     Date d = quest.getDateD();
     Date f = quest.getDateF();
+    Date currD = new Date();
+    if (d.after(currD)) {
+      return -2;
+    }
+    if (d.after(currD) && f.before(currD)) {
+      return -1;
+    }
+    return 0;
   }
+  
+  
+  /** Modifie les dates du questionnaire.
+   * 
+   * @param quest : questionnaire dont les dates vont être modifiées
+   */
+  @SuppressWarnings({ "deprecation", "resource" })
+  public void modifDates(Questionnaire quest) {
+    Scanner sc = new Scanner(System.in);
+    
+    System.out.println("Saisissez l'année de début du questionnaire :  ");
+    int ad = sc.nextInt();
+    System.out.println("Saisissez le mois de début du questionnaire :  ");
+    int md = sc.nextInt();  
+    System.out.println("Saisissez le jour de début du questionnaire :  ");
+    int jd = sc.nextInt();  
+    System.out.println("Saisissez l'année de fin du questionnaire :  ");
+    int af = sc.nextInt();
+    System.out.println("Saisissez le mois de fin du questionnaire :  ");
+    int mf = sc.nextInt();
+    System.out.println("Saisissez le jour de fin du questionnaire :  ");
+    int jf = sc.nextInt();  
+    Date d = new Date(ad - 1900, md, jd);
+    Date f = new Date(af - 1900, mf, jf);
+    
+    if (!d.before(f)) {
+      System.out.println("Erreur, la date de fin est inférieur à la date de début.");
+      modifDates(quest);
+      return;
+    }
+    
+    quest.setDateD(d);
+    quest.setDateF(f);
+    return;
+  }
+  
 }
