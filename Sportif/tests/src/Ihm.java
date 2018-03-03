@@ -2,8 +2,13 @@ package src;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Calendar;
+import java.util.Date;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,11 +22,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
-public class Ihm extends JFrame {
+public class Ihm extends JFrame implements ActionListener {
   
   private static final long serialVersionUID = 1L;
+  private ModelTableauQ modeleQ = new ModelTableauQ();
   private JTabbedPane tabbedPane;
   
   // ONGLET GENERAL
@@ -124,8 +131,11 @@ public class Ihm extends JFrame {
     this.borderG = BorderFactory.createTitledBorder("Gérer Questionnaires");
     
     this.bCreer = new JButton("Créer");
+    this.bCreer.addActionListener(this);
     this.bModifier = new JButton("Modifier");
+    this.bModifier.addActionListener(this);
     this.bSupprimer = new JButton("Supprimer");
+    this.bSupprimer.addActionListener(this);
             
     this.tTitre = new JTextField(); 
     this.tTitre.setPreferredSize(new Dimension(250, 25));
@@ -138,6 +148,8 @@ public class Ihm extends JFrame {
     
     this.tDateFin = new JTextField();
     this.tDateFin.setPreferredSize(new Dimension(75, 25));
+    
+    
     
     this.tMessageFin = new JTextField();
     this.tMessageFin.setPreferredSize(new Dimension(250, 25));
@@ -187,43 +199,8 @@ public class Ihm extends JFrame {
     this.pBoutons.add(Box.createRigidArea(new Dimension(200,0)));
     this.pBoutons.add(this.bSupprimer);
     
-    Object[][] donnees = {
-        {"1", "Bien-être", "Soin", "28/02/2018", "28/03/2018", 
-          "Merci d'avoir répond à ce questionnaire.", ""},
-        {"2", "Santé", "Pour vous", "28/02/2018", "28/03/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"3", "Entrainement", "Quotidien", "28/02/2018", "28/03/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"4", "Conditions", "Tenace ?", "01/03/2018", "01/04/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"5", "Sélections", "Travail", "01/03/2018", "01/04/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"1", "Bien-être", "Soin", "28/02/2018", "28/03/2018", 
-              "Merci d'avoir répond à ce questionnaire.", ""},
-        {"2", "Santé", "Pour vous", "28/02/2018", "28/03/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"3", "Entrainement", "Quotidien", "28/02/2018", "28/03/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"4", "Conditions", "Tenace ?", "01/03/2018", "01/04/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"5", "Sélections", "Travail", "01/03/2018", "01/04/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"1", "Bien-être", "Soin", "28/02/2018", "28/03/2018", 
-              "Merci d'avoir répond à ce questionnaire.", ""},
-        {"2", "Santé", "Pour vous", "28/02/2018", "28/03/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"3", "Entrainement", "Quotidien", "28/02/2018", "28/03/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"4", "Conditions", "Tenace ?", "01/03/2018", "01/04/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-        {"5", "Sélections", "Travail", "01/03/2018", "01/04/2018", 
-            "Merci d'avoir répond à ce questionnaire.", ""},
-    };
-    
-    String[] entetes = {"Identifiant", "Titre", "Sous-titre", "Date debut", "Date fin", 
-        "Message fin", "Question(s)"};
-    
-    tableauQ = new JTable(donnees, entetes);
+    tableauQ = new JTable(modeleQ);
+    tableauQ.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
        
     // Paramètres de l'onglet Questionnaires
     
@@ -273,18 +250,70 @@ public class Ihm extends JFrame {
     this.panelQuitter = new JPanel(new BorderLayout());
     this.panelQuitter1 = new JPanel();
     this.quitter = new JButton("Quitter");
+    this.quitter.addActionListener(this);
     
     this.panelQuitter.add(this.panelQuitter1, BorderLayout.EAST); 
     this.panelQuitter1.add(this.quitter);
     this.add(panelQuitter, BorderLayout.SOUTH);
     
   }
+  
+  
+  /*
+   * Actions réalisées sur clic (quitter, créer, modifier, supprimer)
+   */
+  public void actionPerformed(ActionEvent e) {
+    Object source = e.getSource();
+    
+    /**************************** QUITTER ********************************/
+    if(source == this.quitter){
+      this.setVisible(false);
+      this.dispose();
+    }
+    
+    
+    /**************************** CREER ********************************/
+    if(source == this.bCreer){
 
+      // Attributs à ajouter :
+      Calendar cal;
+      Date dated1;
+      Date dated2;
+      String titre = this.tTitre.getText();
+      String stitre = this.tStitre.getText();
+      String msgfin = this.tMessageFin.getText();
+      
+      // Initilisation : 
+      cal = Calendar.getInstance();
+      cal.set(Calendar.YEAR, 2018);
+      cal.set(Calendar.MONTH, 02);
+      cal.set(Calendar.DAY_OF_MONTH, 28);
+      dated1 = cal.getTime();
+      
+      cal = Calendar.getInstance();
+      cal.set(Calendar.YEAR, 2018);
+      cal.set(Calendar.MONTH, 03);
+      cal.set(Calendar.DAY_OF_MONTH, 28);
+      dated2 = cal.getTime();
+      
+      // Tests sur les attributs :
+      
+      
+      // Ajout dans la liste :
+      modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dated1, 
+          dated2, msgfin));
+    }
+
+  }
+    
+  
 
 
   public static void main(String[] args) {
     Ihm ihm = new Ihm("Application Sportif");
     ihm.setVisible(true);
   }
-
+  
 }
+
+

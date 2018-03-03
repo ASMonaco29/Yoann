@@ -21,6 +21,10 @@ public class ListeQuestionnaires {
     this.listQ = listQ;
   }
   
+  public int getSizeListQ(){
+    return this.listQ.size();
+  }
+  
   
   /**Ajoute/Crée un questionnaire.
    * 
@@ -30,22 +34,22 @@ public class ListeQuestionnaires {
    * @param dateF : date de fin du questionnaire.
    * @return 
    */
-  public int addQuestionnaire(String titre, String sstitre, String msgFin,
-      Date dateD, Date dateF, Question[] quliste) {
+  public int addQuestionnaire(String titre, String sstitre,
+      Date dateD, Date dateF, String msgFin, ArrayList<Question> quliste) {
     Questionnaire quest = new Questionnaire(dateD, dateF);
     quest.setTitre(titre);
     quest.setSstitre(sstitre);
     quest.setMessageFin(msgFin);
     
-    for (int i = 0; i < quliste.length; i++) {
-      quest.addQuestion(quliste[i]);
+    for (int i = 0; i < quliste.size(); i++) {
+      quest.addQuestion(quliste.get(i));
     }
     listQ.add(quest);
     return 0;
   }
   
   public Object addQuestionnaire(String titre, String sstitre, Date dateD, Date dateF) {
-    return addQuestionnaire(titre, sstitre, null, dateD, dateF, null);
+    return addQuestionnaire(titre, sstitre, dateD, dateF, null, null);
   }
   
   
