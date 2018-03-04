@@ -5,16 +5,19 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 
-import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +27,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+
 
 public class Ihm extends JFrame implements ActionListener {
   
@@ -48,8 +57,6 @@ public class Ihm extends JFrame implements ActionListener {
   private JPanel pBoutons;
   private JTextField tTitre; 
   private JTextField tStitre;
-  private JTextField tDateDebut;
-  private JTextField tDateFin;
   private JTextField tMessageFin;
   private JLabel lTitre;
   private JLabel lStitre;
@@ -64,6 +71,13 @@ public class Ihm extends JFrame implements ActionListener {
   @SuppressWarnings("rawtypes")
   private JComboBox cQuestions;
   private JTable tableauQ;
+  private Properties p;
+  private UtilDateModel modelDebut;
+  private UtilDateModel modelFin;
+  private JDatePanelImpl datePanelDebut;
+  private JDatePanelImpl datePanelFin;
+  private JDatePickerImpl dateDebut;
+  private JDatePickerImpl dateFin;
   
   // ONGLET SPORTIFS
   
@@ -142,14 +156,21 @@ public class Ihm extends JFrame implements ActionListener {
     
     this.tStitre = new JTextField();
     this.tStitre.setPreferredSize(new Dimension(250, 25));
+       
+    this.p = new Properties();
+    this.p.put("text.today", "Today");
+    this.p.put("text.month", "Month");
+    this.p.put("text.year", "Year");
     
-    this.tDateDebut = new JTextField();
-    this.tDateDebut.setPreferredSize(new Dimension(75, 25));
+    this.modelDebut = new UtilDateModel();
+    this.datePanelDebut = new JDatePanelImpl(modelDebut, p);
+    this.dateDebut = new JDatePickerImpl(datePanelDebut, new DateLabelFormatter());
+    this.dateDebut.setPreferredSize(new Dimension(120, 25));
     
-    this.tDateFin = new JTextField();
-    this.tDateFin.setPreferredSize(new Dimension(75, 25));
-    
-    
+    this.modelFin = new UtilDateModel();
+    this.datePanelFin = new JDatePanelImpl(modelFin, p);
+    this.dateFin = new JDatePickerImpl(datePanelFin, new DateLabelFormatter());
+    this.dateFin.setPreferredSize(new Dimension(120, 25));
     
     this.tMessageFin = new JTextField();
     this.tMessageFin.setPreferredSize(new Dimension(250, 25));
@@ -185,9 +206,9 @@ public class Ihm extends JFrame implements ActionListener {
     this.pStitre.add(this.lStitre, BorderLayout.WEST);
     this.pStitre.add(this.tStitre, BorderLayout.EAST);
     this.pDateDebut.add(this.lDateDebut, BorderLayout.WEST);
-    this.pDateDebut.add(this.tDateDebut, BorderLayout.EAST);
+    this.pDateDebut.add(this.dateDebut, BorderLayout.EAST);
     this.pDateFin.add(this.lDateFin, BorderLayout.WEST);
-    this.pDateFin.add(this.tDateFin, BorderLayout.EAST);
+    this.pDateFin.add(this.dateFin, BorderLayout.EAST);
     this.pMessageFin.add(this.lMessageFin, BorderLayout.WEST);
     this.pMessageFin.add(this.tMessageFin, BorderLayout.EAST);
     this.pQuestions.add(this.lQuestions, BorderLayout.WEST);
@@ -276,32 +297,25 @@ public class Ihm extends JFrame implements ActionListener {
     if(source == this.bCreer){
 
       // Attributs à ajouter :
-      Calendar cal;
-      Date dated1;
-      Date dated2;
-      String titre = this.tTitre.getText();
-      String stitre = this.tStitre.getText();
-      String msgfin = this.tMessageFin.getText();
+      String titre;
+      String stitre;
+      String msgfin;
+      Date dateD;
+      Date dateF;
       
       // Initilisation : 
-      cal = Calendar.getInstance();
-      cal.set(Calendar.YEAR, 2018);
-      cal.set(Calendar.MONTH, 02);
-      cal.set(Calendar.DAY_OF_MONTH, 28);
-      dated1 = cal.getTime();
-      
-      cal = Calendar.getInstance();
-      cal.set(Calendar.YEAR, 2018);
-      cal.set(Calendar.MONTH, 03);
-      cal.set(Calendar.DAY_OF_MONTH, 28);
-      dated2 = cal.getTime();
+      titre = this.tTitre.getText();
+      stitre = this.tStitre.getText();
+      msgfin = this.tMessageFin.getText();
+      dateD = (Date) dateDebut.getModel().getValue();
+      dateF = (Date) dateFin.getModel().getValue();
       
       // Tests sur les attributs :
       
       
       // Ajout dans la liste :
-      modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dated1, 
-          dated2, msgfin));
+      modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
+          dateF, msgfin));
     }
 
   }
@@ -316,4 +330,25 @@ public class Ihm extends JFrame implements ActionListener {
   
 }
 
+
+ @SuppressWarnings("serial")
+class DateLabelFormatter extends AbstractFormatter {
+
+    private String datePattern = "yyyy-MM-dd";
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+  
+    public Object stringToValue(String text) throws ParseException {
+        return dateFormatter.parseObject(text);
+    }
+  
+    public String valueToString(Object value) throws ParseException {
+        if (value != null) {
+            Calendar cal = (Calendar) value;
+            return dateFormatter.format(cal.getTime());
+        }
+  
+    return "";
+  }
+
+}
 
