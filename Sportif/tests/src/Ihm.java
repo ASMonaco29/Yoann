@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -31,6 +32,8 @@ import javax.swing.border.Border;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+import cda.Question;
 
 
 
@@ -78,6 +81,7 @@ public class Ihm extends JFrame implements ActionListener {
   private JDatePanelImpl datePanelFin;
   private JDatePickerImpl dateDebut;
   private JDatePickerImpl dateFin;
+
   
   // ONGLET SPORTIFS
   
@@ -222,6 +226,9 @@ public class Ihm extends JFrame implements ActionListener {
     
     tableauQ = new JTable(modeleQ);
     tableauQ.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    tableauQ.getColumn("Question(s)").setCellRenderer(new JListRenderer());
+    tableauQ.getColumn("Question(s)").setCellEditor(new JListEditor());
+    tableauQ.setRowHeight(70);
        
     // Paramètres de l'onglet Questionnaires
     
@@ -314,8 +321,12 @@ public class Ihm extends JFrame implements ActionListener {
       
       
       // Ajout dans la liste :
+      ArrayList<Question> questions = new ArrayList<Question>();
+      questions.add(new Question("Bien ?", false));
+      questions.add(new Question("Reveillé ?", true));
+      questions.add(new Question("Debout ?", true));
       modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
-          dateF, msgfin));
+          dateF, msgfin, questions));
     }
 
   }
@@ -327,26 +338,31 @@ public class Ihm extends JFrame implements ActionListener {
     Ihm ihm = new Ihm("Application Sportif");
     ihm.setVisible(true);
   }
+
+
+
+  
   
 }
 
 
- @SuppressWarnings("serial")
+/************************ FONCTIONS POUR LE CALENDRIER *************************/
+@SuppressWarnings("serial")
 class DateLabelFormatter extends AbstractFormatter {
 
-    private String datePattern = "yyyy-MM-dd";
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
-  
-    public Object stringToValue(String text) throws ParseException {
-        return dateFormatter.parseObject(text);
+  private String datePattern = "yyyy-MM-dd";
+  private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+
+  public Object stringToValue(String text) throws ParseException {
+    return dateFormatter.parseObject(text);
+  }
+
+  public String valueToString(Object value) throws ParseException {
+    if (value != null) {
+        Calendar cal = (Calendar) value;
+        return dateFormatter.format(cal.getTime());
     }
-  
-    public String valueToString(Object value) throws ParseException {
-        if (value != null) {
-            Calendar cal = (Calendar) value;
-            return dateFormatter.format(cal.getTime());
-        }
-  
+
     return "";
   }
 

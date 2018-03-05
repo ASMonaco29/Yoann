@@ -33,14 +33,15 @@ public class Questionnaire {
    * @param dateF : date de fin du questionnaire
    * @param messageFin : message de fin du questionnaire
    */
-  public Questionnaire(String titre, String sstitre, Date dateD, Date dateF, String messageFin) {
+  public Questionnaire(String titre, String sstitre, Date dateD, Date dateF, String messageFin, 
+      ArrayList<Question> quList) {
     super();
     this.titre = titre;
     this.sstitre = sstitre;
     this.dateD = dateD;
     this.dateF = dateF;
     this.messageFin = messageFin;
-    this.quListe = new ArrayList<Question>();
+    this.quListe = quList;
   }
 
   public String getTitre() {

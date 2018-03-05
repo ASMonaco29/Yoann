@@ -1,6 +1,5 @@
 package cda;
 
-import java.util.Arrays;
 
 public class Question {
 
@@ -35,11 +34,20 @@ public class Question {
   public void setQuestion(String question) {
     this.question = question;
   }
-
+/*
   @Override
   public String toString() {
     return "Question [question=" + question + ", choixDeflt=" + choixDeflt
         + ", choixRep=" + Arrays.toString(choixRep) + "]";
+  }
+  */
+  @Override
+  public String toString() {
+    if(this.choixDeflt == true){
+      return this.question + " : vrai"; 
+    } else {
+      return this.question + " : faux";
+    }
   }
 
   /** Méthode equals pour les questions.
