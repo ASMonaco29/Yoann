@@ -97,35 +97,35 @@ public class ModelTableauQ extends AbstractTableModel {
       datef2 = cal.getTime();
           
       questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
-            "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions1);
+          "Merci d'avoir répondu à ce questionnaire.", questions1);
       questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions1);
+          "Merci d'avoir répondu à ce questionnaire.", questions1);
       questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
-          "Merci d'avoir répond à ce questionnaire.", questions1);
+          "Merci d'avoir répondu à ce questionnaire.", questions1);
       questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
-          "Merci d'avoir répond à ce questionnaire.", questions);
+          "Merci d'avoir répondu à ce questionnaire.", questions);
           
       
   }
@@ -168,7 +168,11 @@ public class ModelTableauQ extends AbstractTableModel {
     fireTableRowsInserted(getRowCount()-1, getRowCount()-1);
   }
   
-  
+  public void removeQuestionnaire(int rowIndex) {
+    this.questionnaires.supprQuestionnaire(this.questionnaires.getListQ().get(rowIndex));
+
+    fireTableRowsDeleted(rowIndex, rowIndex);
+}
   
   
   

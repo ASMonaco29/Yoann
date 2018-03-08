@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -21,6 +22,7 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -28,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
+import javax.swing.table.TableRowSorter;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -42,8 +45,6 @@ public class Ihm extends JFrame implements ActionListener {
   private static final long serialVersionUID = 1L;
   private ModelTableauQ modeleQ = new ModelTableauQ();
   private JTabbedPane tabbedPane;
-  
-  // ONGLET GENERAL
  
   // ONGLET QUESTIONNAIRES
   private JComponent panelQ; 
@@ -74,6 +75,7 @@ public class Ihm extends JFrame implements ActionListener {
   @SuppressWarnings("rawtypes")
   private JComboBox cQuestions;
   private JTable tableauQ;
+  private TableRowSorter<ModelTableauQ> sorter;
   private Properties p;
   private UtilDateModel modelDebut;
   private UtilDateModel modelFin;
@@ -119,20 +121,6 @@ public class Ihm extends JFrame implements ActionListener {
    
     
     tabbedPane = new JTabbedPane();  
-   
-    // ONGLET GENERAL
-    JComponent panelG = new JPanel();
-   
-    // Attributs
-   
-    // Paramètres de l'onglet Général
-    panelG.setLayout(null);
-    tabbedPane.addTab("Général", panelG);
-    panelG.setPreferredSize(new Dimension(720, 480));
-    tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-   
-    // Ajout des attributs au contenu de l'onglet Général 
-
        
 
     // ONGLET QUESTIONNAIRES
@@ -224,16 +212,20 @@ public class Ihm extends JFrame implements ActionListener {
     this.pBoutons.add(Box.createRigidArea(new Dimension(200,0)));
     this.pBoutons.add(this.bSupprimer);
     
-    tableauQ = new JTable(modeleQ);
+    this.tableauQ = new JTable(modeleQ);
+    this.sorter = new TableRowSorter<ModelTableauQ>(modeleQ); 
     tableauQ.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     tableauQ.getColumn("Question(s)").setCellRenderer(new JListRenderer());
     tableauQ.getColumn("Question(s)").setCellEditor(new JListEditor());
     tableauQ.setRowHeight(70);
+    sorter.setSortable(5, false);
+    sorter.setSortsOnUpdates(true);
+    tableauQ.setRowSorter(sorter);
        
     // Paramètres de l'onglet Questionnaires
     
     tabbedPane.addTab("Questionnaires", panelQ);
-    tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);  
+    tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);  
     
     // Ajout des attributs au contenu de l'onglet Questionnaires    
     panelQl.setBorder(borderL);
@@ -262,16 +254,16 @@ public class Ihm extends JFrame implements ActionListener {
    
     // Attributs
    
-    // Paramètres de l'onglet Général
+    // Paramètres de l'onglet SPORTIFS
     panelS.setLayout(null);
     tabbedPane.addTab("Sportifs", panelS);
     panelS.setPreferredSize(new Dimension(720, 480));
-    tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+    tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
    
-    // Ajout des attributs au contenu de l'onglet Général
+    // Ajout des attributs au contenu de l'onglet SPORTIFS
     
     
-    // Ajoute les (panels) onglets au panel général -> permet l'affichage.
+    // Ajoute les (panels) onglets au panel SPORTIFS -> permet l'affichage.
     this.add(tabbedPane, BorderLayout.CENTER); 
     
     // Le bouton pour QUITTER
@@ -328,7 +320,36 @@ public class Ihm extends JFrame implements ActionListener {
       modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
           dateF, msgfin, questions));
     }
-
+    
+    /**************************** SUPPRIMER ********************************/
+    if(source == this.bSupprimer){
+      
+      int[] selection;
+      int[] modelIndexes;
+      int reply;
+      String messageSupQ; 
+      
+      selection = tableauQ.getSelectedRows();
+      modelIndexes = new int[selection.length];
+      messageSupQ = "Etes-vous sur de vouloir supprimer ce questionnaire définitivement ?";
+      reply = JOptionPane.showConfirmDialog(null, messageSupQ, "Confirmation de la suppression",
+          JOptionPane.YES_NO_OPTION);
+      
+      if (reply == JOptionPane.YES_OPTION) {
+        for(int i = 0; i < selection.length; i++){
+          modelIndexes[i] = tableauQ.getRowSorter().convertRowIndexToModel(selection[i]);
+        }
+        Arrays.sort(modelIndexes);
+        System.out.println(Arrays.toString(modelIndexes));
+        for(int i = 0; i != modelIndexes.length; i++){
+          modeleQ.removeQuestionnaire(modelIndexes[i]);
+        }
+      } // Sinon, la fenêtre se ferme.
+      
+    }
+    
+    
+    
   }
     
   
