@@ -18,12 +18,9 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
-/* 
- * A FAIRE : AJOUTER LA CASE "QUESTION(S)" AU TABLEAU !!
- */
 
 @SuppressWarnings("serial")
-public class ModelTableauQ extends AbstractTableModel {
+public class ModelTableauQa extends AbstractTableModel {
   
   //private final List<Questionnaire> questionnaire = new ArrayList<Questionnaire>();
   private final ListeQuestionnaires questionnaires;
@@ -49,7 +46,7 @@ public class ModelTableauQ extends AbstractTableModel {
   private DefaultListModel dlm2;
   
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public ModelTableauQ() {
+  public ModelTableauQa() {
       super();
       
       this.questionnaires = new ListeQuestionnaires();
@@ -170,43 +167,10 @@ public class ModelTableauQ extends AbstractTableModel {
   
   public void removeQuestionnaire(int rowIndex) {
     this.questionnaires.supprQuestionnaire(this.questionnaires.getListQ().get(rowIndex));
-
+    
     fireTableRowsDeleted(rowIndex, rowIndex);
-}
-  
-  
-  
-  
-  /* ************************************* A SUPPRIMER  ******************** */
-  @Override
-  public boolean isCellEditable(int rowIndex, int columnIndex) {
-      return true; //Toutes les cellules éditables
   }
   
-  @Override
-  public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-      if(aValue != null){
-          Questionnaire quest = this.questionnaires.getListQ().get(rowIndex);
-   
-          switch(columnIndex){
-              case 0:
-                quest.setTitre((String)aValue);
-                  break;
-              case 1:
-                quest.setSstitre((String)aValue);
-                  break;
-              case 2:
-                quest.setDateD((Date)aValue);
-                  break;
-              case 3:
-                quest.setDateF((Date)aValue);
-                  break;
-              case 4:
-                quest.setMessageFin((String)aValue);
-                  break;
-          }
-      }
-  }
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
@@ -220,8 +184,6 @@ public class ModelTableauQ extends AbstractTableModel {
               return Object.class;
       }
   }
-
-
 }
 
 

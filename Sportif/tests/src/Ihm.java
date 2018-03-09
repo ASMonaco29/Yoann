@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -16,8 +15,9 @@ import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
@@ -30,6 +30,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -43,7 +45,7 @@ import cda.Question;
 public class Ihm extends JFrame implements ActionListener {
   
   private static final long serialVersionUID = 1L;
-  private ModelTableauQ modeleQ = new ModelTableauQ();
+  private ModelTableauQa modeleQ = new ModelTableauQa();
   private JTabbedPane tabbedPane;
  
   // ONGLET QUESTIONNAIRES
@@ -57,7 +59,6 @@ public class Ihm extends JFrame implements ActionListener {
   private JPanel pDateDebut;
   private JPanel pDateFin;
   private JPanel pMessageFin;
-  private JPanel pQuestions;
   private JPanel pBoutons;
   private JTextField tTitre; 
   private JTextField tStitre;
@@ -67,15 +68,12 @@ public class Ihm extends JFrame implements ActionListener {
   private JLabel lDateDebut;
   private JLabel lDateFin;
   private JLabel lMessageFin;
-  private JLabel lQuestions;
   private JLabel triche;
   private JButton bCreer;
   private JButton bModifier;
   private JButton bSupprimer;
-  @SuppressWarnings("rawtypes")
-  private JComboBox cQuestions;
   private JTable tableauQ;
-  private TableRowSorter<ModelTableauQ> sorter;
+  private TableRowSorter<ModelTableauQa> sorter;
   private Properties p;
   private UtilDateModel modelDebut;
   private UtilDateModel modelFin;
@@ -99,14 +97,14 @@ public class Ihm extends JFrame implements ActionListener {
   */
   public Ihm(String nom) {
                
-    this.setSize(670, 580); // Taille de la fenêtre
+    this.setSize(670, 540); // Taille de la fenêtre
     this.setTitle(nom); // Titre
     this.setLocationRelativeTo(null); // Position par rapport au centre de l'écran
     this.setResizable(true); // On ne peut pas toucher à la taille de la fenêtre
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); /* Lorsqu'on ferme la fenêtre, 
                                                           le programme se ferme "proprement" */ 
     this.setLayout(new BorderLayout()); // On choisit un BorderLayout pour la fenêtre principale
-    this.setMinimumSize(new Dimension(670, 580));
+    this.setMinimumSize(new Dimension(670, 540));
     
     construire();
   }
@@ -116,13 +114,10 @@ public class Ihm extends JFrame implements ActionListener {
   /** Construire.
   * Permet de construire la fenêtre
   */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
   public void construire() {
    
-    
     tabbedPane = new JTabbedPane();  
        
-
     // ONGLET QUESTIONNAIRES
     this.panelQ = new JPanel();
     this.panelQ.setLayout(new BoxLayout(this.panelQ, BoxLayout.PAGE_AXIS));
@@ -172,15 +167,10 @@ public class Ihm extends JFrame implements ActionListener {
     this.lDateDebut = new JLabel("Date début : ");
     this.lDateFin = new JLabel("Date fin : ");
     this.lMessageFin = new JLabel("Message de Fin : ");
-    this.lQuestions = new JLabel("Question(s) : ");
     this.triche = new JLabel("                                                               "
         + "                                                                                   "
+        + "                                                                                   "
         + "                                                                                  ");
-    
-    Object[] valeurs = new Object[]{"Etes-vous en forme ?", 
-        "Etes-vous régulièrement blessé ?", "Etes-vous remplaçant ?", 
-        "Vous entraînez-vous plus de 20h par semaine ?"};
-    this.cQuestions = new JComboBox(valeurs);
     
     this.pTitre = new JPanel();
     this.pTitre.setLayout(new BorderLayout());
@@ -189,7 +179,6 @@ public class Ihm extends JFrame implements ActionListener {
     this.pDateDebut = new JPanel();
     this.pDateFin = new JPanel();
     this.pMessageFin = new JPanel();
-    this.pQuestions = new JPanel();
     this.pBoutons = new JPanel();
     this.pBoutons.setLayout(new BoxLayout(this.pBoutons, BoxLayout.LINE_AXIS));
     
@@ -203,8 +192,7 @@ public class Ihm extends JFrame implements ActionListener {
     this.pDateFin.add(this.dateFin, BorderLayout.EAST);
     this.pMessageFin.add(this.lMessageFin, BorderLayout.WEST);
     this.pMessageFin.add(this.tMessageFin, BorderLayout.EAST);
-    this.pQuestions.add(this.lQuestions, BorderLayout.WEST);
-    this.pQuestions.add(this.cQuestions, BorderLayout.EAST);
+    this.triche.setPreferredSize(new Dimension(0, 50));
     
     this.pBoutons.add(this.bCreer); 
     this.pBoutons.add(Box.createRigidArea(new Dimension(200,0)));
@@ -213,7 +201,7 @@ public class Ihm extends JFrame implements ActionListener {
     this.pBoutons.add(this.bSupprimer);
     
     this.tableauQ = new JTable(modeleQ);
-    this.sorter = new TableRowSorter<ModelTableauQ>(modeleQ); 
+    this.sorter = new TableRowSorter<ModelTableauQa>(modeleQ); 
     tableauQ.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     tableauQ.getColumn("Question(s)").setCellRenderer(new JListRenderer());
     tableauQ.getColumn("Question(s)").setCellEditor(new JListEditor());
@@ -237,7 +225,6 @@ public class Ihm extends JFrame implements ActionListener {
     panelQg.add(pDateDebut);
     panelQg.add(pDateFin);
     panelQg.add(pMessageFin);
-    panelQg.add(pQuestions);
     panelQg.add(triche);
     panelQg.add(pBoutons);
     
@@ -279,6 +266,8 @@ public class Ihm extends JFrame implements ActionListener {
   }
   
   
+  
+  
   /*
    * Actions réalisées sur clic (quitter, créer, modifier, supprimer)
    */
@@ -301,6 +290,10 @@ public class Ihm extends JFrame implements ActionListener {
       String msgfin;
       Date dateD;
       Date dateF;
+      final JFrame wQuestions;
+      JTable tableauQn;
+      ModelTableauQn modeleQn;
+      JButton bAnnulerQn;
       
       // Initilisation : 
       titre = this.tTitre.getText();
@@ -308,6 +301,10 @@ public class Ihm extends JFrame implements ActionListener {
       msgfin = this.tMessageFin.getText();
       dateD = (Date) dateDebut.getModel().getValue();
       dateF = (Date) dateFin.getModel().getValue();
+      modeleQn = new ModelTableauQn();
+      tableauQn = new JTable(modeleQn);
+      bAnnulerQn = new JButton("Annuler");
+      
       
       // Tests sur les attributs :
       
@@ -317,6 +314,30 @@ public class Ihm extends JFrame implements ActionListener {
       questions.add(new Question("Bien ?", false));
       questions.add(new Question("Reveillé ?", true));
       questions.add(new Question("Debout ?", true));
+      
+      // Nouvelle fenêtre (questions) :
+      wQuestions = new JFrame("Questions");
+      wQuestions.setSize(670, 540);
+      wQuestions.setLocationRelativeTo(null);
+      wQuestions.setVisible(true);
+      wQuestions.setLayout(new BorderLayout());
+      
+      tableauQn.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      tableauQn.setRowHeight(30);
+
+      bAnnulerQn.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e){
+            wQuestions.dispose();
+          }
+      });
+      
+      wQuestions.add(new JScrollPane(tableauQn), BorderLayout.CENTER); 
+      wQuestions.add(bAnnulerQn, BorderLayout.SOUTH);
+      
+      tableauQn.setDefaultEditor(Boolean.class, new BoolCellEditor());
+
+      
+      // Ajout final :
       modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
           dateF, msgfin, questions));
     }
@@ -324,26 +345,22 @@ public class Ihm extends JFrame implements ActionListener {
     /**************************** SUPPRIMER ********************************/
     if(source == this.bSupprimer){
       
-      int[] selection;
-      int[] modelIndexes;
+      int[] selections;
+      int selection;
+      int modelRow;
       int reply;
       String messageSupQ; 
       
-      selection = tableauQ.getSelectedRows();
-      modelIndexes = new int[selection.length];
+      selections = tableauQ.getSelectedRows();
+      selection = selections[0];
+      
       messageSupQ = "Etes-vous sur de vouloir supprimer ce questionnaire définitivement ?";
       reply = JOptionPane.showConfirmDialog(null, messageSupQ, "Confirmation de la suppression",
           JOptionPane.YES_NO_OPTION);
       
       if (reply == JOptionPane.YES_OPTION) {
-        for(int i = 0; i < selection.length; i++){
-          modelIndexes[i] = tableauQ.getRowSorter().convertRowIndexToModel(selection[i]);
-        }
-        Arrays.sort(modelIndexes);
-        System.out.println(Arrays.toString(modelIndexes));
-        for(int i = 0; i != modelIndexes.length; i++){
-          modeleQ.removeQuestionnaire(modelIndexes[i]);
-        }
+        modelRow = tableauQ.convertRowIndexToModel(selection);
+        modeleQ.removeQuestionnaire(modelRow);
       } // Sinon, la fenêtre se ferme.
       
     }
@@ -353,7 +370,16 @@ public class Ihm extends JFrame implements ActionListener {
   }
     
   
+  public void setUpCheckBoxColumn(JTable table,
+    TableColumn boolCol) {
 
+    JCheckBox checkBox = new JCheckBox();
+    boolCol.setCellEditor(new DefaultCellEditor(checkBox));
+    
+    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+    renderer.setToolTipText("Click to check");
+    boolCol.setCellRenderer(renderer);
+  }
 
   public static void main(String[] args) {
     Ihm ihm = new Ihm("Application Sportif");
