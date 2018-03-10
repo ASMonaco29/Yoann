@@ -28,41 +28,40 @@ import cda.Question;
 public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   
   // Attributs à ajouter :
-  String titre;
-  String stitre;
-  String msgfin;
-  Date dateD;
-  Date dateF;
-  JDialog wQuestions;
-  JTable tableauQn;
-  ModelTableauQn modeleQn;
-  JButton bAnnulerQn;
-  JButton bCreerQna;
-  JButton bCreerQn;
-  JButton bSupprQn;
-  JLabel lTitreQn; 
-  JLabel lStitreQn; 
-  JLabel lDatedQn; 
-  JLabel lDatefQn; 
-  JLabel lMesgQn; 
-  JLabel lTitreQn1; 
-  JLabel lStitreQn1; 
-  JLabel lDatedQn1; 
-  JLabel lDatefQn1; 
-  JLabel lMesgQn1; 
-  JLabel lquestion;
-  JLabel tricheQna;
-  JLabel tricheQnb;
-  JLabel tricheQnc;
-  DateFormat dateFormat;
-  JPanel pWestQst;
-  JPanel pEastQst;
-  JPanel pGlobBtn;
-  JPanel panelQnN;
-  JPanel panelQnN1;
-  JPanel panelQnN2 = null;
-  JPanel panelQnN3;
-  JPanel pFinalQn;
+  private String titre;
+  private String stitre;
+  private String msgfin;
+  private Date dateD;
+  private Date dateF;
+  private JTable tableauQn;
+  private ModelTableauQn modeleQn;
+  private JButton bAnnulerQn;
+  private JButton bCreerQna;
+  private JButton bCreerQn;
+  private JButton bSupprQn;
+  private JLabel lTitreQn; 
+  private JLabel lStitreQn; 
+  private JLabel lDatedQn; 
+  private JLabel lDatefQn; 
+  private JLabel lMesgQn; 
+  private JLabel lTitreQn1; 
+  private JLabel lStitreQn1; 
+  private JLabel lDatedQn1; 
+  private JLabel lDatefQn1; 
+  private JLabel lMesgQn1; 
+  private JLabel lquestion;
+  private JLabel tricheQna;
+  private JLabel tricheQnb;
+  private JLabel tricheQnc;
+  private DateFormat dateFormat;
+  private JPanel pWestQst;
+  private JPanel pEastQst;
+  private JPanel pGlobBtn;
+  private JPanel panelQnN;
+  private JPanel panelQnN1;
+  private JPanel panelQnN2 = null;
+  private JPanel panelQnN3;
+  private JPanel pFinalQn;
   
   
   // CONSTRUCTEUR :
@@ -81,9 +80,13 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     modeleQn = new ModelTableauQn();
     tableauQn = new JTable(modeleQn);
     bAnnulerQn = new JButton("Annuler");
+    bAnnulerQn.addActionListener(this);
     bCreerQna = new JButton("Créer questionnaire");
+    bCreerQna.addActionListener(this);
     bCreerQn = new JButton("Créer une nouvelle question");
+    bCreerQn.addActionListener(this);
     bSupprQn = new JButton("Supprimer question");
+    bSupprQn.addActionListener(this);
     lTitreQn = new JLabel("Titre : "); 
     lStitreQn = new JLabel("Sous-titre : "); 
     lDatedQn = new JLabel("Date début : "); 
@@ -140,17 +143,15 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     questions.add(new Question("Debout ?", true));
     
     // Nouvelle fenêtre (questions) :
-    //wQuestions = new JDialog(compo, "Questions", true);
     pFinalQn = new JPanel(new BorderLayout());
     pFinalQn.setSize(670, 540);
-    
     pFinalQn.setVisible(true);
     pFinalQn.setLayout(new BorderLayout());
     
     tableauQn.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     tableauQn.setRowHeight(30);
   
-    bAnnulerQn.addActionListener(this);
+    
     
     
     pWestQst = new JPanel();
@@ -185,9 +186,7 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     this.setVisible(true);
   
     
-    // Ajout final :
-    modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
-        dateF, msgfin, questions));
+    
     
   }
 
@@ -199,6 +198,15 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     if(source == bAnnulerQn){
       this.setVisible(false);
       this.dispose();
+    }
+    
+    else if(source == bCreerQna){
+      this.setVisible(false);
+      this.dispose();
+      // Ajout final :
+      /*modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
+          dateF, msgfin, questions));
+    */
     }
     
   }
