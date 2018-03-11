@@ -156,6 +156,12 @@ public class ModelTableauQa extends AbstractTableModel {
     fireTableRowsDeleted(rowIndex, rowIndex);
   }
   
+  public void modifQuestionnaire(Questionnaire quest, int indx){
+    this.questionnaires.modifQuestionnaire(quest, indx);
+    
+    fireTableRowsUpdated(getRowCount()-1, getRowCount()-1);
+  }
+  
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override

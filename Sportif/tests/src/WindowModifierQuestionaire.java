@@ -13,6 +13,7 @@ import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -65,9 +66,14 @@ public class WindowModifierQuestionaire extends JDialog implements ActionListene
   private JPanel pFinalQn;
   private ModelTableauQa modeleQa;
   private ArrayList<Question> questions;
+  private ArrayList<Question> listeQuest;
+  @SuppressWarnings("rawtypes")
+  private DefaultListModel modl;
+  private int selectedRowQa;
   
   
   // CONSTRUCTEUR :
+  @SuppressWarnings("rawtypes")
   public WindowModifierQuestionaire(Component compo, ModelTableauQa modeleQ, int selectedRowQa, String titre, String stitre, String msgfin,
       Date dateD, Date dateF){
   
@@ -75,6 +81,7 @@ public class WindowModifierQuestionaire extends JDialog implements ActionListene
     
     // Initilisation : 
     dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+    this.selectedRowQa = selectedRowQa;
     this.titre = titre;
     this.stitre = stitre;
     this.msgfin = msgfin;
@@ -138,7 +145,7 @@ public class WindowModifierQuestionaire extends JDialog implements ActionListene
     
     
     // Tests sur les attributs :
-    
+   
     
     // Nouvelle fenêtre (questions) :
     pFinalQn = new JPanel(new BorderLayout());
@@ -177,14 +184,31 @@ public class WindowModifierQuestionaire extends JDialog implements ActionListene
     
     tableauQn.setDefaultEditor(Boolean.class, new BoolCellEditor());
     
+    
+    // Initialisation des checkbox pour la première colonne.
+    listeQuest = new ArrayList<Question>();
+    modl = new DefaultListModel();
+    modl = (DefaultListModel)modeleQ.getValueAt(selectedRowQa, 5);
+    
+    for(int i = 0; i < this.modl.size(); i++){
+      listeQuest.add((Question)modl.get(i));
+    }
+    
+    for(int j = 0; j < this.modeleQn.getRowCount(); j++){
+      String q = (String) this.modeleQn.getValueAt(j, 1);
+      for(int k = 0; k < this.listeQuest.size(); k++){
+        if(listeQuest.get(k).getQuestion().equals(q)){
+          this.modeleQn.setValueAt(true, j, 0);
+        }
+      }
+    }
+    
+    
     this.getContentPane().add(pFinalQn);
     this.pack();
     this.setLocationRelativeTo(this);
     this.setMinimumSize(new Dimension(630, 500));
     this.setVisible(true);
-  
-    
-    
     
   }
 
@@ -211,9 +235,9 @@ public class WindowModifierQuestionaire extends JDialog implements ActionListene
         }
       }
       
-      // Ajout du questionnaire :
-      this.modeleQa.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
-          dateF, msgfin, this.questions));
+      // Modification du questionnaire :
+      this.modeleQa.modifQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
+          dateF, msgfin, this.questions), this.selectedRowQa);
     
       this.setVisible(false);
       this.dispose();

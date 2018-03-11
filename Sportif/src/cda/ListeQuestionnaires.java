@@ -57,9 +57,10 @@ public class ListeQuestionnaires {
   /**Modifie un Questionnaire.
    * 
    * @param quest : questionnaire à modifier
+   * @param indx 
    */
   @SuppressWarnings("resource")
-  public void modifQuestionnaire(Questionnaire quest) {
+  public void modifQuestionnaire(Questionnaire quest, int indx) {
     int statut = testModifQuestionnaire(quest);
     Scanner sc = new Scanner(System.in);
     int choix;
@@ -84,6 +85,7 @@ public class ListeQuestionnaires {
       default:
         break;
     }
+    
   }
   
   
