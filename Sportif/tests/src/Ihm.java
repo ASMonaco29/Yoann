@@ -136,8 +136,10 @@ public class Ihm extends JFrame implements ActionListener {
     this.bCreer.addActionListener(this);
     this.bModifier = new JButton("Modifier");
     this.bModifier.addActionListener(this);
+    this.bModifier.setEnabled(false);
     this.bSupprimer = new JButton("Supprimer");
     this.bSupprimer.addActionListener(this);
+    this.bSupprimer.setEnabled(false);
             
     this.tTitre = new JTextField(); 
     this.tTitre.setPreferredSize(new Dimension(250, 25));
@@ -377,15 +379,11 @@ public class Ihm extends JFrame implements ActionListener {
      jourDate1 = Integer.parseInt(reportDate.substring(0, 2));
      moisDate1 = Integer.parseInt(reportDate.substring(3, 5));
      anDate1 = Integer.parseInt(reportDate.substring(6, 10));
-
-     System.out.println(reportDate);
      
      reportDate = formatter.format(dt2);
      jourDate2 = Integer.parseInt(reportDate.substring(0, 2));
      moisDate2 = Integer.parseInt(reportDate.substring(3, 5));
      anDate2 = Integer.parseInt(reportDate.substring(6, 10));
-     
-     System.out.println(reportDate);
      
      // set the selected row data into jtextfields
      this.tTitre.setText(model.getValueAt(selectedRowIndex, 0).toString());
@@ -395,6 +393,8 @@ public class Ihm extends JFrame implements ActionListener {
      this.dateDebut.getModel().setSelected(true);
      this.dateFin.getModel().setDate(anDate2, moisDate2-1, jourDate2);
      this.dateFin.getModel().setSelected(true);
+     this.bSupprimer.setEnabled(true);
+     this.bModifier.setEnabled(true);
    } else {
      this.tTitre.setText(null);
      this.tStitre.setText(null);
@@ -403,6 +403,8 @@ public class Ihm extends JFrame implements ActionListener {
      this.dateDebut.getModel().setDate(anTdy, moisTdy-1, jourTdy);
      this.dateFin.getModel().setSelected(false);
      this.dateFin.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+     this.bSupprimer.setEnabled(false);
+     this.bModifier.setEnabled(false);
 
    }
 }               
