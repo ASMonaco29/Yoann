@@ -293,17 +293,17 @@ public class Ihm extends JFrame implements ActionListener {
       int[] selections;
       int selection;
       int modelRow;
-      int reply;
+      int replyQa;
       String messageSupQ; 
       
       selections = tableauQ.getSelectedRows();
       selection = selections[0];
       
       messageSupQ = "Etes-vous sur de vouloir supprimer ce questionnaire définitivement ?";
-      reply = JOptionPane.showConfirmDialog(null, messageSupQ, "Confirmation de la suppression",
+      replyQa = JOptionPane.showConfirmDialog(null, messageSupQ, "Confirmation de la suppression",
           JOptionPane.YES_NO_OPTION);
       
-      if (reply == JOptionPane.YES_OPTION) {
+      if (replyQa == JOptionPane.YES_OPTION) {
         modelRow = tableauQ.convertRowIndexToModel(selection);
         modeleQ.removeQuestionnaire(modelRow);
       } // Sinon, la fenêtre se ferme.

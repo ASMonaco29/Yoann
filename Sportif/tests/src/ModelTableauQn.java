@@ -15,7 +15,7 @@ public class ModelTableauQn extends AbstractTableModel {
   private final String[] entetes = {"Ajouter au questionnaire ?", "Intitulé de la question", "Réponse par défaut (vrai/faux)"};
   
   @SuppressWarnings("rawtypes")
-  Class[] types = new Class [] { 
+  Class[] types = new Class[] { 
       Boolean.class, String.class, Boolean.class 
   }; 
   
@@ -25,8 +25,6 @@ public class ModelTableauQn extends AbstractTableModel {
   
   public ModelTableauQn() {
       super();
-      
-
       
       this.questions = new ArrayList<Question>();
       this.ajout = new ArrayList<Boolean>();
@@ -69,24 +67,21 @@ public class ModelTableauQn extends AbstractTableModel {
     }
   }
   
-  /*
-  public void addQuestionnaire(Questionnaire quest) {
-    this.questionnaires.addQuestionnaire(quest.getTitre(), quest.getSstitre(), quest.getDateD(), 
-        quest.getDateF(), quest.getMessageFin(), quest.getquListe());
 
-    fireTableRowsInserted(getRowCount()-1, getRowCount()-1);
-  }
   
-  public void removeQuestionnaire(int rowIndex) {
-    System.out.println("Dans model : "+rowIndex);
-    System.out.println(this.questionnaires.getListQ().get(rowIndex).toString());
-    this.questionnaires.supprQuestionnaire(this.questionnaires.getListQ().get(rowIndex));
+  public void addQuestion(Question quest) {
+    this.questions.add(quest);
+    this.ajout.add(false);
     
-    fireTableRowsDeleted(rowIndex, rowIndex);
+    fireTableRowsInserted(getRowCount()-1, getRowCount()-1);
 }
   
+  public void removeQuestion(int rowIndex) {
+    this.questions.remove(rowIndex);
+
+    fireTableRowsDeleted(rowIndex, rowIndex);
+  }
   
-  */
   
   @Override
   public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -100,16 +95,12 @@ public class ModelTableauQn extends AbstractTableModel {
   @Override
   public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
       if(aValue != null){
-        Question qst = questions.get(rowIndex);
         switch(columnIndex){
             case 0:
               this.ajout.set(rowIndex, (Boolean)aValue);
                 break;
-            case 1:
-              qst.setQuestion((String)aValue);
-                break;
             case 2:
-              qst.setChoixDeflt((Boolean)aValue);
+              questions.get(rowIndex).setChoixDeflt((Boolean)aValue);
                 break;
         }
       }
@@ -118,22 +109,8 @@ public class ModelTableauQn extends AbstractTableModel {
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Class getColumnClass(int columnIndex) { 
-      return types [columnIndex]; 
+      return types[columnIndex]; 
   } 
-  /*
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  @Override
-  public Class getColumnClass(int columnIndex){
-    switch(columnIndex){
-      case 0:
-          return Boolean.class;
-      case 2:
-          return Boolean.class;
-      default:
-          return Object.class;
-    }
-  }
-  */
   
   
 }

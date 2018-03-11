@@ -22,7 +22,6 @@ import javax.swing.table.TableCellRenderer;
 @SuppressWarnings("serial")
 public class ModelTableauQa extends AbstractTableModel {
   
-  //private final List<Questionnaire> questionnaire = new ArrayList<Questionnaire>();
   private final ListeQuestionnaires questionnaires;
 
   private final String[] entetes = {"Titre", "Sous-titre", "Date debut", "Date fin", 
@@ -33,7 +32,6 @@ public class ModelTableauQa extends AbstractTableModel {
   private ArrayList<Question> questions;
   private ArrayList<Question> questions1;
 
-
   private Calendar cal;
   private Date dated1;
   private Date dated2;  
@@ -41,11 +39,6 @@ public class ModelTableauQa extends AbstractTableModel {
   private Date datef2;
   
   @SuppressWarnings("rawtypes")
-  private DefaultListModel dlm1;
-  @SuppressWarnings("rawtypes")
-  private DefaultListModel dlm2;
-  
-  @SuppressWarnings({ "rawtypes", "unchecked" })
   public ModelTableauQa() {
       super();
       
@@ -60,17 +53,6 @@ public class ModelTableauQa extends AbstractTableModel {
       questions1.add(new Question("Good ?", false));
       questions1.add(new Question("Awake ?", true));
       questions1.add(new Question("Wake up ?", true));
-      
-      dlm1 = new DefaultListModel();
-      dlm1.addElement(questions.get(0));
-      dlm1.addElement(questions.get(1));
-      dlm1.addElement(questions.get(2));
-      this.modl.add(dlm1);
-      dlm2 = new DefaultListModel();
-      dlm2.addElement(questions1.get(0));
-      dlm2.addElement(questions1.get(1));
-      dlm2.addElement(questions1.get(2));
-      this.modl.add(dlm2);
       
       this.cal = Calendar.getInstance();
       cal.set(Calendar.YEAR, 2018);
@@ -123,8 +105,9 @@ public class ModelTableauQa extends AbstractTableModel {
           "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-          
-      
+
+      // Présentation sous forme de liste des questions de chaque questionnaire
+      actualiserListeQuestions();
   }
 
   public int getRowCount() {
@@ -152,7 +135,7 @@ public class ModelTableauQa extends AbstractTableModel {
         case 4:
             return this.questionnaires.getListQ().get(rowIndex).getMessageFin();
         case 5:
-            return this.modl.get(rowIndex%2);
+            return this.modl.get(rowIndex);
         default:
             return null; // Ne devrait jamais arriver
     }
@@ -161,12 +144,14 @@ public class ModelTableauQa extends AbstractTableModel {
   public void addQuestionnaire(Questionnaire quest) {
     this.questionnaires.addQuestionnaire(quest.getTitre(), quest.getSstitre(), quest.getDateD(), 
         quest.getDateF(), quest.getMessageFin(), quest.getquListe());
+    actualiserListeQuestions();
 
     fireTableRowsInserted(getRowCount()-1, getRowCount()-1);
   }
   
   public void removeQuestionnaire(int rowIndex) {
     this.questionnaires.supprQuestionnaire(this.questionnaires.getListQ().get(rowIndex));
+    this.modl.remove(rowIndex);
     
     fireTableRowsDeleted(rowIndex, rowIndex);
   }
@@ -175,15 +160,29 @@ public class ModelTableauQa extends AbstractTableModel {
   @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
   public Class getColumnClass(int columnIndex){
-      switch(columnIndex){
-          case 2:
-              return Date.class;
-          case 3:
-              return Date.class;
-          default:
-              return Object.class;
-      }
+    switch(columnIndex){
+        case 2:
+            return Date.class;
+        case 3:
+            return Date.class;
+        default:
+            return Object.class;
+    }
   }
+  
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public void actualiserListeQuestions(){
+    this.modl.clear();
+    for(int i = 0; i < getRowCount(); i++){
+      DefaultListModel dlm = new DefaultListModel();
+      for(int j = 0; j < questionnaires.getListQ().get(i).getquListe().size(); j++){
+        dlm.addElement(questionnaires.getListQ().get(i).getquListe().get(j));
+      }
+      this.modl.add(dlm);
+    }
+  }
+  
+  
 }
 
 

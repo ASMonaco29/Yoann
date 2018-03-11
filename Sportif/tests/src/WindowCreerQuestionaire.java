@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -62,6 +63,8 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   private JPanel panelQnN2 = null;
   private JPanel panelQnN3;
   private JPanel pFinalQn;
+  private ModelTableauQa modeleQa;
+  private ArrayList<Question> questions;
   
   
   // CONSTRUCTEUR :
@@ -77,6 +80,7 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     this.msgfin = msgfin;
     this.dateD = dateD;
     this.dateF = dateF;
+    this.modeleQa = modeleQ;
     modeleQn = new ModelTableauQn();
     tableauQn = new JTable(modeleQn);
     bAnnulerQn = new JButton("Annuler");
@@ -135,12 +139,6 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     
     // Tests sur les attributs :
     
-    
-    // Ajout dans la liste :
-    ArrayList<Question> questions = new ArrayList<Question>();
-    questions.add(new Question("Bien ?", false));
-    questions.add(new Question("Reveillé ?", true));
-    questions.add(new Question("Debout ?", true));
     
     // Nouvelle fenêtre (questions) :
     pFinalQn = new JPanel(new BorderLayout());
@@ -201,12 +199,56 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     }
     
     else if(source == bCreerQna){
+      this.questions = new ArrayList<Question>();
+      
+      for(int i = 0; i < modeleQn.getRowCount(); i++){
+        if((Boolean)modeleQn.getValueAt(i, 0) == true){
+          questions.add(new Question((String)modeleQn.getValueAt(i, 1), (Boolean)modeleQn.getValueAt(i, 2)));
+        }
+      }
+      
+      // Ajout du questionnaire :
+      this.modeleQa.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
+          dateF, msgfin, this.questions));
+    
       this.setVisible(false);
       this.dispose();
-      // Ajout final :
-      /*modeleQ.addQuestionnaire(new cda.Questionnaire(titre, stitre, dateD, 
-          dateF, msgfin, questions));
-    */
+    }
+    
+    else if(source == bSupprQn){
+        
+      int[] selection = tableauQn.getSelectedRows();
+      
+      String messageSupQn = "Etes-vous sur de vouloir supprimer cette question définitivement ?";
+      int replyQn = JOptionPane.showConfirmDialog(null, messageSupQn, "Confirmation de la suppression",
+          JOptionPane.YES_NO_OPTION);
+      
+      if (replyQn == JOptionPane.YES_OPTION) {
+        for(int i = selection.length - 1; i >= 0; i--){
+            modeleQn.removeQuestion(selection[i]);
+        }
+      }
+        
+    }
+    
+    else if(source == bCreerQn){
+      String titreDialogQn = "Ajout d'une question";
+      String messageDialogQn = "Veuillez taper l'intitulé de la question :     ";
+      String newQn = "";
+      
+      
+      newQn = JOptionPane.showInputDialog(
+          this, 
+          messageDialogQn, 
+          titreDialogQn, 
+          JOptionPane.INFORMATION_MESSAGE
+      );
+
+      if ((newQn != null) && (newQn.length() > 0)) {
+        modeleQn.addQuestion(new Question(newQn, true));
+        
+      } 
+
     }
     
   }

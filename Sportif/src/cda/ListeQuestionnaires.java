@@ -43,6 +43,7 @@ public class ListeQuestionnaires {
     
     for (int i = 0; i < quliste.size(); i++) {
       quest.addQuestion(quliste.get(i));
+      //System.out.println(quliste.get(i));
     }
     listQ.add(quest);
     return 0;
