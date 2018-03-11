@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -79,6 +80,7 @@ public class Ihm extends JFrame implements ActionListener {
   private JDatePanelImpl datePanelFin;
   private JDatePickerImpl dateDebut;
   private JDatePickerImpl dateFin;
+  private int selectedRowQa = -1;
 
   
   // ONGLET SPORTIFS
@@ -208,6 +210,11 @@ public class Ihm extends JFrame implements ActionListener {
     sorter.setSortable(5, false);
     sorter.setSortsOnUpdates(true);
     tableauQ.setRowSorter(sorter);
+    tableauQ.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+          jTable1MouseClicked(evt);
+      }
+    });
        
     // Paramètres de l'onglet Questionnaires
     
@@ -280,14 +287,21 @@ public class Ihm extends JFrame implements ActionListener {
     }
     
     
-    /**************************** CREER ********************************/
+    /**************************** CREER QUESTIONNAIRE ********************************/
     if(source == this.bCreer){
 
       new WindowCreerQuestionaire(this, modeleQ, this.tTitre.getText(), this.tStitre.getText(), this.tMessageFin.getText(),
           (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
     }
     
-    /**************************** SUPPRIMER ********************************/
+    /**************************** MODIFIER QUESTIONNAIRE ********************************/
+    if(source == this.bModifier){
+
+      new WindowModifierQuestionaire(this, modeleQ, this.selectedRowQa, this.tTitre.getText(), this.tStitre.getText(), this.tMessageFin.getText(),
+          (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
+    }
+    
+    /**************************** SUPPRIMER QUESTIONNAIRE ********************************/
     if(source == this.bSupprimer){
       
       int[] selections;
@@ -313,7 +327,86 @@ public class Ihm extends JFrame implements ActionListener {
     
     
   }
+  
+  private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
     
+   // get the model from the jtable
+   ModelTableauQa model = (ModelTableauQa)tableauQ.getModel();
+   int selectedRowIndex;
+   Date dt1;
+   Date dt2;
+   Date today;
+   Date todayWithZeroTime;
+   DateFormat formatter;
+   String reportDate;
+   int jourDate1;
+   int moisDate1;
+   int anDate1;
+   int jourDate2;
+   int moisDate2;
+   int anDate2;
+   int jourTdy = 0;
+   int moisTdy = 0;
+   int anTdy = 0;
+   
+   // Gestion des dates
+   formatter = new SimpleDateFormat("dd/MM/yyyy");
+   today = new Date();
+   try {
+     todayWithZeroTime = formatter.parse(formatter.format(today));
+     reportDate = formatter.format(todayWithZeroTime);
+     jourTdy = Integer.parseInt(reportDate.substring(0, 2));
+     moisTdy = Integer.parseInt(reportDate.substring(3, 5));
+     anTdy = Integer.parseInt(reportDate.substring(6, 10));
+   
+   } catch (ParseException e) {
+     e.printStackTrace();
+   }  
+   
+   // get the selected row index
+   int modelRow = tableauQ.getSelectedRow();
+   
+   if(modelRow != -1){
+     selectedRowIndex = tableauQ.convertRowIndexToModel(modelRow);
+     this.selectedRowQa = selectedRowIndex;
+     
+     dt1 = (Date)model.getValueAt(selectedRowIndex, 2);
+     dt2 = (Date)model.getValueAt(selectedRowIndex, 3);
+     
+     reportDate = formatter.format(dt1);
+     jourDate1 = Integer.parseInt(reportDate.substring(0, 2));
+     moisDate1 = Integer.parseInt(reportDate.substring(3, 5));
+     anDate1 = Integer.parseInt(reportDate.substring(6, 10));
+
+     System.out.println(reportDate);
+     
+     reportDate = formatter.format(dt2);
+     jourDate2 = Integer.parseInt(reportDate.substring(0, 2));
+     moisDate2 = Integer.parseInt(reportDate.substring(3, 5));
+     anDate2 = Integer.parseInt(reportDate.substring(6, 10));
+     
+     System.out.println(reportDate);
+     
+     // set the selected row data into jtextfields
+     this.tTitre.setText(model.getValueAt(selectedRowIndex, 0).toString());
+     this.tStitre.setText(model.getValueAt(selectedRowIndex, 1).toString());
+     this.tMessageFin.setText(model.getValueAt(selectedRowIndex, 4).toString());
+     this.dateDebut.getModel().setDate(anDate1, moisDate1-1, jourDate1);
+     this.dateDebut.getModel().setSelected(true);
+     this.dateFin.getModel().setDate(anDate2, moisDate2-1, jourDate2);
+     this.dateFin.getModel().setSelected(true);
+   } else {
+     this.tTitre.setText(null);
+     this.tStitre.setText(null);
+     this.tMessageFin.setText(null);
+     this.dateDebut.getModel().setSelected(false);
+     this.dateDebut.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+     this.dateFin.getModel().setSelected(false);
+     this.dateFin.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+
+   }
+}               
+
   
   public void setUpCheckBoxColumn(JTable table, TableColumn boolCol) {
 

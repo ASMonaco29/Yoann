@@ -26,7 +26,7 @@ import javax.swing.ListSelectionModel;
 import cda.Question;
 
 @SuppressWarnings("serial")
-public class WindowCreerQuestionaire extends JDialog implements ActionListener {
+public class WindowModifierQuestionaire extends JDialog implements ActionListener {
   
   // Attributs à ajouter :
   private String titre;
@@ -37,7 +37,7 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   private JTable tableauQn;
   private ModelTableauQn modeleQn;
   private JButton bAnnulerQn;
-  private JButton bCreerQna;
+  private JButton bModifierQna;
   private JButton bCreerQn;
   private JButton bSupprQn;
   private JLabel lTitreQn; 
@@ -68,7 +68,7 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   
   
   // CONSTRUCTEUR :
-  public WindowCreerQuestionaire(Component compo, ModelTableauQa modeleQ, String titre, String stitre, String msgfin,
+  public WindowModifierQuestionaire(Component compo, ModelTableauQa modeleQ, int selectedRowQa, String titre, String stitre, String msgfin,
       Date dateD, Date dateF){
   
     super((Frame) compo, "Questions", true);
@@ -85,8 +85,8 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     tableauQn = new JTable(modeleQn);
     bAnnulerQn = new JButton("Annuler");
     bAnnulerQn.addActionListener(this);
-    bCreerQna = new JButton("Créer questionnaire");
-    bCreerQna.addActionListener(this);
+    bModifierQna = new JButton("Modifier questionnaire");
+    bModifierQna.addActionListener(this);
     bCreerQn = new JButton("Créer une nouvelle question");
     bCreerQn.addActionListener(this);
     bSupprQn = new JButton("Supprimer question");
@@ -159,7 +159,7 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     pWestQst.add(bSupprQn, BorderLayout.EAST);
     pEastQst = new JPanel();
     pEastQst.setLayout(new BorderLayout());
-    pEastQst.add(bCreerQna, BorderLayout.WEST);
+    pEastQst.add(bModifierQna, BorderLayout.WEST);
     pEastQst.add(tricheQnb, BorderLayout.CENTER);
     pEastQst.add(bAnnulerQn, BorderLayout.EAST);
     pGlobBtn = new JPanel();
@@ -200,9 +200,9 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
       this.dispose();
     }
     
-    /**************************** CREER QUESTIONNAIRE ********************************/
+    /**************************** MODIFIER QUESTIONNAIRE ********************************/
     
-    else if(source == bCreerQna){
+    else if(source == bModifierQna){
       this.questions = new ArrayList<Question>();
       
       for(int i = 0; i < modeleQn.getRowCount(); i++){
