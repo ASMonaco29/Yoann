@@ -3,13 +3,15 @@ package cda;
 import java.util.ArrayList;
 
 public class ListeReponses {
-  private Sportif sportif = new Sportif();
-  private Questionnaire questionnaire = new Questionnaire(null, null);
+  private Sportif sportif;
+  private Questionnaire questionnaire;
   private ArrayList<Reponse> reponses;
   
   public ListeReponses() {
     super();
     this.reponses = new ArrayList<Reponse>();
+    this.questionnaire = new Questionnaire(null, null);
+    this.sportif = new Sportif();
   }
 
   public void addListeReponses(Reponse reponse) {

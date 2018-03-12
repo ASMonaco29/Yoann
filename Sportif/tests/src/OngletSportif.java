@@ -17,6 +17,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,12 +37,15 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import cda.Sport;
+import cda.Sportif;
+
 
 
 public class OngletSportif extends JFrame implements ActionListener {
   
   private static final long serialVersionUID = 1L;
-  private ModelTableauQa modeleQ = new ModelTableauQa();
+  private ModelTableauSp modeleS = new ModelTableauSp();
   private JTabbedPane tabbedPane;
  
   // ONGLET QUESTIONNAIRES
@@ -50,33 +54,32 @@ public class OngletSportif extends JFrame implements ActionListener {
   private JComponent panelQg;
   private Border borderL;
   private Border borderG;
-  private JPanel pTitre;
-  private JPanel pStitre;
-  private JPanel pDateDebut;
-  private JPanel pDateFin;
-  private JPanel pMessageFin;
+  private JPanel pPseudo;
+  private JPanel pNom;
+  private JPanel pPrenom;
+  private JPanel pDateNaissance;
+  private JPanel pSport;
   private JPanel pBoutons;
-  private JTextField tTitre; 
-  private JTextField tStitre;
-  private JTextField tMessageFin;
-  private JLabel lTitre;
-  private JLabel lStitre;
-  private JLabel lDateDebut;
-  private JLabel lDateFin;
-  private JLabel lMessageFin;
+  private JTextField tPseudo; 
+  private JTextField tNom;
+  private JTextField tPrenom;
+  @SuppressWarnings("rawtypes")
+  private JComboBox jSport;
+  private JLabel lPseudo;
+  private JLabel lNom;
+  private JLabel lPrenom;
+  private JLabel lDateNaissance;
+  private JLabel lSport;
   private JLabel triche;
   private JButton bCreer;
   private JButton bModifier;
   private JButton bSupprimer;
-  private JTable tableauQ;
-  private TableRowSorter<ModelTableauQa> sorter;
+  private JTable tableauS;
+  private TableRowSorter<ModelTableauSp> sorter;
   private Properties p;
-  private UtilDateModel modelDebut;
-  private UtilDateModel modelFin;
-  private JDatePanelImpl datePanelDebut;
-  private JDatePanelImpl datePanelFin;
-  private JDatePickerImpl dateDebut;
-  private JDatePickerImpl dateFin;
+  private UtilDateModel modelDate;
+  private JDatePanelImpl datePanel;
+  private JDatePickerImpl dateNaissance;
   private int selectedRowQa = -1;
  
   
@@ -95,6 +98,7 @@ public class OngletSportif extends JFrame implements ActionListener {
   /** Construire.
   * Permet de construire la fenêtre
   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public void construire() { 
        
     this.panelQ = new JPanel();
@@ -118,60 +122,60 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.bSupprimer.addActionListener(this);
     this.bSupprimer.setEnabled(false);
             
-    this.tTitre = new JTextField(); 
-    this.tTitre.setPreferredSize(new Dimension(250, 25));
+    this.tPseudo = new JTextField(); 
+    this.tPseudo.setPreferredSize(new Dimension(250, 25));
     
-    this.tStitre = new JTextField();
-    this.tStitre.setPreferredSize(new Dimension(250, 25));
+    this.tNom = new JTextField();
+    this.tNom.setPreferredSize(new Dimension(250, 25));
+    
+    this.tPrenom = new JTextField();
+    this.tPrenom.setPreferredSize(new Dimension(250, 25));
        
     this.p = new Properties();
     this.p.put("text.today", "Today");
     this.p.put("text.month", "Month");
     this.p.put("text.year", "Year");
     
-    this.modelDebut = new UtilDateModel();
-    this.datePanelDebut = new JDatePanelImpl(modelDebut, p);
-    this.dateDebut = new JDatePickerImpl(datePanelDebut, new DateLabelFormatter());
-    this.dateDebut.setPreferredSize(new Dimension(120, 25));
+    this.modelDate = new UtilDateModel();
+    this.datePanel = new JDatePanelImpl(modelDate, p);
+    this.dateNaissance = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+    this.dateNaissance.setPreferredSize(new Dimension(120, 25));
     
-    this.modelFin = new UtilDateModel();
-    this.datePanelFin = new JDatePanelImpl(modelFin, p);
-    this.dateFin = new JDatePickerImpl(datePanelFin, new DateLabelFormatter());
-    this.dateFin.setPreferredSize(new Dimension(120, 25));
+    this.jSport = new JComboBox(Sport.values());
+    this.jSport.setPreferredSize(new Dimension(250, 25));
+    this.jSport.setSelectedIndex(-1);
     
-    this.tMessageFin = new JTextField();
-    this.tMessageFin.setPreferredSize(new Dimension(250, 25));
-    
-    this.lTitre = new JLabel("Titre : ");
-    this.lStitre = new JLabel("Sous-titre : ");
-    this.lDateDebut = new JLabel("Date début : ");
-    this.lDateFin = new JLabel("Date fin : ");
-    this.lMessageFin = new JLabel("Message de Fin : ");
+    this.lPseudo = new JLabel("Pseudo : ");
+    this.lNom = new JLabel("Nom : ");
+    this.lPrenom = new JLabel("Prénom : ");
+    this.lDateNaissance = new JLabel("Date de naissance : ");
+    this.lSport = new JLabel("Sport : ");
     this.triche = new JLabel("                                                               "
         + "                                                                                   "
         + "                                                                                   "
         + "                                                                                  ");
     
-    this.pTitre = new JPanel();
-    this.pTitre.setLayout(new BorderLayout());
-    this.pStitre = new JPanel();
-    this.pStitre.setLayout(new BorderLayout());
-    this.pDateDebut = new JPanel();
-    this.pDateFin = new JPanel();
-    this.pMessageFin = new JPanel();
+    this.pPseudo = new JPanel();
+    this.pPseudo.setLayout(new BorderLayout());
+    this.pNom = new JPanel();
+    this.pNom.setLayout(new BorderLayout());
+    this.pPrenom = new JPanel();
+    this.pPrenom.setLayout(new BorderLayout());
+    this.pDateNaissance = new JPanel();
+    this.pSport = new JPanel();
     this.pBoutons = new JPanel();
     this.pBoutons.setLayout(new BoxLayout(this.pBoutons, BoxLayout.LINE_AXIS));
     
-    this.pTitre.add(this.lTitre, BorderLayout.WEST);
-    this.pTitre.add(this.tTitre, BorderLayout.EAST);
-    this.pStitre.add(this.lStitre, BorderLayout.WEST);
-    this.pStitre.add(this.tStitre, BorderLayout.EAST);
-    this.pDateDebut.add(this.lDateDebut, BorderLayout.WEST);
-    this.pDateDebut.add(this.dateDebut, BorderLayout.EAST);
-    this.pDateFin.add(this.lDateFin, BorderLayout.WEST);
-    this.pDateFin.add(this.dateFin, BorderLayout.EAST);
-    this.pMessageFin.add(this.lMessageFin, BorderLayout.WEST);
-    this.pMessageFin.add(this.tMessageFin, BorderLayout.EAST);
+    this.pPseudo.add(this.lPseudo, BorderLayout.WEST);
+    this.pPseudo.add(this.tPseudo, BorderLayout.EAST);
+    this.pNom.add(this.lNom, BorderLayout.WEST);
+    this.pNom.add(this.tNom, BorderLayout.EAST);
+    this.pPrenom.add(this.lPrenom, BorderLayout.WEST);
+    this.pPrenom.add(this.tPrenom, BorderLayout.EAST);
+    this.pDateNaissance.add(this.lDateNaissance, BorderLayout.WEST);
+    this.pDateNaissance.add(this.dateNaissance, BorderLayout.EAST);
+    this.pSport.add(this.lSport, BorderLayout.WEST);
+    this.pSport.add(this.jSport, BorderLayout.EAST);
     this.triche.setPreferredSize(new Dimension(0, 50));
     
     this.pBoutons.add(this.bCreer); 
@@ -180,16 +184,16 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.pBoutons.add(Box.createRigidArea(new Dimension(200,0)));
     this.pBoutons.add(this.bSupprimer);
     
-    this.tableauQ = new JTable(modeleQ);
-    this.sorter = new TableRowSorter<ModelTableauQa>(modeleQ); 
-    tableauQ.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    tableauQ.getColumn("Question(s)").setCellRenderer(new JListRenderer());
-    tableauQ.getColumn("Question(s)").setCellEditor(new JListEditor());
-    tableauQ.setRowHeight(70);
+    this.tableauS = new JTable(modeleS);
+    this.sorter = new TableRowSorter<ModelTableauSp>(modeleS); 
+    tableauS.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    tableauS.getColumn("Questionnaire(s) répondu(s)").setCellRenderer(new JListRenderer());
+    tableauS.getColumn("Questionnaire(s) répondu(s)").setCellEditor(new JListEditor());
+    tableauS.setRowHeight(70);
     sorter.setSortable(5, false);
     sorter.setSortsOnUpdates(true);
-    tableauQ.setRowSorter(sorter);
-    tableauQ.addMouseListener(new java.awt.event.MouseAdapter() {
+    tableauS.setRowSorter(sorter);
+    tableauS.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
           jTable1MouseClicked(evt);
       }
@@ -202,14 +206,14 @@ public class OngletSportif extends JFrame implements ActionListener {
     
     // Ajout des attributs au contenu de l'onglet Questionnaires    
     panelQl.setBorder(borderL);
-    panelQl.add(new JScrollPane(tableauQ), BorderLayout.CENTER); 
+    panelQl.add(new JScrollPane(tableauS), BorderLayout.CENTER); 
     
     panelQg.setBorder(borderG);
-    panelQg.add(pTitre);
-    panelQg.add(pStitre);
-    panelQg.add(pDateDebut);
-    panelQg.add(pDateFin);
-    panelQg.add(pMessageFin);
+    panelQg.add(pPseudo);
+    panelQg.add(pNom);
+    panelQg.add(pPrenom);
+    panelQg.add(pDateNaissance);
+    panelQg.add(pSport);
     panelQg.add(triche);
     panelQg.add(pBoutons);
     
@@ -232,17 +236,16 @@ public class OngletSportif extends JFrame implements ActionListener {
     
     /**************************** CREER QUESTIONNAIRE ********************************/
     if(source == this.bCreer){
-
-      new WindowCreerQuestionaire(this, modeleQ, this.tTitre.getText(), this.tStitre.getText(), this.tMessageFin.getText(),
-          (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
+      modeleS.creerSportif(new Sportif(this.tNom.getText(), this.tPrenom.getText(), this.tPseudo.getText(),
+          (Date)dateNaissance.getModel().getValue(), (Sport)this.jSport.getSelectedItem(), null));
     }
     
     /**************************** MODIFIER QUESTIONNAIRE ********************************/
     if(source == this.bModifier){
-
+/*
       new WindowModifierQuestionaire(this, modeleQ, this.selectedRowQa, this.tTitre.getText(), this.tStitre.getText(), this.tMessageFin.getText(),
           (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
-    }
+    */}
     
     /**************************** SUPPRIMER QUESTIONNAIRE ********************************/
     if(source == this.bSupprimer){
@@ -252,17 +255,48 @@ public class OngletSportif extends JFrame implements ActionListener {
       int modelRow;
       int replyQa;
       String messageSupQ; 
+      Date today;
+      Date todayWithZeroTime;
+      DateFormat formatter;
+      String reportDate;
+      int jourTdy = 0;
+      int moisTdy = 0;
+      int anTdy = 0;
       
-      selections = tableauQ.getSelectedRows();
+      selections = tableauS.getSelectedRows();
       selection = selections[0];
       
-      messageSupQ = "Etes-vous sur de vouloir supprimer ce questionnaire définitivement ?";
+      messageSupQ = "Etes-vous sur de vouloir supprimer ce sportif définitivement ?";
       replyQa = JOptionPane.showConfirmDialog(null, messageSupQ, "Confirmation de la suppression",
           JOptionPane.YES_NO_OPTION);
       
       if (replyQa == JOptionPane.YES_OPTION) {
-        modelRow = tableauQ.convertRowIndexToModel(selection);
-        modeleQ.removeQuestionnaire(modelRow);
+        modelRow = tableauS.convertRowIndexToModel(selection);
+        modeleS.supprimerSportif(modelRow);
+        
+        
+        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        today = new Date();
+        try {
+          todayWithZeroTime = formatter.parse(formatter.format(today));
+          reportDate = formatter.format(todayWithZeroTime);
+          jourTdy = Integer.parseInt(reportDate.substring(0, 2));
+          moisTdy = Integer.parseInt(reportDate.substring(3, 5));
+          anTdy = Integer.parseInt(reportDate.substring(6, 10));
+        
+        } catch (ParseException e2) {
+          e2.printStackTrace();
+        }  
+        
+        this.tPseudo.setText(null);
+        this.tNom.setText(null);
+        this.tPrenom.setText(null);
+        this.jSport.setSelectedIndex(-1);
+        this.dateNaissance.getModel().setSelected(false);
+        this.dateNaissance.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+        this.bSupprimer.setEnabled(false);
+        this.bModifier.setEnabled(false);
+        this.bCreer.setEnabled(true);
       } // Sinon, la fenêtre se ferme.
       
     }
@@ -274,17 +308,14 @@ public class OngletSportif extends JFrame implements ActionListener {
   private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
     
    // get the model from the jtable
-   ModelTableauQa model = (ModelTableauQa)tableauQ.getModel();
+   ModelTableauSp model = (ModelTableauSp)tableauS.getModel();
    int selectedRowIndex;
-   Date dt1;
-   Date dt2;
+   Date dt;
    Date today;
    Date todayWithZeroTime;
    DateFormat formatter;
    String reportDate;
-   int jourDate1;
-   int moisDate1;
-   int anDate1;
+   String combo;
    int jourDate2;
    int moisDate2;
    int anDate2;
@@ -307,46 +338,48 @@ public class OngletSportif extends JFrame implements ActionListener {
    }  
    
    // get the selected row index
-   int modelRow = tableauQ.getSelectedRow();
+   int modelRow = tableauS.getSelectedRow();
    
    if(modelRow != -1){
-     selectedRowIndex = tableauQ.convertRowIndexToModel(modelRow);
+     selectedRowIndex = tableauS.convertRowIndexToModel(modelRow);
      this.selectedRowQa = selectedRowIndex;
      
-     dt1 = (Date)model.getValueAt(selectedRowIndex, 2);
-     dt2 = (Date)model.getValueAt(selectedRowIndex, 3);
+     dt = (Date)model.getValueAt(selectedRowIndex, 3);
      
-     reportDate = formatter.format(dt1);
-     jourDate1 = Integer.parseInt(reportDate.substring(0, 2));
-     moisDate1 = Integer.parseInt(reportDate.substring(3, 5));
-     anDate1 = Integer.parseInt(reportDate.substring(6, 10));
-     
-     reportDate = formatter.format(dt2);
+     reportDate = formatter.format(dt);
      jourDate2 = Integer.parseInt(reportDate.substring(0, 2));
      moisDate2 = Integer.parseInt(reportDate.substring(3, 5));
      anDate2 = Integer.parseInt(reportDate.substring(6, 10));
      
+     combo = model.getValueAt(selectedRowIndex, 4).toString();
+     int i = 0;
+     for (Sport sp : Sport.values()) {
+       if(combo.equalsIgnoreCase(sp.name())){
+         break;
+       }
+       i++;
+     }
+     
      // set the selected row data into jtextfields
-     this.tTitre.setText(model.getValueAt(selectedRowIndex, 0).toString());
-     this.tStitre.setText(model.getValueAt(selectedRowIndex, 1).toString());
-     this.tMessageFin.setText(model.getValueAt(selectedRowIndex, 4).toString());
-     this.dateDebut.getModel().setDate(anDate1, moisDate1-1, jourDate1);
-     this.dateDebut.getModel().setSelected(true);
-     this.dateFin.getModel().setDate(anDate2, moisDate2-1, jourDate2);
-     this.dateFin.getModel().setSelected(true);
+     this.tPseudo.setText(model.getValueAt(selectedRowIndex, 0).toString());
+     this.tNom.setText(model.getValueAt(selectedRowIndex, 1).toString());
+     this.tPrenom.setText(model.getValueAt(selectedRowIndex, 2).toString());
+     this.jSport.setSelectedIndex(i);
+     this.dateNaissance.getModel().setDate(anDate2, moisDate2-1, jourDate2);
+     this.dateNaissance.getModel().setSelected(true);
      this.bSupprimer.setEnabled(true);
      this.bModifier.setEnabled(true);
+     this.bCreer.setEnabled(false);
    } else {
-     this.tTitre.setText(null);
-     this.tStitre.setText(null);
-     this.tMessageFin.setText(null);
-     this.dateDebut.getModel().setSelected(false);
-     this.dateDebut.getModel().setDate(anTdy, moisTdy-1, jourTdy);
-     this.dateFin.getModel().setSelected(false);
-     this.dateFin.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+     this.tPseudo.setText(null);
+     this.tNom.setText(null);
+     this.tPrenom.setText(null);
+     this.jSport.setSelectedIndex(-1);
+     this.dateNaissance.getModel().setSelected(false);
+     this.dateNaissance.getModel().setDate(anTdy, moisTdy-1, jourTdy);
      this.bSupprimer.setEnabled(false);
      this.bModifier.setEnabled(false);
-
+     this.bCreer.setEnabled(true);
    }
 }               
 

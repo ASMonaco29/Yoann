@@ -1,16 +1,14 @@
 package cda;
 
-
 import java.sql.Date;
-import java.util.ArrayList;
 
 public class Reponse {
   private Date date;
-  private ArrayList<Boolean> reponses;
+  private Boolean reponses;
 
-  public Reponse(Date date) {
+  public Reponse(Date date, Boolean bln) {
     this.date = date;
-    this.reponses = new ArrayList<Boolean>();
+    this.reponses = bln;
   }
 
   public Date getDate() {
@@ -21,11 +19,11 @@ public class Reponse {
     this.date = date;
   }
 
-  public ArrayList<Boolean> getReponses() {
+  public Boolean getReponses() {
     return reponses;
   }
 
-  public void setReponses(ArrayList<Boolean> reponses) {
+  public void setReponses(Boolean reponses) {
     this.reponses = reponses;
   }
   /*

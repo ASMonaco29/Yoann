@@ -4,19 +4,12 @@ import cda.ListeQuestionnaires;
 import cda.Question;
 import cda.Questionnaire;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListModel;
-import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 
 
 @SuppressWarnings("serial")
@@ -193,69 +186,3 @@ public class ModelTableauQa extends AbstractTableModel {
 
 
 
-/* ************************************* CLASSE POUR JLIST  ******************** */
-@SuppressWarnings("serial")
-class JListRenderer extends JScrollPane implements TableCellRenderer {
-  
-  @SuppressWarnings("rawtypes")
-  private JList list;
-  
-  @SuppressWarnings("rawtypes")
-  public JListRenderer() {
-    list = new JList();
-    getViewport().add(list);
-  }
-  
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Component getTableCellRendererComponent(JTable table, Object value,
-       boolean isSelected, boolean hasFocus, int row, int column) {
-      
-    if (isSelected) {
-      setForeground(table.getSelectionForeground());
-      setBackground(table.getSelectionBackground());
-      list.setForeground(table.getSelectionForeground());
-      list.setBackground(table.getSelectionBackground());
-    } else {
-      setForeground(table.getForeground());
-      setBackground(table.getBackground());
-      list.setForeground(table.getForeground());
-      list.setBackground(table.getBackground());
-    }
-  
-    list.setModel((DefaultListModel )value) ;
- 
-    return this;
-  }
-}
- 
-
-
-
-/* ************************************* CLASSE POUR JLIST  ******************** */
-@SuppressWarnings("serial")
-class JListEditor extends DefaultCellEditor {
-   
-  @SuppressWarnings("rawtypes")
-  private JList list;
-  private JScrollPane scrollpane;
-
-  
-   @SuppressWarnings({ "rawtypes" })
-  public JListEditor() {
-    super(new JCheckBox());
-    
-    scrollpane = new JScrollPane();
-    list = new JList(); 
-    scrollpane.getViewport().add(list);
-   }
-  
-   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Component getTableCellEditorComponent(JTable table, Object value,
-                                   boolean isSelected, int row, int column) {
-    list.setModel((DefaultListModel )value);
-    
- 
-    return scrollpane;
-  }
-  
-}

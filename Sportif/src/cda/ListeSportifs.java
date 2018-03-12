@@ -1,7 +1,5 @@
 package cda;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,14 +13,16 @@ public class ListeSportifs {
     this.listeDeSportifs = new ArrayList<Sportif>();
   }
 
-  public ArrayList<Sportif> getListeDeSportifs() {
+  public ArrayList<Sportif> getListeS() {
     return listeDeSportifs;
   }
 
-
-
-  public void setListeDeSportifs(ArrayList<Sportif> listeDeSportifs) {
+  public void setListeS(ArrayList<Sportif> listeDeSportifs) {
     this.listeDeSportifs = listeDeSportifs;
+  }
+  
+  public int getSizeListS(){
+    return this.listeDeSportifs.size();
   }
 
 
@@ -37,8 +37,7 @@ public class ListeSportifs {
    * @param sport Le sport du sportif
    * @return
    */
-  @SuppressWarnings("deprecation")
-  public int creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+  public int creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport, ArrayList<Questionnaire> quest) {
     int result = 0;
     Sportif sportif;
     
@@ -55,17 +54,9 @@ public class ListeSportifs {
     }
     
     if (result == 0) {
-      SimpleDateFormat dateN = new SimpleDateFormat("dd/MM/yyyy");
-      @SuppressWarnings("unused")
-      Date d = null;
-      sportif = new Sportif(nom,prenom,pseudo,date,sport);
+     
+      sportif = new Sportif(nom,prenom,pseudo,date,sport, quest);
       listeDeSportifs.add(sportif);
-      try {
-        d = dateN.parse(date.getDay() + "/" + date.getMonth() + "/" + date.getYear());
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        result = 3;
-      }
     }
     
     return result;

@@ -1,6 +1,7 @@
 package src;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,13 +9,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JFormattedTextField.AbstractFormatter;
+import javax.swing.table.TableCellRenderer;
 
 
 
@@ -116,7 +124,11 @@ public class Ihm extends JFrame implements ActionListener {
 }
 
 
-/************************ FONCTIONS POUR LE CALENDRIER *************************/
+
+
+
+
+/* *********************** CLASSE POUR LE CALENDRIER *************************/
 @SuppressWarnings("serial")
 class DateLabelFormatter extends AbstractFormatter {
 
@@ -138,3 +150,77 @@ class DateLabelFormatter extends AbstractFormatter {
 
 }
 
+
+/* *********************************** CLASSE POUR JCHECKBOX ***************** */
+@SuppressWarnings("serial")
+class BoolCellEditor extends DefaultCellEditor {
+  public BoolCellEditor() {
+      super(new JCheckBox());
+  }
+}
+
+
+/* ************************************* CLASSE POUR JLIST  ******************** */
+@SuppressWarnings("serial")
+class JListRenderer extends JScrollPane implements TableCellRenderer {
+  
+  @SuppressWarnings("rawtypes")
+  private JList list;
+  
+  @SuppressWarnings("rawtypes")
+  public JListRenderer() {
+    list = new JList();
+    getViewport().add(list);
+  }
+  
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Component getTableCellRendererComponent(JTable table, Object value,
+       boolean isSelected, boolean hasFocus, int row, int column) {
+      
+    if (isSelected) {
+      setForeground(table.getSelectionForeground());
+      setBackground(table.getSelectionBackground());
+      list.setForeground(table.getSelectionForeground());
+      list.setBackground(table.getSelectionBackground());
+    } else {
+      setForeground(table.getForeground());
+      setBackground(table.getBackground());
+      list.setForeground(table.getForeground());
+      list.setBackground(table.getBackground());
+    }
+  
+    list.setModel((DefaultListModel )value) ;
+ 
+    return this;
+  }
+}
+ 
+
+/* ************************************* CLASSE POUR JLIST  ******************** */
+@SuppressWarnings("serial")
+class JListEditor extends DefaultCellEditor {
+   
+  @SuppressWarnings("rawtypes")
+  private JList list;
+  private JScrollPane scrollpane;
+
+  
+   @SuppressWarnings({ "rawtypes" })
+  public JListEditor() {
+    super(new JCheckBox());
+    
+    scrollpane = new JScrollPane();
+    list = new JList(); 
+    scrollpane.getViewport().add(list);
+   }
+  
+   @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Component getTableCellEditorComponent(JTable table, Object value,
+                                   boolean isSelected, int row, int column) {
+    list.setModel((DefaultListModel )value);
+    
+ 
+    return scrollpane;
+  }
+  
+}

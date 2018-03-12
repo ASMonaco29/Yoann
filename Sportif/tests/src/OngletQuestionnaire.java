@@ -251,7 +251,14 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
       int selection;
       int modelRow;
       int replyQa;
-      String messageSupQ; 
+      String messageSupQ;
+      Date today;
+      Date todayWithZeroTime;
+      DateFormat formatter;
+      String reportDate;
+      int jourTdy = 0;
+      int moisTdy = 0;
+      int anTdy = 0;
       
       selections = tableauQ.getSelectedRows();
       selection = selections[0];
@@ -263,6 +270,30 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
       if (replyQa == JOptionPane.YES_OPTION) {
         modelRow = tableauQ.convertRowIndexToModel(selection);
         modeleQ.removeQuestionnaire(modelRow);
+        
+        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        today = new Date();
+        try {
+          todayWithZeroTime = formatter.parse(formatter.format(today));
+          reportDate = formatter.format(todayWithZeroTime);
+          jourTdy = Integer.parseInt(reportDate.substring(0, 2));
+          moisTdy = Integer.parseInt(reportDate.substring(3, 5));
+          anTdy = Integer.parseInt(reportDate.substring(6, 10));
+        
+        } catch (ParseException e2) {
+          e2.printStackTrace();
+        }  
+        
+        this.tTitre.setText(null);
+        this.tStitre.setText(null);
+        this.tMessageFin.setText(null);
+        this.dateDebut.getModel().setSelected(false);
+        this.dateDebut.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+        this.dateFin.getModel().setSelected(false);
+        this.dateFin.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+        this.bSupprimer.setEnabled(false);
+        this.bModifier.setEnabled(false);
+        this.bCreer.setEnabled(true);
       } // Sinon, la fenêtre se ferme.
       
     }
@@ -336,6 +367,7 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
      this.dateFin.getModel().setSelected(true);
      this.bSupprimer.setEnabled(true);
      this.bModifier.setEnabled(true);
+     this.bCreer.setEnabled(false);
    } else {
      this.tTitre.setText(null);
      this.tStitre.setText(null);
@@ -346,7 +378,7 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
      this.dateFin.getModel().setDate(anTdy, moisTdy-1, jourTdy);
      this.bSupprimer.setEnabled(false);
      this.bModifier.setEnabled(false);
-
+     this.bCreer.setEnabled(true);
    }
 }               
 

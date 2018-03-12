@@ -1,6 +1,7 @@
 package cda;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Sportif { 
@@ -9,6 +10,15 @@ public class Sportif {
   private String pseudo;
   private Date naissance;
   private Sport sport;
+  private ArrayList<Questionnaire> quest;
+  
+  public ArrayList<Questionnaire> getquListe() {
+    return quest;
+  }
+
+  public void setquListe(ArrayList<Questionnaire> quest) {
+    this.quest = quest;
+  }
 
   /**
    * Constructor no parameters class Sportif.
@@ -31,7 +41,7 @@ public class Sportif {
    * @param date date de naissance du sportif
    * @param sport le sport du sportif
    */
-  public Sportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+  public Sportif(String nom, String prenom, String pseudo, Date date, Sport sport, ArrayList<Questionnaire> quest) {
     super();
     
     this.setNom(nom);
@@ -39,6 +49,7 @@ public class Sportif {
     this.setPseudo(pseudo);
     this.setNaissance(date);
     this.setSport(sport);
+    this.setquListe(quest);
   }
 
   public String getNom() {
@@ -188,4 +199,5 @@ public boolean equals(Object obj) {
     
     return true;
   }
+  
 }

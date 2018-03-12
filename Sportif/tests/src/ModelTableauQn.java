@@ -4,8 +4,6 @@ import cda.Question;
 
 import java.util.ArrayList;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -113,12 +111,4 @@ public class ModelTableauQn extends AbstractTableModel {
   } 
   
   
-}
-
-
-@SuppressWarnings("serial")
-class BoolCellEditor extends DefaultCellEditor {
-  public BoolCellEditor() {
-      super(new JCheckBox());
-  }
 }
