@@ -106,8 +106,8 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.panelQg = new JPanel();
    
     // Attributs
-    this.borderL = BorderFactory.createTitledBorder("Liste Questionnaires");
-    this.borderG = BorderFactory.createTitledBorder("Gérer Questionnaires");
+    this.borderL = BorderFactory.createTitledBorder("Liste Sportifs");
+    this.borderG = BorderFactory.createTitledBorder("Gérer Sportifs");
     
     this.bCreer = new JButton("Créer");
     this.bCreer.addActionListener(this);
@@ -197,7 +197,7 @@ public class OngletSportif extends JFrame implements ActionListener {
        
     // Paramètres de l'onglet Questionnaires
     
-    tabbedPane.addTab("Sportif", panelQ);
+    tabbedPane.addTab("Sportifs", panelQ);
     tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);  
     
     // Ajout des attributs au contenu de l'onglet Questionnaires    

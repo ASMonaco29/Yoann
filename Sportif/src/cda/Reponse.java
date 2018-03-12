@@ -28,12 +28,12 @@ public class Reponse {
   public void setReponses(ArrayList<Boolean> reponses) {
     this.reponses = reponses;
   }
-  
+  /*
   public void affichage() {
     int i=1;
     for(boolean bool : reponses) {
       System.out.println("Reponse "+i+" = "+reponses.get(i));
     }
   }
-  
+  */
 }
