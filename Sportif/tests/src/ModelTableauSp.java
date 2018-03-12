@@ -4,7 +4,6 @@ import cda.ListeQuestionnaires;
 import cda.ListeSportifs;
 import cda.Question;
 import cda.Sport;
-import cda.Sportif;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,12 +77,17 @@ public class ModelTableauSp extends AbstractTableModel {
       questionnaires.addQuestionnaire("Santé", "Pour vous", date3, date4, 
           "Merci d'avoir répondu à ce questionnaire.", questions1);
           
-      sportifs.creerSportif("Alleno", "Malou", "Malou22", date2, Sport.Basketball, questionnaires.getListQ());
-      sportifs.creerSportif("Le Mestre", "Quentin", "QuentinIle", date4, Sport.Billard, questionnaires.getListQ());
-      sportifs.creerSportif("Le Pape", "Rémi", "Rems56", date3, Sport.Golf, questionnaires.getListQ());
-      sportifs.creerSportif("Amicel", "Yoann", "Yoyo22", date1, Sport.Football, questionnaires.getListQ());
+      sportifs.creerSportif("Alleno", "Malou", "Malou22", date2, Sport.Basketball);
+      sportifs.creerSportif("LeMestre", "Quentin", "QuentinIle", date4, Sport.Billard);
+      sportifs.creerSportif("LePape", "Rémi", "Rems56", date3, Sport.Golf);
+      sportifs.creerSportif("Amicel", "Yoann", "Yoyo22", date1, Sport.Football);
       
-
+      sportifs.getListeS().get(0).ajouterListQ(questionnaires.getListQ());
+      sportifs.getListeS().get(1).ajouterListQ(questionnaires.getListQ());
+      sportifs.getListeS().get(2).ajouterListQ(questionnaires.getListQ());
+      sportifs.getListeS().get(3).ajouterListQ(questionnaires.getListQ());
+      
+      
       // Présentation sous forme de liste des questions de chaque questionnaire
       actualiserListeQuestionnaires();
   }
@@ -119,9 +123,8 @@ public class ModelTableauSp extends AbstractTableModel {
     }
   }
     
-  public void creerSportif(Sportif sp) {
-    this.sportifs.creerSportif(sp.getNom(), sp.getPrenom(), sp.getPseudo(), 
-        sp.getNaissance(), sp.getSport(), null);
+  public void creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+    this.sportifs.creerSportif(nom, prenom, pseudo, date, sport);
     actualiserListeQuestionnaires();
     
     

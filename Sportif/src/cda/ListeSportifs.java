@@ -1,9 +1,11 @@
 package cda;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ListeSportifs {
+ 
   private ArrayList<Sportif> listeDeSportifs = new ArrayList<Sportif>();
   
   
@@ -13,6 +15,7 @@ public class ListeSportifs {
     this.listeDeSportifs = new ArrayList<Sportif>();
   }
 
+  
   public ArrayList<Sportif> getListeS() {
     return listeDeSportifs;
   }
@@ -27,6 +30,7 @@ public class ListeSportifs {
 
 
 
+
   /**
    * Méthode pour créer un sportif et l'ajouter à la liste des Sportifs. La méthode vérifie 
    * que le sportif n'existe pas déjà dans la Liste. 
@@ -37,7 +41,8 @@ public class ListeSportifs {
    * @param sport Le sport du sportif
    * @return
    */
-  public int creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport, ArrayList<Questionnaire> quest) {
+  
+  public int creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
     int result = 0;
     Sportif sportif;
     
@@ -54,9 +59,13 @@ public class ListeSportifs {
     }
     
     if (result == 0) {
-     
-      sportif = new Sportif(nom,prenom,pseudo,date,sport, quest);
-      listeDeSportifs.add(sportif);
+      
+      sportif = Sportif.creerSportif(nom,prenom,pseudo,date,sport);
+      if (sportif!=null) {
+        listeDeSportifs.add(sportif);
+      } else {
+        result = 3;
+      }
     }
     
     return result;
@@ -71,7 +80,7 @@ public class ListeSportifs {
    * @param sport   le nouveau sport du sportif
    * @return
    */
-  public int modifierSportif(String nom, String prenom, String pseudo, Sport sport) {
+  public int modifierSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
     int result = 0;
     Sportif sportif1 = null;
     
@@ -94,6 +103,10 @@ public class ListeSportifs {
       
       if (sport != null) {
         sportif1.setSport(sport);
+      }
+      
+      if (date != null) {
+        sportif1.setNaissance(date);
       }
       
     }

@@ -38,7 +38,6 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import cda.Sport;
-import cda.Sportif;
 
 
 
@@ -80,6 +79,7 @@ public class OngletSportif extends JFrame implements ActionListener {
   private UtilDateModel modelDate;
   private JDatePanelImpl datePanel;
   private JDatePickerImpl dateNaissance;
+  @SuppressWarnings("unused")
   private int selectedRowQa = -1;
  
   
@@ -236,8 +236,8 @@ public class OngletSportif extends JFrame implements ActionListener {
     
     /**************************** CREER QUESTIONNAIRE ********************************/
     if(source == this.bCreer){
-      modeleS.creerSportif(new Sportif(this.tNom.getText(), this.tPrenom.getText(), this.tPseudo.getText(),
-          (Date)dateNaissance.getModel().getValue(), (Sport)this.jSport.getSelectedItem(), null));
+      modeleS.creerSportif(this.tNom.getText(), this.tPrenom.getText(), this.tPseudo.getText(),
+          (Date)dateNaissance.getModel().getValue(), (Sport)this.jSport.getSelectedItem());
     }
     
     /**************************** MODIFIER QUESTIONNAIRE ********************************/
