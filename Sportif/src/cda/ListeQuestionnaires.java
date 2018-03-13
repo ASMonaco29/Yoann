@@ -31,14 +31,12 @@ public class ListeQuestionnaires {
    */
   public int addQuestionnaire(String titre, String sstitre,
       Date dateD, Date dateF, String msgFin, ArrayList<Question> quliste) {
-    Questionnaire quest = new Questionnaire(dateD, dateF);
-    quest.setTitre(titre);
-    quest.setSstitre(sstitre);
-    quest.setMessageFin(msgFin);
-    
-    for (int i = 0; i < quliste.size(); i++) {
-      quest.addQuestion(quliste.get(i));
+    if (titre == null || sstitre == null || dateD == null || dateF == null ||
+        msgFin == null || quliste == null) {
+      return -1;
     }
+    Questionnaire quest = new Questionnaire(titre, sstitre, dateD, dateF, msgFin, quliste);
+    
     listQ.add(quest);
     return 0;
   }
@@ -78,13 +76,7 @@ public class ListeQuestionnaires {
     if (!this.listQ.get(index).getMessageFin().equals(nq.getMessageFin())) {
       this.listQ.get(index).setMessageFin(nq.getMessageFin());
     }
-    
-    for (int i = 0; i < this.listQ.get(index).getquListe().size(); i++) {
-      if (!nq.getquListe().get(i).equals(this.listQ.get(index).getquListe().get(i))) {
-        this.listQ.get(index).getquListe().get(i).setChoixDeflt(nq.getquListe().get(i).getChoixDeflt());
-        this.listQ.get(index).getquListe().get(i).setQuestion(nq.getquListe().get(i).getQuestion());
-      }
-    }
+    this.listQ.get(index).setqListe(nq.getquListe());
     return 0;
   }
   
@@ -130,9 +122,9 @@ public class ListeQuestionnaires {
    * 
    * @return : la taille de la liste de questionnaires.
    */
-  public int getSizeListQ(){
+  public int getSizeListQ() {
     return this.listQ.size();
   }
   
-
+  
 }

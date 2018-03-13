@@ -173,8 +173,10 @@ class JListRenderer extends JScrollPane implements TableCellRenderer {
   
   @SuppressWarnings("rawtypes")
   public JListRenderer() {
+    super(VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_ALWAYS);
     list = new JList();
-    getViewport().add(list);
+    this.getViewport().add(list);
+    
   }
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -182,13 +184,13 @@ class JListRenderer extends JScrollPane implements TableCellRenderer {
        boolean isSelected, boolean hasFocus, int row, int column) {
       
     if (isSelected) {
-      setForeground(table.getSelectionForeground());
-      setBackground(table.getSelectionBackground());
+      this.setForeground(table.getSelectionForeground());
+      this.setBackground(table.getSelectionBackground());
       list.setForeground(table.getSelectionForeground());
       list.setBackground(table.getSelectionBackground());
     } else {
-      setForeground(table.getForeground());
-      setBackground(table.getBackground());
+      this.setForeground(table.getForeground());
+      this.setBackground(table.getBackground());
       list.setForeground(table.getForeground());
       list.setBackground(table.getBackground());
     }
@@ -209,16 +211,17 @@ class JListEditor extends DefaultCellEditor {
   private JScrollPane scrollpane;
 
   
-   @SuppressWarnings({ "rawtypes" })
+  @SuppressWarnings({ "rawtypes" })
   public JListEditor() {
     super(new JCheckBox());
     
     scrollpane = new JScrollPane();
     list = new JList(); 
     scrollpane.getViewport().add(list);
-   }
+    
+  }
   
-   @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public Component getTableCellEditorComponent(JTable table, Object value,
                                    boolean isSelected, int row, int column) {
     list.setModel((DefaultListModel )value);

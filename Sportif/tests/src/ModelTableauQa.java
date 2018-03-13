@@ -46,7 +46,7 @@ public class ModelTableauQa extends AbstractTableModel {
       questions1.add(new Question("Good ?", false));
       questions1.add(new Question("Awake ?", true));
       questions1.add(new Question("Wakdsse up ?", true));
-      questions1.add(new Question("Wakedds up ?", true));
+      questions1.add(new Question("Wakedds up ?", false));
       questions1.add(new Question("Waksdsde up ?", true));
       questions1.add(new Question("Wakdsdse up ?", true));
       

@@ -12,19 +12,6 @@ public class Questionnaire {
   private String messageFin;
   private ArrayList<Question> quListe;
 
-  /**public Questionnaire(String titre, Date dateD, Date dateF).
-   * Le constructeur de l'objet Questionnaire
-   */
-  public Questionnaire(java.util.Date dateD2, java.util.Date dateF2) {
-    super();
-    this.dateD = dateD2;
-    this.dateF = dateF2;
-    this.quListe = new ArrayList<Question>();
-    this.titre = new String();
-    this.sstitre = new String();
-    this.messageFin = new String();
-  }
-
   /**public Questionnaire(String titre, String sstitre, Date dateD, Date dateF, String messageFin).
    * 
    * @param titre : titre du questionnaire
@@ -33,15 +20,14 @@ public class Questionnaire {
    * @param dateF : date de fin du questionnaire
    * @param messageFin : message de fin du questionnaire
    */
-  public Questionnaire(String titre, String sstitre, Date dateD, Date dateF, String messageFin, 
-      ArrayList<Question> quList) {
+  public Questionnaire(String titre, String sstitre, Date dateD, Date dateF, String messageFin, ArrayList<Question> lq) {
     super();
     this.titre = titre;
     this.sstitre = sstitre;
     this.dateD = dateD;
     this.dateF = dateF;
     this.messageFin = messageFin;
-    this.quListe = quList;
+    this.quListe = lq;
   }
 
   public String getTitre() {
@@ -196,7 +182,12 @@ public class Questionnaire {
 
   @Override
   public String toString() {
-    String res = ""+titre+"";
-    return res;
+    String res = "Questionnaire [titre=" + titre + ", sstitre=" + sstitre + ","
+        + " dateD=" + dateD + ", dateF=" + dateF
+        + ", messageFin=" + messageFin + ", quListe=";
+    for (int i = 0; i < quListe.size(); i++) {
+      res += quListe.get(i).toString();
+    }
+    return res + "]";
   }
 }

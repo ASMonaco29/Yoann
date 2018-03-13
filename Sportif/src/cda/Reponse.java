@@ -4,7 +4,9 @@ import java.sql.Date;
 
 public class Reponse {
   private Date date;
-  private Boolean reponses;
+  private ArrayList<Boolean> reponses;
+  private Sportif sportif;
+  private Questionnaire questionnaire;
   //private int identifiant;
 
   public Reponse(Date date, Boolean bln) {
