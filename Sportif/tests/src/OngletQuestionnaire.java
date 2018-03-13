@@ -189,6 +189,7 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
     sorter.setSortable(5, false);
     sorter.setSortsOnUpdates(true);
     tableauQ.setRowSorter(sorter);
+    tableauQ.getTableHeader().setReorderingAllowed(false);
     tableauQ.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
           jTable1MouseClicked(evt);

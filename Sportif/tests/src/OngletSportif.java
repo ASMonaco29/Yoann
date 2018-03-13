@@ -192,6 +192,7 @@ public class OngletSportif extends JFrame implements ActionListener {
     sorter.setSortable(5, false);
     sorter.setSortsOnUpdates(true);
     tableauS.setRowSorter(sorter);
+    tableauS.getTableHeader().setReorderingAllowed(false);
     tableauS.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
           jTable1MouseClicked(evt);
