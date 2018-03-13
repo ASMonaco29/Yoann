@@ -79,7 +79,6 @@ public class OngletSportif extends JFrame implements ActionListener {
   private UtilDateModel modelDate;
   private JDatePanelImpl datePanel;
   private JDatePickerImpl dateNaissance;
-  @SuppressWarnings("unused")
   private int selectedRowQa = -1;
  
   
@@ -242,10 +241,10 @@ public class OngletSportif extends JFrame implements ActionListener {
     
     /**************************** MODIFIER QUESTIONNAIRE ********************************/
     if(source == this.bModifier){
-/*
-      new WindowModifierQuestionaire(this, modeleQ, this.selectedRowQa, this.tTitre.getText(), this.tStitre.getText(), this.tMessageFin.getText(),
-          (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
-    */}
+
+      modeleS.modifQuestionnaire(this.tNom.getText(), this.tPrenom.getText(), this.tPseudo.getText(),
+          (Date)dateNaissance.getModel().getValue(), (Sport)this.jSport.getSelectedItem(), this.selectedRowQa);
+    }
     
     /**************************** SUPPRIMER QUESTIONNAIRE ********************************/
     if(source == this.bSupprimer){

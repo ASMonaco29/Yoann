@@ -45,7 +45,10 @@ public class ModelTableauQa extends AbstractTableModel {
       questions.add(new Question("Debout ?", true));
       questions1.add(new Question("Good ?", false));
       questions1.add(new Question("Awake ?", true));
-      questions1.add(new Question("Wake up ?", true));
+      questions1.add(new Question("Wakdsse up ?", true));
+      questions1.add(new Question("Wakedds up ?", true));
+      questions1.add(new Question("Waksdsde up ?", true));
+      questions1.add(new Question("Wakdsdse up ?", true));
       
       this.cal = Calendar.getInstance();
       cal.set(Calendar.YEAR, 2018);
@@ -152,7 +155,7 @@ public class ModelTableauQa extends AbstractTableModel {
   public void modifQuestionnaire(Questionnaire quest, int indx){
     this.questionnaires.modifQuestionnaire(quest, indx);
     
-    fireTableRowsUpdated(getRowCount()-1, getRowCount()-1);
+    fireTableRowsUpdated(indx, indx);
   }
   
   

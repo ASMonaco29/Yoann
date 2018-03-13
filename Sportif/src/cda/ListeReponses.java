@@ -19,7 +19,13 @@ public class ListeReponses {
   }
   
   public void removeListeReponses(Reponse reponse) {
-    this.reponses.remove(reponse);
+    int i=0;
+    for(Reponse reponse2 : reponses) {
+      if(reponse2==reponse) {
+        this.reponses.remove(i);
+      }
+      i++;
+    }  
   }
   
   public Sportif getSportif() {

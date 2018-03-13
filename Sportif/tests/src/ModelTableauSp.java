@@ -137,13 +137,13 @@ public class ModelTableauSp extends AbstractTableModel {
     
     fireTableRowsDeleted(rowIndex, rowIndex);
   }
-  /*
-  public void modifQuestionnaire(Questionnaire quest, int indx){
-    this.questionnaires.modifQuestionnaire(quest, indx);
+  
+  public void modifQuestionnaire(String nom, String prenom, String pseudo, Date date, Sport sport, int indx){
+    this.sportifs.modifierSportif(nom, prenom, pseudo, date, sport);
     
-    fireTableRowsUpdated(getRowCount()-1, getRowCount()-1);
+    fireTableRowsUpdated(indx, indx);
   }
-  */
+  
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override

@@ -2,7 +2,6 @@ package cda;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 
 public class ListeQuestionnaires {
   
@@ -19,10 +18,6 @@ public class ListeQuestionnaires {
 
   public void setListQ(ArrayList<Questionnaire> listQ) {
     this.listQ = listQ;
-  }
-  
-  public int getSizeListQ(){
-    return this.listQ.size();
   }
   
   
@@ -43,7 +38,6 @@ public class ListeQuestionnaires {
     
     for (int i = 0; i < quliste.size(); i++) {
       quest.addQuestion(quliste.get(i));
-      //System.out.println(quliste.get(i));
     }
     listQ.add(quest);
     return 0;
@@ -54,38 +48,44 @@ public class ListeQuestionnaires {
   }
   
   
-  /**Modifie un Questionnaire.
+  /** Modifie un questionnaire de la liste de questionnaires.
    * 
-   * @param quest : questionnaire à modifier
-   * @param indx 
+   * @param nq : Questionnaire rassemblant les modifications à apporter.
+   * @param index : indice du questionnaire à modifier.
+   * @return
    */
-  @SuppressWarnings("resource")
-  public void modifQuestionnaire(Questionnaire quest, int indx) {
-    int statut = testModifQuestionnaire(quest);
-    Scanner sc = new Scanner(System.in);
-    int choix;
-    
-    switch (statut) {
-      case -2:
-        System.out.println("Le questionnaire peut être modifié");
-        break;
-      case -1:
-        System.out.println("Le questionnaire ne peut être modifié, il est ouvert.");
-        break;
-      case 0:
-        System.out.println("Le questionnaire est fermé, il peut être modifié.");
-        System.out.println("Que voulez-vous modifier?");
-        System.out.println("\t1. Les dates");
-        choix = sc.nextInt();
-        if (choix == 1) {
-          modifDates(quest);
-        }
-        break;
-
-      default:
-        break;
+  public int modifQuestionnaire(Questionnaire nq, int index) {
+    if (index < 0 || index >= this.listQ.size()) {
+      return -1;
+    }
+    int statut = testModifQuestionnaire(this.listQ.get(index));
+    if (statut == -1) {
+      return -1;
     }
     
+    if (!this.listQ.get(index).getTitre().equals(nq.getTitre())) {
+      this.listQ.get(index).setTitre(nq.getTitre());
+    }
+    if (!this.listQ.get(index).getSstitre().equals(nq.getSstitre())) {
+      this.listQ.get(index).setSstitre(nq.getSstitre());
+    }
+    if (!this.listQ.get(index).getDateD().equals(nq.getDateD())) {
+      this.listQ.get(index).setDateD(nq.getDateD());
+    }
+    if (!this.listQ.get(index).getDateF().equals(nq.getDateF())) {
+      this.listQ.get(index).setDateF(nq.getDateF());
+    }
+    if (!this.listQ.get(index).getMessageFin().equals(nq.getMessageFin())) {
+      this.listQ.get(index).setMessageFin(nq.getMessageFin());
+    }
+    
+    for (int i = 0; i < this.listQ.get(index).getquListe().size(); i++) {
+      if (!nq.getquListe().get(i).equals(this.listQ.get(index).getquListe().get(i))) {
+        this.listQ.get(index).getquListe().get(i).setChoixDeflt(nq.getquListe().get(i).getChoixDeflt());
+        this.listQ.get(index).getquListe().get(i).setQuestion(nq.getquListe().get(i).getQuestion());
+      }
+    }
+    return 0;
   }
   
   
@@ -109,41 +109,6 @@ public class ListeQuestionnaires {
   }
   
   
-  /** Modifie les dates du questionnaire.
-   * 
-   * @param quest : questionnaire dont les dates vont être modifiées
-   */
-  @SuppressWarnings({ "deprecation", "resource" })
-  public void modifDates(Questionnaire quest) {
-    Scanner sc = new Scanner(System.in);
-    
-    System.out.println("Saisissez l'année de début du questionnaire :  ");
-    int ad = sc.nextInt();
-    System.out.println("Saisissez le mois de début du questionnaire :  ");
-    int md = sc.nextInt();  
-    System.out.println("Saisissez le jour de début du questionnaire :  ");
-    int jd = sc.nextInt();  
-    System.out.println("Saisissez l'année de fin du questionnaire :  ");
-    int af = sc.nextInt();
-    System.out.println("Saisissez le mois de fin du questionnaire :  ");
-    int mf = sc.nextInt();
-    System.out.println("Saisissez le jour de fin du questionnaire :  ");
-    int jf = sc.nextInt();  
-    Date d = new Date(ad - 1900, md, jd);
-    Date f = new Date(af - 1900, mf, jf);
-    
-    if (!d.before(f)) {
-      System.out.println("Erreur, la date de fin est inférieur à la date de début.");
-      modifDates(quest);
-      return;
-    }
-    
-    quest.setDateD(d);
-    quest.setDateF(f);
-    return;
-  }
-  
-  
   /** Supprime un questionnaire de la liste.
    * 
    * @param q : le questionnaire à supprimer.
@@ -160,6 +125,14 @@ public class ListeQuestionnaires {
     return 0;
   }
   
+  
+  /** Donne le nombre de questionnaires.
+   * 
+   * @return : la taille de la liste de questionnaires.
+   */
+  public int getSizeListQ(){
+    return this.listQ.size();
+  }
   
 
 }

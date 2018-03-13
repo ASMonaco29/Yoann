@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Reponse {
   private Date date;
   private Boolean reponses;
+  //private int identifiant;
 
   public Reponse(Date date, Boolean bln) {
     this.date = date;

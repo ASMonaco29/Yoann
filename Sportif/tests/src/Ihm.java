@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -45,7 +46,8 @@ public class Ihm extends JFrame implements ActionListener {
   private JPanel panelQuitter;
   private JPanel panelQuitter1;
  
-  
+  // ASTUCE
+  private JLabel astuce;
   
   /** Constructeur.
   * @param nom Contient le nom de la fenêtre
@@ -83,6 +85,7 @@ public class Ihm extends JFrame implements ActionListener {
     // Ajoute les (panels) onglets à la fenêtre principale
     this.add(tabbedPane, BorderLayout.CENTER); 
     
+    this.astuce = new JLabel("    Astuce : Ctrl + Clic, pour déselectionner une ligne du tableau.");
     
     // Le bouton pour QUITTER
     this.panelQuitter = new JPanel(new BorderLayout());
@@ -90,6 +93,7 @@ public class Ihm extends JFrame implements ActionListener {
     this.quitter = new JButton("Quitter");
     this.quitter.addActionListener(this);
     
+    this.panelQuitter.add(this.astuce, BorderLayout.WEST);
     this.panelQuitter.add(this.panelQuitter1, BorderLayout.EAST); 
     this.panelQuitter1.add(this.quitter);
     this.add(panelQuitter, BorderLayout.SOUTH);

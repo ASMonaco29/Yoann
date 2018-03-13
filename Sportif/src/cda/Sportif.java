@@ -41,13 +41,15 @@ public class Sportif {
       return null;
     }
     
-    sp.setPseudo(pseudo);
+    if(!sp.setPseudo(pseudo)) {
+      return null;
+    }
     
     if(!sp.setNaissance(date)) {
       return null;
     }
     
-    sp.setSport(sport);    
+    sp.setSport(sport);
     sp.ajouterListQ(new ArrayList<Questionnaire>());
     
     return sp;
@@ -103,8 +105,16 @@ public class Sportif {
     return pseudo;
   }
   
-  public void setPseudo(String pseudo) {
-    this.pseudo = pseudo;
+  public boolean setPseudo(String pseudo) {
+    boolean result = false;
+    
+    if (verifierStringPseudo(pseudo)) {
+      this.pseudo = pseudo;
+      result = true;
+    }else {
+      result = false;
+    }
+    return result;
   }
 
   public Date getNaissance() {
@@ -228,11 +238,28 @@ public class Sportif {
     boolean result = true;
     for (int i = 0; i < newString.length();i++) {
       char chrNom = newString.charAt(i); //recup le cara
-      if (Character.isLetter(chrNom) == false) { //test caractere
+      if (Character.isLetter(chrNom) == true) { //test caractere
+        result = true;
+      }else if(Character.isSpaceChar(chrNom) == true) {
+        result = true;
+      }else {
         result = false;
       }
     }
       
+    return result;
+  }
+  
+  public boolean verifierStringPseudo(String newString) {
+    boolean result = true;
+    
+    for (int i = 0; i < newString.length();i++) {
+      char chrNom = newString.charAt(i); //recup le cara
+      if(Character.isSpaceChar(chrNom) == true) {
+        result = false;
+      }
+    }
+    
     return result;
   }
 
@@ -240,8 +267,8 @@ public class Sportif {
     return listQ;
   }
 
-  public void ajouterListQ(ArrayList<Questionnaire> listQ) {
-    this.listQ = listQ;
+  public void ajouterListQ(ArrayList<Questionnaire> listQu) {
+    this.listQ = listQu;
   }
   
   public void ajouterQuestionnaire(Questionnaire q) {
