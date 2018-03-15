@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -181,12 +182,29 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
       selection = tableauQn.convertRowIndexToModel(selections[0]);
       
       new WindowReponsesQuestionaireSp(this.wind, this.modeleQaSp, selection);
+      this.bSupprQn.setEnabled(false);
+      this.bDetailQna.setEnabled(false);
     }
     
     /**************************** SUPPRIMER REPONSES AU QUESTIONNAIRE ********************************/
     
     else if(source == bSupprQn){
-      // Renvoyer vers une seconde/troisième fenêtre !
+      int[] selections;
+      int selection;
+      int replyR;
+      String messageSupR;
+      
+      selections = tableauQn.getSelectedRows();
+      selection = tableauQn.convertRowIndexToModel(selections[0]);
+      
+      messageSupR = "Etes-vous sur de vouloir supprimer les réponses de ce questionnaire pour cette "
+          + "date, définitivement ?";
+      replyR = JOptionPane.showConfirmDialog(null, messageSupR, "Confirmation de la suppression",
+          JOptionPane.YES_NO_OPTION);
+      
+      if (replyR == JOptionPane.YES_OPTION) {
+        modeleQaSp.removeReponses(selection);
+      }
     }
     
     /**************************** AJOUTER REPONSES AU QUESTIONNAIRE ********************************/

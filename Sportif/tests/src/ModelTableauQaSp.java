@@ -126,6 +126,18 @@ public class ModelTableauQaSp extends AbstractTableModel {
   }
   
   
+  public void removeReponses(int rowIndex) {
+    this.reponses.supprimerReponse(this.reponses.getReponses().get(rowIndex));
+    
+    fireTableRowsDeleted(rowIndex, rowIndex);
+  }
+  
+  public void modifReponses(int rowIndex) {
+    this.reponses.modifierReponse(this.reponses.getReponses().get(rowIndex), rowIndex);
+    
+    fireTableRowsUpdated(rowIndex, rowIndex);
+  }
+  
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override

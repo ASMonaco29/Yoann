@@ -53,20 +53,6 @@ public class ModelTableauRpSp extends AbstractTableModel {
     }
   }
   
-    /*
-  
-  public void supprimerReponses(int rowIndex) {
-    this.reponses.supprimerSportif();
-    
-    fireTableRowsDeleted(rowIndex, rowIndex);
-  }
-  
-  public void modifReponses(){
-    this.reponses.modifierSportif();
-    
-    fireTableRowsUpdated(indx, indx);
-  }
-  */
   
   @Override
   public void setValueAt(Object aValue, int rowIndex, int columnIndex) {

@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,7 +31,7 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
   private JTable tableauQn;
   //private ModelTableauQa modeleQa;
   private JButton bAnnulerQn;
-  private JButton bDetailQna;
+  private JButton bModifierQna;
   private JButton bSupprQn;
   private JLabel lIntro; 
   private JLabel tricheQna;
@@ -40,12 +41,11 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
   private JPanel panelQnN1;
   private JPanel pFinalQn;
   private ModelTableauRpSp modeleRpSp;
-  Reponse rep;
-  SimpleDateFormat format;
-  Date date;
-  //private ArrayList<Question> listeQuest;
-  //private int selectedRowQa;
-  
+  private ModelTableauQaSp modeleQaSp;
+  private Reponse rep;
+  private SimpleDateFormat format;
+  private Date date;
+  private int selectedRowQa;
   
   // CONSTRUCTEUR :
   public WindowReponsesQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, int selectedRowQa){
@@ -56,17 +56,19 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
     this.rep = modeleQs.getListR().getReponses().get(selectedRowQa);
     //this.selectedRowQa = selectedRowQa;
     modeleRpSp = new ModelTableauRpSp(modeleQs.getListR(), selectedRowQa);
+    modeleQaSp = modeleQs;
     tableauQn = new JTable(modeleRpSp);
+    this.selectedRowQa = selectedRowQa;
     bAnnulerQn = new JButton("Retour");
     bAnnulerQn.addActionListener(this);
-    bDetailQna = new JButton("Modifier");
-    bDetailQna.addActionListener(this);
+    bModifierQna = new JButton("Modifier");
+    bModifierQna.addActionListener(this);
     bSupprQn = new JButton("Supprimer réponses");
     bSupprQn.addActionListener(this);
     
     format = new SimpleDateFormat("dd/MM/yyyy");
     date = this.rep.getDate();
-    lIntro = new JLabel("Liste des réponses au questionnaire \" "+ this.rep.getQuestionnaire().getTitre()
+    lIntro = new JLabel("Liste des réponses au questionnaire \""+ this.rep.getQuestionnaire().getTitre()
       +"\" à la date : " + format.format(this.date)); 
     tricheQna = new JLabel("     ");
     tricheQnb = new JLabel("     ");
@@ -97,7 +99,7 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
     pGlobBtn = new JPanel();
     pGlobBtn.add(bSupprQn);
     pGlobBtn.add(tricheQna);
-    pGlobBtn.add(bDetailQna);
+    pGlobBtn.add(bModifierQna);
     pGlobBtn.add(tricheQnb);
     pGlobBtn.add(bAnnulerQn);
     pFinalQn.add(panelQnN1, BorderLayout.NORTH);
@@ -128,17 +130,31 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
       this.dispose();
     }
     
-    /**************************** DETAIL REPONSES DU QUESTIONNAIRE ********************************/
+    /**************************** MODIFIER REPONSES DU QUESTIONNAIRE ********************************/
     
-    else if(source == bDetailQna){
-      //new WindowReponseQuestionaireSp(this, new ModelTableauQaSp(s), this.selectedRowQa, 
-        //  (String)modeleS.getValueAt(selection, 0));
+    else if(source == bModifierQna){
+      modeleQaSp.modifReponses(this.selectedRowQa);
+      this.setVisible(false);
+      this.dispose();
     }
     
     /**************************** SUPPRIMER REPONSES AU QUESTIONNAIRE ********************************/
     
     else if(source == bSupprQn){
-      // Renvoyer vers une seconde/troisième fenêtre !
+
+      int replyR;
+      String messageSupR;
+
+      messageSupR = "Etes-vous sur de vouloir supprimer les réponses de ce questionnaire pour cette "
+          + "date, définitivement ?";
+      replyR = JOptionPane.showConfirmDialog(null, messageSupR, "Confirmation de la suppression",
+          JOptionPane.YES_NO_OPTION);
+      
+      if (replyR == JOptionPane.YES_OPTION) {
+        modeleQaSp.removeReponses(this.selectedRowQa);
+        this.setVisible(false);
+        this.dispose();
+      }
     }
     
     

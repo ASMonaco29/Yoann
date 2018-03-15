@@ -38,6 +38,9 @@ public class ListeReponses {
           this.reponses.remove(r);
   }
   
+  public void modifierReponse(Reponse r, int indx){
+    this.reponses.set(indx, r);
+  }
   
   /*
   public ListeReponses() {
