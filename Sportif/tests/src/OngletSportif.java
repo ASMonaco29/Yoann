@@ -196,8 +196,8 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.tableauS = new JTable(modeleS);
     this.sorter = new TableRowSorter<ModelTableauSp>(modeleS); 
     tableauS.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    tableauS.getColumn("Questionnaire(s) répondu(s)").setCellRenderer(new JListRenderer());
-    tableauS.getColumn("Questionnaire(s) répondu(s)").setCellEditor(new JListEditor());
+    tableauS.getColumn("Questionnaire(s) attribué(s)").setCellRenderer(new JListRenderer());
+    tableauS.getColumn("Questionnaire(s) attribué(s)").setCellEditor(new JListEditor());
     tableauS.setRowHeight(70);
     sorter.setSortable(5, false);
     sorter.setSortsOnUpdates(true);

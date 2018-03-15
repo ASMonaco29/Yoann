@@ -7,8 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -16,22 +14,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import cda.Reponse;
 
 @SuppressWarnings("serial")
-public class WindowReponsesQuestionaireSp extends JDialog implements ActionListener {
+public class WindowAjoutReponsesQuestionaireSp extends JDialog implements ActionListener {
   
   // Attributs à ajouter :
   private JTable tableauQn;
+  //private ModelTableauQa modeleQa;
   private JButton bAnnulerQn;
   private JButton bModifierQna;
-  private JButton bSupprQn;
   private JLabel lIntro; 
   private JLabel tricheQna;
   private JLabel tricheQnb;
@@ -41,33 +37,23 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
   private JPanel pFinalQn;
   private ModelTableauRpSp modeleRpSp;
   private ModelTableauQaSp modeleQaSp;
-  private Reponse rep;
-  private SimpleDateFormat format;
-  private Date date;
   private int selectedRowQa;
   
   // CONSTRUCTEUR :
-  public WindowReponsesQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, int selectedRowQa){
+  public WindowAjoutReponsesQuestionaireSp(Component compo, ModelTableauQaSp modeleQs){
   
-    super((Frame) compo, "Liste de réponses", true);
+    super((Frame) compo, "Ajout de réponses", true);
     
-    // Initilisation : 
-    this.rep = modeleQs.getListR().getReponses().get(selectedRowQa);
+    // Initilisation :
     modeleRpSp = new ModelTableauRpSp(modeleQs.getListR(), selectedRowQa);
     modeleQaSp = modeleQs;
     tableauQn = new JTable(modeleRpSp);
-    this.selectedRowQa = selectedRowQa;
-    bAnnulerQn = new JButton("Retour");
+    bAnnulerQn = new JButton("Annuler");
     bAnnulerQn.addActionListener(this);
-    bModifierQna = new JButton("Modifier");
+    bModifierQna = new JButton("Ajouter");
     bModifierQna.addActionListener(this);
-    bSupprQn = new JButton("Supprimer réponses");
-    bSupprQn.addActionListener(this);
     
-    format = new SimpleDateFormat("dd/MM/yyyy");
-    date = this.rep.getDate();
-    lIntro = new JLabel("Liste des réponses au questionnaire \""+ this.rep.getQuestionnaire().getTitre()
-      +"\" à la date : " + format.format(this.date)); 
+    lIntro = new JLabel("Ajout de nouvelles réponses au questionnaire : ");
     tricheQna = new JLabel("     ");
     tricheQnb = new JLabel("     ");
     
@@ -95,7 +81,6 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
     
     
     pGlobBtn = new JPanel();
-    pGlobBtn.add(bSupprQn);
     pGlobBtn.add(tricheQna);
     pGlobBtn.add(bModifierQna);
     pGlobBtn.add(tricheQnb);
@@ -121,7 +106,7 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
   public void actionPerformed(ActionEvent e) {
     Object source = e.getSource();
     
-    /**************************** QUITTER ********************************/
+    /**************************** ANNULER ********************************/
     
     if(source == bAnnulerQn){
       this.setVisible(false);
@@ -134,25 +119,6 @@ public class WindowReponsesQuestionaireSp extends JDialog implements ActionListe
       modeleQaSp.modifReponses(this.selectedRowQa);
       this.setVisible(false);
       this.dispose();
-    }
-    
-    /**************************** SUPPRIMER REPONSES AU QUESTIONNAIRE ********************************/
-    
-    else if(source == bSupprQn){
-
-      int replyR;
-      String messageSupR;
-
-      messageSupR = "Etes-vous sur de vouloir supprimer les réponses de ce questionnaire pour cette "
-          + "date, définitivement ?";
-      replyR = JOptionPane.showConfirmDialog(null, messageSupR, "Confirmation de la suppression",
-          JOptionPane.YES_NO_OPTION);
-      
-      if (replyR == JOptionPane.YES_OPTION) {
-        modeleQaSp.removeReponses(this.selectedRowQa);
-        this.setVisible(false);
-        this.dispose();
-      }
     }
     
     

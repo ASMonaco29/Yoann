@@ -210,7 +210,7 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
     /**************************** AJOUTER REPONSES AU QUESTIONNAIRE ********************************/
     
     else if(source == bCreerQn){
-      // Renvoyer vers une seconde/troisième fenêtre !
+      new WindowAjoutReponsesQuestionaireSp(this.wind, this.modeleQaSp);
     }
     
   }

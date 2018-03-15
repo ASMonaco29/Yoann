@@ -117,6 +117,10 @@ public class ModelTableauQa extends AbstractTableModel {
   public String getColumnName(int columnIndex) {
       return this.entetes[columnIndex];
   }
+  
+  public ListeQuestionnaires getListeQuestionnaires(){
+    return this.questionnaires;
+  }
 
   public Object getValueAt(int rowIndex, int columnIndex) {
     switch(columnIndex){

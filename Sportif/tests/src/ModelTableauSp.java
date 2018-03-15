@@ -20,7 +20,7 @@ public class ModelTableauSp extends AbstractTableModel {
   private ListeQuestionnaires questionnaires;
 
   private final String[] entetes = {"Pseudo", "Nom", "Prénom", "Date de naissance", 
-      "Sport", "Questionnaire(s) répondu(s)"};
+      "Sport", "Questionnaire(s) attribué(s)"};
   
   @SuppressWarnings("rawtypes")
   private ArrayList<DefaultListModel> modl;
