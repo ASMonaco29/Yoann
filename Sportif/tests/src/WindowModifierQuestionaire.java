@@ -189,8 +189,6 @@ public class WindowModifierQuestionaire extends JDialog implements ActionListene
     ImageIcon img = new ImageIcon("logo-sportif.jpg");
     this.setIconImage(img.getImage());
     
-    tableauQn.setDefaultEditor(Boolean.class, new BoolCellEditor());
-    
     
     // Initialisation des checkbox pour la première colonne.
     listeQuest = new ArrayList<Question>();

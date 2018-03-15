@@ -183,7 +183,6 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     ImageIcon img = new ImageIcon("logo-sportif.jpg");
     this.setIconImage(img.getImage());
     
-    tableauQn.setDefaultEditor(Boolean.class, new BoolCellEditor());
     
     this.getContentPane().add(pFinalQn);
     this.pack();

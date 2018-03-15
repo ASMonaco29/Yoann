@@ -160,15 +160,6 @@ class DateLabelFormatter extends AbstractFormatter {
 }
 
 
-/* *********************************** CLASSE POUR JCHECKBOX ***************** */
-
-// PEUT ETRE A SUPPRIMER !!! ??
-@SuppressWarnings("serial")
-class BoolCellEditor extends DefaultCellEditor {
-  public BoolCellEditor() {
-      super(new JCheckBox());
-  }
-}
 
 
 /* ************************************* CLASSE POUR JLIST  ******************** */
