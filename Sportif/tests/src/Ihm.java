@@ -156,6 +156,8 @@ class DateLabelFormatter extends AbstractFormatter {
 
 
 /* *********************************** CLASSE POUR JCHECKBOX ***************** */
+
+// PEUT ETRE A SUPPRIMER !!! ??
 @SuppressWarnings("serial")
 class BoolCellEditor extends DefaultCellEditor {
   public BoolCellEditor() {
@@ -165,69 +167,67 @@ class BoolCellEditor extends DefaultCellEditor {
 
 
 /* ************************************* CLASSE POUR JLIST  ******************** */
+
 @SuppressWarnings("serial")
 class JListRenderer extends JScrollPane implements TableCellRenderer {
+   @SuppressWarnings("rawtypes")
+  JList list;
   
-  @SuppressWarnings("rawtypes")
-  private JList list;
-  
-  @SuppressWarnings("rawtypes")
+   @SuppressWarnings("rawtypes")
   public JListRenderer() {
-    super(VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_ALWAYS);
-    list = new JList();
-    this.getViewport().add(list);
-    
-  }
+      list = new JList();
+      getViewport().add(list);
+   }
   
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Component getTableCellRendererComponent(JTable table, Object value,
-       boolean isSelected, boolean hasFocus, int row, int column) {
-      
-    if (isSelected) {
-      this.setForeground(table.getSelectionForeground());
-      this.setBackground(table.getSelectionBackground());
-      list.setForeground(table.getSelectionForeground());
-      list.setBackground(table.getSelectionBackground());
-    } else {
-      this.setForeground(table.getForeground());
-      this.setBackground(table.getBackground());
-      list.setForeground(table.getForeground());
-      list.setBackground(table.getBackground());
-    }
+                                  boolean isSelected, boolean hasFocus,
+                                  int row, int column)
+   {
+      if (isSelected) {
+         setForeground(table.getSelectionForeground());
+         setBackground(table.getSelectionBackground());
+         list.setForeground(table.getSelectionForeground());
+         list.setBackground(table.getSelectionBackground());
+      } else {
+         setForeground(table.getForeground());
+         setBackground(table.getBackground());
+         list.setForeground(table.getForeground());
+         list.setBackground(table.getBackground());
+      }
   
-    list.setModel((DefaultListModel )value) ;
+      list.setModel((DefaultListModel) value) ;
  
-    return this;
-  }
+      return this;
+   }
 }
  
-
 /* ************************************* CLASSE POUR JLIST  ******************** */
+
 @SuppressWarnings("serial")
 class JListEditor extends DefaultCellEditor {
-   
-  @SuppressWarnings("rawtypes")
-  private JList list;
-  private JScrollPane scrollpane;
-
+   protected JScrollPane scrollpane;
+   @SuppressWarnings("rawtypes")
+   protected JList list;
+   @SuppressWarnings("rawtypes")
+  protected DefaultListModel mlm;
   
-  @SuppressWarnings({ "rawtypes" })
+   @SuppressWarnings("rawtypes")
   public JListEditor() {
-    super(new JCheckBox());
-    
-    scrollpane = new JScrollPane();
-    list = new JList(); 
-    scrollpane.getViewport().add(list);
-    
-  }
+      super(new JCheckBox());
+      scrollpane = new JScrollPane();
+      list = new JList(); 
+      scrollpane.getViewport().add(list);
+   }
   
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Component getTableCellEditorComponent(JTable table, Object value,
                                    boolean isSelected, int row, int column) {
-    list.setModel((DefaultListModel )value);
-    
+      list.setModel((DefaultListModel) value);
  
-    return scrollpane;
-  }
+      mlm = (DefaultListModel) value;
+ 
+      return scrollpane;
+   }
   
 }

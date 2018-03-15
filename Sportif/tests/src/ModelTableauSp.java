@@ -26,6 +26,10 @@ public class ModelTableauSp extends AbstractTableModel {
   private ArrayList<DefaultListModel> modl;
   private ArrayList<Question> questions;
   private ArrayList<Question> questions1;
+  private ArrayList<Question> questions2;
+  private ArrayList<Question> questions3;
+  private ArrayList<Question> questions4;
+  private ArrayList<Question> questions5;
 
   private Calendar cal;
   private Date date1;
@@ -43,13 +47,30 @@ public class ModelTableauSp extends AbstractTableModel {
       
       this.questions = new ArrayList<Question>();
       this.questions1 = new ArrayList<Question>();
+      this.questions2 = new ArrayList<Question>();
+      this.questions3 = new ArrayList<Question>();
+      this.questions4 = new ArrayList<Question>();
+      this.questions5 = new ArrayList<Question>();
       
       questions.add(new Question("Bien ?", false));
       questions.add(new Question("Reveillé ?", true));
       questions.add(new Question("Debout ?", true));
       questions1.add(new Question("Good ?", false));
-      questions1.add(new Question("Awake ?", true));
-      questions1.add(new Question("Wake up ?", true));
+      questions1.add(new Question("Awake ?", false));
+      questions1.add(new Question("Wake up ?", false));
+      questions2.add(new Question("Dur réveil ?", true));
+      questions2.add(new Question("Debout avant 8h ?", true));
+      questions2.add(new Question("Couché avant minuit ?", true));
+      questions3.add(new Question("Bonne journée ?", false));
+      questions3.add(new Question("Avez-vous pensé positivement ?", false));
+      questions3.add(new Question("Avez-vous fait une sieste ?", true));
+      questions4.add(new Question("Blessé ?", false));
+      questions4.add(new Question("Repos forcé ?", true));
+      questions4.add(new Question("Expulsé temporairement ?", false));
+      questions5.add(new Question("Heureux ?", true));
+      questions5.add(new Question("Souriez-vous assez ?", true));
+      questions5.add(new Question("Vous levez-vous du bon pied ?", false));
+      
       
       this.cal = Calendar.getInstance();
       cal.set(Calendar.YEAR, 1996);
@@ -76,10 +97,18 @@ public class ModelTableauSp extends AbstractTableModel {
           "Merci d'avoir répondu à ce questionnaire.", questions);
       questionnaires.addQuestionnaire("Santé", "Pour vous", date3, date4, 
           "Merci d'avoir répondu à ce questionnaire.", questions1);
+      questionnaires.addQuestionnaire("Lève-tôt-tard", "Repos !", date3, date4, 
+          "Merci d'avoir répondu à ce questionnaire.", questions2);
+      questionnaires.addQuestionnaire("Satisfaction", "et vous ?", date3, date4, 
+          "Merci d'avoir répondu à ce questionnaire.", questions3);
+      questionnaires.addQuestionnaire("Situation", "En ce moment...", date3, date4, 
+          "Merci d'avoir répondu à ce questionnaire.", questions4);
+      questionnaires.addQuestionnaire("La joie", "Heureux ?", date3, date4, 
+          "Merci d'avoir répondu à ce questionnaire.", questions5);
           
       sportifs.creerSportif("Alleno", "Malou", "Malou22", date2, Sport.Basketball);
-      sportifs.creerSportif("LeMestre", "Quentin", "QuentinIle", date4, Sport.Billard);
-      sportifs.creerSportif("LePape", "Rémi", "Rems56", date3, Sport.Golf);
+      sportifs.creerSportif("Mestre", "Quentin", "Quentin974", date4, Sport.Billard);
+      sportifs.creerSportif("Le Pape", "Rémi", "Rems56", date3, Sport.Golf);
       sportifs.creerSportif("Amicel", "Yoann", "Yoyo22", date1, Sport.Football);
       
       sportifs.getListeS().get(0).ajouterListQ(questionnaires.getListQ());
@@ -99,6 +128,10 @@ public class ModelTableauSp extends AbstractTableModel {
   public int getColumnCount() {
       return this.entetes.length;
   }
+  
+  public ListeSportifs getListeSportifs() {
+    return this.sportifs;
+}
 
   public String getColumnName(int columnIndex) {
       return this.entetes[columnIndex];
@@ -122,6 +155,7 @@ public class ModelTableauSp extends AbstractTableModel {
             return null; // Ne devrait jamais arriver
     }
   }
+  
     
   public void creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
     this.sportifs.creerSportif(nom, prenom, pseudo, date, sport);
@@ -138,11 +172,12 @@ public class ModelTableauSp extends AbstractTableModel {
     fireTableRowsDeleted(rowIndex, rowIndex);
   }
   
-  public void modifQuestionnaire(String nom, String prenom, String pseudo, Date date, Sport sport, int indx){
+  public void modifSportif(String nom, String prenom, String pseudo, Date date, Sport sport, int indx){
     this.sportifs.modifierSportif(nom, prenom, pseudo, date, sport);
     
     fireTableRowsUpdated(indx, indx);
   }
+  
   
   
   @SuppressWarnings({ "unchecked", "rawtypes" })

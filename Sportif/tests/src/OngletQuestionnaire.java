@@ -184,7 +184,7 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
     this.sorter = new TableRowSorter<ModelTableauQa>(modeleQ); 
     tableauQ.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     tableauQ.getColumn("Question(s)").setCellRenderer(new JListRenderer());
-    //tableauQ.getColumn("Question(s)").setCellEditor(new JListEditor());
+    tableauQ.getColumn("Question(s)").setCellEditor(new JListEditor());
     tableauQ.setRowHeight(70);
     sorter.setSortable(5, false);
     sorter.setSortsOnUpdates(true);

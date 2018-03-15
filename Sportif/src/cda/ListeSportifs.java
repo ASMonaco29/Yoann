@@ -101,6 +101,10 @@ public class ListeSportifs {
         sportif1.setPrenom(prenom);
       }
       
+      if(pseudo != null) {
+        sportif1.setPseudo(pseudo);
+      }
+      
       if (sport != null) {
         sportif1.setSport(sport);
       }

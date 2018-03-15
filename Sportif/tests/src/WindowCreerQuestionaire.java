@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,6 +93,7 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     bCreerQn.addActionListener(this);
     bSupprQn = new JButton("Supprimer question");
     bSupprQn.addActionListener(this);
+    bSupprQn.setEnabled(false);
     lTitreQn = new JLabel("Titre : "); 
     lStitreQn = new JLabel("Sous-titre : "); 
     lDatedQn = new JLabel("Date début : "); 
@@ -148,7 +151,12 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     
     tableauQn.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     tableauQn.setRowHeight(30);
-  
+    tableauQn.getTableHeader().setReorderingAllowed(false);
+    tableauQn.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent evt) {
+          jTableMouseClicked(evt);
+      }
+    });  
     
     
     
@@ -186,6 +194,17 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     
     
     
+  }
+
+
+  protected void jTableMouseClicked(MouseEvent evt) {
+    // get the selected row index
+    int modelRow = tableauQn.getSelectedRow();
+    if(modelRow != -1){          
+      this.bSupprQn.setEnabled(true);
+    } else {
+      this.bSupprQn.setEnabled(false);
+    }    
   }
 
 

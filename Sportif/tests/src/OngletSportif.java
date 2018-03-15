@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +40,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import cda.Sport;
+import cda.Sportif;
 
 
 
@@ -59,6 +62,7 @@ public class OngletSportif extends JFrame implements ActionListener {
   private JPanel pDateNaissance;
   private JPanel pSport;
   private JPanel pBoutons;
+  private JPanel pQuestionnaire;
   private JTextField tPseudo; 
   private JTextField tNom;
   private JTextField tPrenom;
@@ -70,6 +74,7 @@ public class OngletSportif extends JFrame implements ActionListener {
   private JLabel lDateNaissance;
   private JLabel lSport;
   private JLabel triche;
+  private JButton bQuestionnaire;
   private JButton bCreer;
   private JButton bModifier;
   private JButton bSupprimer;
@@ -112,6 +117,9 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.borderL = BorderFactory.createTitledBorder("Liste Sportifs");
     this.borderG = BorderFactory.createTitledBorder("Gérer Sportifs");
     
+    this.bQuestionnaire = new JButton("Détails questionnaires");
+    this.bQuestionnaire.addActionListener(this);
+    this.bQuestionnaire.setEnabled(false);
     this.bCreer = new JButton("Créer");
     this.bCreer.addActionListener(this);
     this.bModifier = new JButton("Modifier");
@@ -162,6 +170,7 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.pPrenom.setLayout(new BorderLayout());
     this.pDateNaissance = new JPanel();
     this.pSport = new JPanel();
+    this.pQuestionnaire = new JPanel();
     this.pBoutons = new JPanel();
     this.pBoutons.setLayout(new BoxLayout(this.pBoutons, BoxLayout.LINE_AXIS));
     
@@ -175,6 +184,7 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.pDateNaissance.add(this.dateNaissance, BorderLayout.EAST);
     this.pSport.add(this.lSport, BorderLayout.WEST);
     this.pSport.add(this.jSport, BorderLayout.EAST);
+    this.pQuestionnaire.add(this.bQuestionnaire);
     this.triche.setPreferredSize(new Dimension(0, 50));
     
     this.pBoutons.add(this.bCreer); 
@@ -193,8 +203,8 @@ public class OngletSportif extends JFrame implements ActionListener {
     sorter.setSortsOnUpdates(true);
     tableauS.setRowSorter(sorter);
     tableauS.getTableHeader().setReorderingAllowed(false);
-    tableauS.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
+    tableauS.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent evt) {
           jTable1MouseClicked(evt);
       }
     });
@@ -214,6 +224,7 @@ public class OngletSportif extends JFrame implements ActionListener {
     panelQg.add(pPrenom);
     panelQg.add(pDateNaissance);
     panelQg.add(pSport);
+    panelQg.add(pQuestionnaire);
     panelQg.add(triche);
     panelQg.add(pBoutons);
     
@@ -233,21 +244,39 @@ public class OngletSportif extends JFrame implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     Object source = e.getSource();
     
+    /**************************** GERER QUESTIONNAIRE ********************************/
+    if(source == this.bQuestionnaire){
+      int[] selections;
+      int selection;
+      selections = tableauS.getSelectedRows();
+      selection = tableauS.convertRowIndexToModel(selections[0]);
+      
+      Sportif s = null;
+      for(int i = 0; i < this.modeleS.getListeSportifs().getSizeListS(); i++){
+        if((String)modeleS.getValueAt(selection, 0) ==  
+            this.modeleS.getListeSportifs().getListeS().get(i).getPseudo()){
+          s = this.modeleS.getListeSportifs().getListeS().get(i);
+        }
+      }
+      
+      new WindowListeQuestionaireSp(this, new ModelTableauQaSp(s), this.selectedRowQa, 
+      (String)modeleS.getValueAt(selection, 0));
+      
+    }
     
-    /**************************** CREER QUESTIONNAIRE ********************************/
+    /**************************** CREER SPORTIF ********************************/
     if(source == this.bCreer){
       modeleS.creerSportif(this.tNom.getText(), this.tPrenom.getText(), this.tPseudo.getText(),
           (Date)dateNaissance.getModel().getValue(), (Sport)this.jSport.getSelectedItem());
     }
     
-    /**************************** MODIFIER QUESTIONNAIRE ********************************/
+    /**************************** MODIFIER SPORTIF ********************************/
     if(source == this.bModifier){
-
-      modeleS.modifQuestionnaire(this.tNom.getText(), this.tPrenom.getText(), this.tPseudo.getText(),
+      modeleS.modifSportif(this.tNom.getText(), this.tPrenom.getText(), this.tPseudo.getText(),
           (Date)dateNaissance.getModel().getValue(), (Sport)this.jSport.getSelectedItem(), this.selectedRowQa);
     }
     
-    /**************************** SUPPRIMER QUESTIONNAIRE ********************************/
+    /**************************** SUPPRIMER SPORTIF ********************************/
     if(source == this.bSupprimer){
       
       int[] selections;
@@ -296,6 +325,7 @@ public class OngletSportif extends JFrame implements ActionListener {
         this.dateNaissance.getModel().setDate(anTdy, moisTdy-1, jourTdy);
         this.bSupprimer.setEnabled(false);
         this.bModifier.setEnabled(false);
+        this.bQuestionnaire.setEnabled(false);
         this.bCreer.setEnabled(true);
       } // Sinon, la fenêtre se ferme.
       
@@ -305,7 +335,7 @@ public class OngletSportif extends JFrame implements ActionListener {
     
   }
   
-  private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
+  private void jTable1MouseClicked(MouseEvent evt) {                                     
     
    // get the model from the jtable
    ModelTableauSp model = (ModelTableauSp)tableauS.getModel();
@@ -362,6 +392,7 @@ public class OngletSportif extends JFrame implements ActionListener {
      
      // set the selected row data into jtextfields
      this.tPseudo.setText(model.getValueAt(selectedRowIndex, 0).toString());
+     this.tPseudo.setEditable(false);
      this.tNom.setText(model.getValueAt(selectedRowIndex, 1).toString());
      this.tPrenom.setText(model.getValueAt(selectedRowIndex, 2).toString());
      this.jSport.setSelectedIndex(i);
@@ -369,9 +400,11 @@ public class OngletSportif extends JFrame implements ActionListener {
      this.dateNaissance.getModel().setSelected(true);
      this.bSupprimer.setEnabled(true);
      this.bModifier.setEnabled(true);
+     this.bQuestionnaire.setEnabled(true);
      this.bCreer.setEnabled(false);
    } else {
      this.tPseudo.setText(null);
+     this.tPseudo.setEditable(true);
      this.tNom.setText(null);
      this.tPrenom.setText(null);
      this.jSport.setSelectedIndex(-1);
@@ -379,6 +412,7 @@ public class OngletSportif extends JFrame implements ActionListener {
      this.dateNaissance.getModel().setDate(anTdy, moisTdy-1, jourTdy);
      this.bSupprimer.setEnabled(false);
      this.bModifier.setEnabled(false);
+     this.bQuestionnaire.setEnabled(false);
      this.bCreer.setEnabled(true);
    }
 }               

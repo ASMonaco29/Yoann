@@ -182,12 +182,6 @@ public class Questionnaire {
 
   @Override
   public String toString() {
-    String res = "Questionnaire [titre=" + titre + ", sstitre=" + sstitre + ","
-        + " dateD=" + dateD + ", dateF=" + dateF
-        + ", messageFin=" + messageFin + ", quListe=";
-    for (int i = 0; i < quListe.size(); i++) {
-      res += quListe.get(i).toString();
-    }
-    return res + "]";
+    return this.titre;
   }
 }
