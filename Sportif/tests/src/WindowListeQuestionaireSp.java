@@ -31,60 +31,64 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
   private String sportif;
   private JTable tableauQn;
   private TableRowSorter<ModelTableauQaSp> sorter;
-  private JButton bAnnulerQn;
-  private JButton bDetailQna;
-  private JButton bCreerQn;
-  private JButton bSupprQn;
-  private JLabel lIntro; 
-  private JLabel lSportif; 
+  private JButton bannulerQn;
+  private JButton bdetailQna;
+  private JButton bcreerQn;
+  private JButton bsupprQn;
+  private JLabel lintro; 
+  private JLabel lsportif; 
   private JLabel tricheQna;
   private JLabel tricheQnb;
   private JLabel tricheQnc;
-  private JPanel pWestQst;
-  private JPanel pEastQst;
-  private JPanel pGlobBtn;
+  private JPanel pwestQst;
+  private JPanel peastQst;
+  private JPanel pglobBtn;
   private JPanel panelQnN;
   private JPanel panelQnN1;
   private JPanel panelQnN3;
-  private JPanel pFinalQn;
+  private JPanel pfinalQn;
   private Component wind;
   private ModelTableauQaSp modeleQaSp;
   
   
-  // CONSTRUCTEUR :
-  public WindowListeQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, String PseudoSp){
+  /** Constructeur.
+  * @param compo informations de la classe appelante : OngletSportif.
+  * 
+    Les autres paramètres : récupèrent les informations pour un sportif
+  */
+  public WindowListeQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, String pseudoSp) {
   
     super((Frame) compo, "Questionnaires attribués", true);
     // Initilisation : 
     //this.selectedRowQa = selectedRowQa;
-    this.sportif = PseudoSp;
+    this.sportif = pseudoSp;
     this.modeleQaSp = modeleQs;
     this.wind = compo;
     tableauQn = new JTable(modeleQaSp);
-    bAnnulerQn = new JButton("Retour");
-    bAnnulerQn.addActionListener(this);
-    bDetailQna = new JButton("Détail des réponses");
-    bDetailQna.addActionListener(this);
-    bDetailQna.setEnabled(false);
-    bCreerQn = new JButton("Ajouter réponses");
-    bCreerQn.addActionListener(this);
-    bSupprQn = new JButton("Supprimer réponses");
-    bSupprQn.addActionListener(this);
-    bSupprQn.setEnabled(false);
-    lIntro = new JLabel("Liste des questionnaires pour le sportif : "); 
-    lSportif = new JLabel(this.sportif); 
+    bannulerQn = new JButton("Retour");
+    bannulerQn.addActionListener(this);
+    bdetailQna = new JButton("Détail des réponses");
+    bdetailQna.addActionListener(this);
+    bdetailQna.setEnabled(false);
+    bcreerQn = new JButton("Ajouter réponses");
+    bcreerQn.addActionListener(this);
+    bsupprQn = new JButton("Supprimer réponses");
+    bsupprQn.addActionListener(this);
+    bsupprQn.setEnabled(false);
+    lintro = new JLabel("Liste des questionnaires pour le sportif : "); 
+    lsportif = new JLabel(this.sportif); 
     tricheQna = new JLabel("     ");
     tricheQnb = new JLabel("     ");
     tricheQnc = new JLabel("     ");
     
     panelQnN = new JPanel(new FlowLayout());
-    panelQnN.add(lIntro);
+    panelQnN.add(lintro);
     panelQnN1 = new JPanel();
     panelQnN1.setLayout(new BoxLayout(panelQnN1, BoxLayout.Y_AXIS));
     panelQnN1.add(panelQnN);
     panelQnN1.add(Box.createRigidArea(new Dimension(0,5)));
     panelQnN3 = new JPanel();
-    panelQnN3.add(lSportif);
+    panelQnN3.add(lsportif);
     panelQnN1.add(panelQnN3);
     panelQnN1.add(Box.createRigidArea(new Dimension(0,10)));
    
@@ -94,10 +98,10 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
    
     
     // Nouvelle fenêtre (questions) :
-    pFinalQn = new JPanel(new BorderLayout());
-    pFinalQn.setSize(670, 540);
-    pFinalQn.setVisible(true);
-    pFinalQn.setLayout(new BorderLayout());
+    pfinalQn = new JPanel(new BorderLayout());
+    pfinalQn.setSize(670, 540);
+    pfinalQn.setVisible(true);
+    pfinalQn.setLayout(new BorderLayout());
     
     tableauQn.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     tableauQn.setRowHeight(30);
@@ -107,36 +111,36 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
     tableauQn.getTableHeader().setReorderingAllowed(false);
     tableauQn.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-          jTableMouseClicked(evt);
+        clicSourisSurJtable(evt);
       }
     });
     
     
-    pWestQst = new JPanel();
-    pWestQst.setLayout(new BorderLayout());
-    pWestQst.add(bCreerQn, BorderLayout.WEST);
-    pWestQst.add(tricheQna, BorderLayout.CENTER);
-    pWestQst.add(bSupprQn, BorderLayout.EAST);
-    pEastQst = new JPanel();
-    pEastQst.setLayout(new BorderLayout());
-    pEastQst.add(bDetailQna, BorderLayout.WEST);
-    pEastQst.add(tricheQnb, BorderLayout.CENTER);
-    pEastQst.add(bAnnulerQn, BorderLayout.EAST);
-    pGlobBtn = new JPanel();
-    pGlobBtn.setLayout(new BorderLayout());
-    pGlobBtn.add(pWestQst, BorderLayout.WEST);
-    pGlobBtn.add(tricheQnc, BorderLayout.CENTER);
-    pGlobBtn.add(pEastQst, BorderLayout.EAST);
+    pwestQst = new JPanel();
+    pwestQst.setLayout(new BorderLayout());
+    pwestQst.add(bcreerQn, BorderLayout.WEST);
+    pwestQst.add(tricheQna, BorderLayout.CENTER);
+    pwestQst.add(bsupprQn, BorderLayout.EAST);
+    peastQst = new JPanel();
+    peastQst.setLayout(new BorderLayout());
+    peastQst.add(bdetailQna, BorderLayout.WEST);
+    peastQst.add(tricheQnb, BorderLayout.CENTER);
+    peastQst.add(bannulerQn, BorderLayout.EAST);
+    pglobBtn = new JPanel();
+    pglobBtn.setLayout(new BorderLayout());
+    pglobBtn.add(pwestQst, BorderLayout.WEST);
+    pglobBtn.add(tricheQnc, BorderLayout.CENTER);
+    pglobBtn.add(peastQst, BorderLayout.EAST);
     
-    pFinalQn.add(panelQnN1, BorderLayout.NORTH);
-    pFinalQn.add(new JScrollPane(tableauQn), BorderLayout.CENTER); 
-    pFinalQn.add(pGlobBtn, BorderLayout.SOUTH);
+    pfinalQn.add(panelQnN1, BorderLayout.NORTH);
+    pfinalQn.add(new JScrollPane(tableauQn), BorderLayout.CENTER); 
+    pfinalQn.add(pglobBtn, BorderLayout.SOUTH);
     
     ImageIcon img = new ImageIcon("logo-sportif.jpg");
     this.setIconImage(img.getImage());
     
     
-    this.getContentPane().add(pFinalQn);
+    this.getContentPane().add(pfinalQn);
     this.pack();
     this.setLocationRelativeTo(this);
     this.setMinimumSize(new Dimension(630, 500));
@@ -145,15 +149,15 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
   }
 
 
-  protected void jTableMouseClicked(MouseEvent evt) {
+  protected void clicSourisSurJtable(MouseEvent evt) {
     // get the selected row index
     int modelRow = tableauQn.getSelectedRow();
-    if(modelRow != -1){          
-      this.bSupprQn.setEnabled(true);
-      this.bDetailQna.setEnabled(true);
+    if (modelRow != -1) {          
+      this.bsupprQn.setEnabled(true);
+      this.bdetailQna.setEnabled(true);
     } else {
-      this.bSupprQn.setEnabled(false);
-      this.bDetailQna.setEnabled(false);
+      this.bsupprQn.setEnabled(false);
+      this.bdetailQna.setEnabled(false);
     }  
   }
 
@@ -162,38 +166,42 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
   public void actionPerformed(ActionEvent e) {
     Object source = e.getSource();
     
-    /**************************** QUITTER ********************************/
     
-    if(source == bAnnulerQn){
+    
+    if (source == bannulerQn) {
+      
+      /******************* QUITTER ***********************/
+      
       this.setVisible(false);
       this.dispose();
-    }
+      
+    } else if (source == bdetailQna) {
     
-    /**************************** DETAIL REPONSES DU QUESTIONNAIRE ********************************/
+      /************* DETAIL REPONSES DU QUESTIONNAIRE ********************/
     
-    else if(source == bDetailQna){
       int[] selections;
       int selection;
       selections = tableauQn.getSelectedRows();
       selection = tableauQn.convertRowIndexToModel(selections[0]);
       
       new WindowReponsesQuestionaireSp(this.wind, this.modeleQaSp, selection);
-      this.bSupprQn.setEnabled(false);
-      this.bDetailQna.setEnabled(false);
-    }
+      this.bsupprQn.setEnabled(false);
+      this.bdetailQna.setEnabled(false);
+      
+    } else if (source == bsupprQn) {
     
-    /**************************** SUPPRIMER REPONSES AU QUESTIONNAIRE ********************************/
+      /***************** SUPPRIMER REPONSES AU QUESTIONNAIRE *********************/
     
-    else if(source == bSupprQn){
+   
       int[] selections;
       int selection;
-      int replyR;
+      final int replyR;
       String messageSupR;
       
       selections = tableauQn.getSelectedRows();
       selection = tableauQn.convertRowIndexToModel(selections[0]);
       
-      messageSupR = "Etes-vous sur de vouloir supprimer les réponses de ce questionnaire pour cette "
+      messageSupR = "Etes-vous sur de vouloir supprimer les réponses de ce questionnaire pour cette"
           + "date, définitivement ?";
       replyR = JOptionPane.showConfirmDialog(null, messageSupR, "Confirmation de la suppression",
           JOptionPane.YES_NO_OPTION);
@@ -201,11 +209,11 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
       if (replyR == JOptionPane.YES_OPTION) {
         modeleQaSp.removeReponses(selection);
       }
-    }
+      
+    } else if (source == bdetailQna) {
     
-    /**************************** AJOUTER REPONSES AU QUESTIONNAIRE ********************************/
+      /****************** AJOUTER REPONSES AU QUESTIONNAIRE ***********************/
     
-    else if(source == bCreerQn){
       new WindowAjoutReponsesQuestionaireSp(this.wind, this.modeleQaSp);
     }
     

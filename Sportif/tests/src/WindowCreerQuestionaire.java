@@ -1,5 +1,7 @@
 package src;
 
+import cda.Question;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,8 +27,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import cda.Question;
-
 @SuppressWarnings("serial")
 public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   
@@ -38,40 +38,44 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   private Date dateF;
   private JTable tableauQn;
   private ModelTableauQn modeleQn;
-  private JButton bAnnulerQn;
-  private JButton bCreerQna;
-  private JButton bCreerQn;
-  private JButton bSupprQn;
-  private JLabel lTitreQn; 
-  private JLabel lStitreQn; 
-  private JLabel lDatedQn; 
-  private JLabel lDatefQn; 
-  private JLabel lMesgQn; 
-  private JLabel lTitreQn1; 
-  private JLabel lStitreQn1; 
-  private JLabel lDatedQn1; 
-  private JLabel lDatefQn1; 
-  private JLabel lMesgQn1; 
+  private JButton bannulerQn;
+  private JButton bcreerQna;
+  private JButton bcreerQn;
+  private JButton bsupprQn;
+  private JLabel ltitreQn; 
+  private JLabel lstitreQn; 
+  private JLabel ldatedQn; 
+  private JLabel ldatefQn; 
+  private JLabel lmesgQn; 
+  private JLabel ltitreQn1; 
+  private JLabel lstitreQn1; 
+  private JLabel ldatedQn1; 
+  private JLabel ldatefQn1; 
+  private JLabel lmesgQn1; 
   private JLabel lquestion;
   private JLabel tricheQna;
   private JLabel tricheQnb;
   private JLabel tricheQnc;
   private DateFormat dateFormat;
-  private JPanel pWestQst;
-  private JPanel pEastQst;
-  private JPanel pGlobBtn;
+  private JPanel pwestQst;
+  private JPanel peastQst;
+  private JPanel pglobBtn;
   private JPanel panelQnN;
   private JPanel panelQnN1;
   private JPanel panelQnN2 = null;
   private JPanel panelQnN3;
-  private JPanel pFinalQn;
+  private JPanel pfinalQn;
   private ModelTableauQa modeleQa;
   private ArrayList<Question> questions;
   
   
-  // CONSTRUCTEUR :
-  public WindowCreerQuestionaire(Component compo, ModelTableauQa modeleQ, String titre, String stitre, String msgfin,
-      Date dateD, Date dateF){
+  /** Constructeur.
+  * @param compo informations de la classe appelante : OngletQuestionnaire.
+  * 
+    Les autres paramètres : récupèrent les informations inscrites dans le formulaire
+  */
+  public WindowCreerQuestionaire(Component compo, ModelTableauQa modeleQ, 
+      String titre, String stitre, String msgfin, Date dateD, Date dateF) {
   
     super((Frame) compo, "Questions", true);
     
@@ -85,51 +89,51 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     this.modeleQa = modeleQ;
     modeleQn = new ModelTableauQn();
     tableauQn = new JTable(modeleQn);
-    bAnnulerQn = new JButton("Annuler");
-    bAnnulerQn.addActionListener(this);
-    bCreerQna = new JButton("Créer questionnaire");
-    bCreerQna.addActionListener(this);
-    bCreerQn = new JButton("Créer une nouvelle question");
-    bCreerQn.addActionListener(this);
-    bSupprQn = new JButton("Supprimer question");
-    bSupprQn.addActionListener(this);
-    bSupprQn.setEnabled(false);
-    lTitreQn = new JLabel("Titre : "); 
-    lStitreQn = new JLabel("Sous-titre : "); 
-    lDatedQn = new JLabel("Date début : "); 
-    lDatefQn = new JLabel("Date fin : "); 
-    lMesgQn = new JLabel("Message de fin : "); 
+    bannulerQn = new JButton("Annuler");
+    bannulerQn.addActionListener(this);
+    bcreerQna = new JButton("Créer questionnaire");
+    bcreerQna.addActionListener(this);
+    bcreerQn = new JButton("Créer une nouvelle question");
+    bcreerQn.addActionListener(this);
+    bsupprQn = new JButton("Supprimer question");
+    bsupprQn.addActionListener(this);
+    bsupprQn.setEnabled(false);
+    ltitreQn = new JLabel("Titre : "); 
+    lstitreQn = new JLabel("Sous-titre : "); 
+    ldatedQn = new JLabel("Date début : "); 
+    ldatefQn = new JLabel("Date fin : "); 
+    lmesgQn = new JLabel("Message de fin : "); 
     lquestion = new JLabel("Veuillez sélectionner vos questions pour ce questionnaire : "); 
     tricheQna = new JLabel("     ");
     tricheQnb = new JLabel("     ");
     tricheQnc = new JLabel("     ");
-    lTitreQn1 = new JLabel(this.titre); 
-    lStitreQn1 = new JLabel(this.stitre); 
+    ltitreQn1 = new JLabel(this.titre); 
+    lstitreQn1 = new JLabel(this.stitre); 
   
-    lMesgQn1 = new JLabel(this.msgfin); 
+    lmesgQn1 = new JLabel(this.msgfin); 
     panelQnN = new JPanel(new FlowLayout());
-    panelQnN.add(lTitreQn);
-    panelQnN.add(lTitreQn1);
-    panelQnN.add(lStitreQn);
-    panelQnN.add(lStitreQn1);
-    if(this.dateD != null && this.dateD != null){
-      lDatedQn1 = new JLabel(dateFormat.format(this.dateD)); 
-      lDatefQn1 = new JLabel(dateFormat.format(this.dateF)); 
+    panelQnN.add(ltitreQn);
+    panelQnN.add(ltitreQn1);
+    panelQnN.add(lstitreQn);
+    panelQnN.add(lstitreQn1);
+    if (this.dateD != null && this.dateD != null) {
+      ldatedQn1 = new JLabel(dateFormat.format(this.dateD)); 
+      ldatefQn1 = new JLabel(dateFormat.format(this.dateF)); 
     
       panelQnN2 = new JPanel(new FlowLayout());
-      panelQnN2.add(lDatedQn);
-      panelQnN2.add(lDatedQn1);
-      panelQnN2.add(lDatefQn);
-      panelQnN2.add(lDatefQn1);
+      panelQnN2.add(ldatedQn);
+      panelQnN2.add(ldatedQn1);
+      panelQnN2.add(ldatefQn);
+      panelQnN2.add(ldatefQn1);
     }
-    panelQnN.add(lMesgQn);
-    panelQnN.add(lMesgQn1);
+    panelQnN.add(lmesgQn);
+    panelQnN.add(lmesgQn1);
     
     panelQnN1 = new JPanel();
     panelQnN1.setLayout(new BoxLayout(panelQnN1, BoxLayout.Y_AXIS));
     panelQnN1.add(panelQnN);
     panelQnN1.add(Box.createRigidArea(new Dimension(0,5)));
-    if(this.dateD != null && this.dateD != null){
+    if (this.dateD != null && this.dateD != null) {
       panelQnN1.add(panelQnN2);
       panelQnN1.add(Box.createRigidArea(new Dimension(0,5)));
     }
@@ -144,47 +148,47 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     
     
     // Nouvelle fenêtre (questions) :
-    pFinalQn = new JPanel(new BorderLayout());
-    pFinalQn.setSize(670, 540);
-    pFinalQn.setVisible(true);
-    pFinalQn.setLayout(new BorderLayout());
+    pfinalQn = new JPanel(new BorderLayout());
+    pfinalQn.setSize(670, 540);
+    pfinalQn.setVisible(true);
+    pfinalQn.setLayout(new BorderLayout());
     
     tableauQn.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     tableauQn.setRowHeight(30);
     tableauQn.getTableHeader().setReorderingAllowed(false);
     tableauQn.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-          jTableMouseClicked(evt);
+        clicSourisSurJtable(evt);
       }
     });  
     
     
     
-    pWestQst = new JPanel();
-    pWestQst.setLayout(new BorderLayout());
-    pWestQst.add(bCreerQn, BorderLayout.WEST);
-    pWestQst.add(tricheQna, BorderLayout.CENTER);
-    pWestQst.add(bSupprQn, BorderLayout.EAST);
-    pEastQst = new JPanel();
-    pEastQst.setLayout(new BorderLayout());
-    pEastQst.add(bCreerQna, BorderLayout.WEST);
-    pEastQst.add(tricheQnb, BorderLayout.CENTER);
-    pEastQst.add(bAnnulerQn, BorderLayout.EAST);
-    pGlobBtn = new JPanel();
-    pGlobBtn.setLayout(new BorderLayout());
-    pGlobBtn.add(pWestQst, BorderLayout.WEST);
-    pGlobBtn.add(tricheQnc, BorderLayout.CENTER);
-    pGlobBtn.add(pEastQst, BorderLayout.EAST);
+    pwestQst = new JPanel();
+    pwestQst.setLayout(new BorderLayout());
+    pwestQst.add(bcreerQn, BorderLayout.WEST);
+    pwestQst.add(tricheQna, BorderLayout.CENTER);
+    pwestQst.add(bsupprQn, BorderLayout.EAST);
+    peastQst = new JPanel();
+    peastQst.setLayout(new BorderLayout());
+    peastQst.add(bcreerQna, BorderLayout.WEST);
+    peastQst.add(tricheQnb, BorderLayout.CENTER);
+    peastQst.add(bannulerQn, BorderLayout.EAST);
+    pglobBtn = new JPanel();
+    pglobBtn.setLayout(new BorderLayout());
+    pglobBtn.add(pwestQst, BorderLayout.WEST);
+    pglobBtn.add(tricheQnc, BorderLayout.CENTER);
+    pglobBtn.add(peastQst, BorderLayout.EAST);
     
-    pFinalQn.add(panelQnN1, BorderLayout.NORTH);
-    pFinalQn.add(new JScrollPane(tableauQn), BorderLayout.CENTER); 
-    pFinalQn.add(pGlobBtn, BorderLayout.SOUTH);
+    pfinalQn.add(panelQnN1, BorderLayout.NORTH);
+    pfinalQn.add(new JScrollPane(tableauQn), BorderLayout.CENTER); 
+    pfinalQn.add(pglobBtn, BorderLayout.SOUTH);
     
     ImageIcon img = new ImageIcon("logo-sportif.jpg");
     this.setIconImage(img.getImage());
     
     
-    this.getContentPane().add(pFinalQn);
+    this.getContentPane().add(pfinalQn);
     this.pack();
     this.setLocationRelativeTo(this);
     this.setMinimumSize(new Dimension(630, 500));
@@ -196,13 +200,13 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   }
 
 
-  protected void jTableMouseClicked(MouseEvent evt) {
+  protected void clicSourisSurJtable(MouseEvent evt) {
     // get the selected row index
     int modelRow = tableauQn.getSelectedRow();
-    if(modelRow != -1){          
-      this.bSupprQn.setEnabled(true);
+    if (modelRow != -1) {          
+      this.bsupprQn.setEnabled(true);
     } else {
-      this.bSupprQn.setEnabled(false);
+      this.bsupprQn.setEnabled(false);
     }    
   }
 
@@ -211,21 +215,24 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     Object source = e.getSource();
     
-    /**************************** QUITTER ********************************/
     
-    if(source == bAnnulerQn){
+    if (source == bannulerQn) {
+      
+      /**************************** QUITTER ********************************/
+      
       this.setVisible(false);
       this.dispose();
-    }
+      
+    } else if (source == bcreerQna) {
     
-    /**************************** CREER QUESTIONNAIRE ********************************/
+      /**************************** CREER QUESTIONNAIRE ********************************/
     
-    else if(source == bCreerQna){
       this.questions = new ArrayList<Question>();
       
-      for(int i = 0; i < modeleQn.getRowCount(); i++){
-        if((Boolean)modeleQn.getValueAt(i, 0) == true){
-          questions.add(new Question((String)modeleQn.getValueAt(i, 1), (Boolean)modeleQn.getValueAt(i, 2)));
+      for (int i = 0; i < modeleQn.getRowCount(); i++) {
+        if ((Boolean)modeleQn.getValueAt(i, 0) == true) {
+          questions.add(new Question((String)modeleQn.getValueAt(i, 1), 
+              (Boolean)modeleQn.getValueAt(i, 2)));
         }
       }
       
@@ -235,29 +242,27 @@ public class WindowCreerQuestionaire extends JDialog implements ActionListener {
     
       this.setVisible(false);
       this.dispose();
-    }
+      
+    } else if (source == bsupprQn) {
     
-    /**************************** SUPPRIMER QUESTION ********************************/
+      /**************************** SUPPRIMER QUESTION ********************************/
     
-    else if(source == bSupprQn){
-        
       int[] selection = tableauQn.getSelectedRows();
       
       String messageSupQn = "Etes-vous sur de vouloir supprimer cette question définitivement ?";
-      int replyQn = JOptionPane.showConfirmDialog(null, messageSupQn, "Confirmation de la suppression",
-          JOptionPane.YES_NO_OPTION);
+      int replyQn = JOptionPane.showConfirmDialog(null, messageSupQn, 
+          "Confirmation de la suppression", JOptionPane.YES_NO_OPTION);
       
       if (replyQn == JOptionPane.YES_OPTION) {
-        for(int i = selection.length - 1; i >= 0; i--){
-            modeleQn.removeQuestion(selection[i]);
+        for (int i = selection.length - 1; i >= 0; i--) {
+          modeleQn.removeQuestion(selection[i]);
         }
       }
         
-    }
+    } else if (source == bcreerQn) {
     
-    /**************************** CREER QUESTION ********************************/
-    
-    else if(source == bCreerQn){
+      /*-************************** CREER QUESTION ********************************/
+   
       String titreDialogQn = "Ajout d'une question";
       String messageDialogQn = "Veuillez taper l'intitulé de la question :     ";
       String newQn = "";

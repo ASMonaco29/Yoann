@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,9 +15,7 @@ import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,8 +27,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -50,27 +47,27 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
   private JComponent panelQg;
   private Border borderL;
   private Border borderG;
-  private JPanel pTitre;
-  private JPanel pStitre;
-  private JPanel pDateDebut;
-  private JPanel pDateFin;
-  private JPanel pMessageFin;
-  private JPanel pBoutons;
-  private JTextField tTitre; 
-  private JTextField tStitre;
-  private JTextField tMessageFin;
-  private JLabel lTitre;
-  private JLabel lStitre;
-  private JLabel lDateDebut;
-  private JLabel lDateFin;
-  private JLabel lMessageFin;
+  private JPanel ptitre;
+  private JPanel pstitre;
+  private JPanel pdateDebut;
+  private JPanel pdateFin;
+  private JPanel pmessageFin;
+  private JPanel pboutons;
+  private JTextField ttitre; 
+  private JTextField tstitre;
+  private JTextField tmessageFin;
+  private JLabel ltitre;
+  private JLabel lstitre;
+  private JLabel ldateDebut;
+  private JLabel ldateFin;
+  private JLabel lmessageFin;
   private JLabel triche;
-  private JButton bCreer;
-  private JButton bModifier;
-  private JButton bSupprimer;
+  private JButton bcreer;
+  private JButton bmodifier;
+  private JButton bsupprimer;
   private JTable tableauQ;
   private TableRowSorter<ModelTableauQa> sorter;
-  private Properties p;
+  private Properties pr;
   private UtilDateModel modelDebut;
   private UtilDateModel modelFin;
   private JDatePanelImpl datePanelDebut;
@@ -82,7 +79,7 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
   
   
   /** Constructeur.
-  * @param nom Contient le nom de la fenêtre
+  * Les paramètres correspondent aux informations de la classe appelante : IHM.
   */
   public OngletQuestionnaire(JTabbedPane tabbedPane, JComponent panelQ) {
     this.tabbedPane = tabbedPane;
@@ -109,76 +106,76 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
     this.borderL = BorderFactory.createTitledBorder("Liste Questionnaires");
     this.borderG = BorderFactory.createTitledBorder("Gérer Questionnaires");
     
-    this.bCreer = new JButton("Créer");
-    this.bCreer.addActionListener(this);
-    this.bModifier = new JButton("Modifier");
-    this.bModifier.addActionListener(this);
-    this.bModifier.setEnabled(false);
-    this.bSupprimer = new JButton("Supprimer");
-    this.bSupprimer.addActionListener(this);
-    this.bSupprimer.setEnabled(false);
+    this.bcreer = new JButton("Créer");
+    this.bcreer.addActionListener(this);
+    this.bmodifier = new JButton("Modifier");
+    this.bmodifier.addActionListener(this);
+    this.bmodifier.setEnabled(false);
+    this.bsupprimer = new JButton("Supprimer");
+    this.bsupprimer.addActionListener(this);
+    this.bsupprimer.setEnabled(false);
             
-    this.tTitre = new JTextField(); 
-    this.tTitre.setPreferredSize(new Dimension(250, 25));
+    this.ttitre = new JTextField(); 
+    this.ttitre.setPreferredSize(new Dimension(250, 25));
     
-    this.tStitre = new JTextField();
-    this.tStitre.setPreferredSize(new Dimension(250, 25));
+    this.tstitre = new JTextField();
+    this.tstitre.setPreferredSize(new Dimension(250, 25));
        
-    this.p = new Properties();
-    this.p.put("text.today", "Today");
-    this.p.put("text.month", "Month");
-    this.p.put("text.year", "Year");
+    this.pr = new Properties();
+    this.pr.put("text.today", "Today");
+    this.pr.put("text.month", "Month");
+    this.pr.put("text.year", "Year");
     
     this.modelDebut = new UtilDateModel();
-    this.datePanelDebut = new JDatePanelImpl(modelDebut, p);
+    this.datePanelDebut = new JDatePanelImpl(modelDebut, pr);
     this.dateDebut = new JDatePickerImpl(datePanelDebut, new DateLabelFormatter());
     this.dateDebut.setPreferredSize(new Dimension(120, 25));
     
     this.modelFin = new UtilDateModel();
-    this.datePanelFin = new JDatePanelImpl(modelFin, p);
+    this.datePanelFin = new JDatePanelImpl(modelFin, pr);
     this.dateFin = new JDatePickerImpl(datePanelFin, new DateLabelFormatter());
     this.dateFin.setPreferredSize(new Dimension(120, 25));
     
-    this.tMessageFin = new JTextField();
-    this.tMessageFin.setPreferredSize(new Dimension(250, 25));
+    this.tmessageFin = new JTextField();
+    this.tmessageFin.setPreferredSize(new Dimension(250, 25));
     
-    this.lTitre = new JLabel("Titre : ");
-    this.lStitre = new JLabel("Sous-titre : ");
-    this.lDateDebut = new JLabel("Date début : ");
-    this.lDateFin = new JLabel("Date fin : ");
-    this.lMessageFin = new JLabel("Message de Fin : ");
+    this.ltitre = new JLabel("Titre : ");
+    this.lstitre = new JLabel("Sous-titre : ");
+    this.ldateDebut = new JLabel("Date début : ");
+    this.ldateFin = new JLabel("Date fin : ");
+    this.lmessageFin = new JLabel("Message de Fin : ");
     this.triche = new JLabel("                                                               "
         + "                                                                                   "
         + "                                                                                   "
         + "                                                                                  ");
     
-    this.pTitre = new JPanel();
-    this.pTitre.setLayout(new BorderLayout());
-    this.pStitre = new JPanel();
-    this.pStitre.setLayout(new BorderLayout());
-    this.pDateDebut = new JPanel();
-    this.pDateFin = new JPanel();
-    this.pMessageFin = new JPanel();
-    this.pBoutons = new JPanel();
-    this.pBoutons.setLayout(new BoxLayout(this.pBoutons, BoxLayout.LINE_AXIS));
+    this.ptitre = new JPanel();
+    this.ptitre.setLayout(new BorderLayout());
+    this.pstitre = new JPanel();
+    this.pstitre.setLayout(new BorderLayout());
+    this.pdateDebut = new JPanel();
+    this.pdateFin = new JPanel();
+    this.pmessageFin = new JPanel();
+    this.pboutons = new JPanel();
+    this.pboutons.setLayout(new BoxLayout(this.pboutons, BoxLayout.LINE_AXIS));
     
-    this.pTitre.add(this.lTitre, BorderLayout.WEST);
-    this.pTitre.add(this.tTitre, BorderLayout.EAST);
-    this.pStitre.add(this.lStitre, BorderLayout.WEST);
-    this.pStitre.add(this.tStitre, BorderLayout.EAST);
-    this.pDateDebut.add(this.lDateDebut, BorderLayout.WEST);
-    this.pDateDebut.add(this.dateDebut, BorderLayout.EAST);
-    this.pDateFin.add(this.lDateFin, BorderLayout.WEST);
-    this.pDateFin.add(this.dateFin, BorderLayout.EAST);
-    this.pMessageFin.add(this.lMessageFin, BorderLayout.WEST);
-    this.pMessageFin.add(this.tMessageFin, BorderLayout.EAST);
+    this.ptitre.add(this.ltitre, BorderLayout.WEST);
+    this.ptitre.add(this.ttitre, BorderLayout.EAST);
+    this.pstitre.add(this.lstitre, BorderLayout.WEST);
+    this.pstitre.add(this.tstitre, BorderLayout.EAST);
+    this.pdateDebut.add(this.ldateDebut, BorderLayout.WEST);
+    this.pdateDebut.add(this.dateDebut, BorderLayout.EAST);
+    this.pdateFin.add(this.ldateFin, BorderLayout.WEST);
+    this.pdateFin.add(this.dateFin, BorderLayout.EAST);
+    this.pmessageFin.add(this.lmessageFin, BorderLayout.WEST);
+    this.pmessageFin.add(this.tmessageFin, BorderLayout.EAST);
     this.triche.setPreferredSize(new Dimension(0, 50));
     
-    this.pBoutons.add(this.bCreer); 
-    this.pBoutons.add(Box.createRigidArea(new Dimension(200,0)));
-    this.pBoutons.add(this.bModifier);
-    this.pBoutons.add(Box.createRigidArea(new Dimension(200,0)));
-    this.pBoutons.add(this.bSupprimer);
+    this.pboutons.add(this.bcreer); 
+    this.pboutons.add(Box.createRigidArea(new Dimension(200,0)));
+    this.pboutons.add(this.bmodifier);
+    this.pboutons.add(Box.createRigidArea(new Dimension(200,0)));
+    this.pboutons.add(this.bsupprimer);
     
     this.tableauQ = new JTable(modeleQ);
     this.sorter = new TableRowSorter<ModelTableauQa>(modeleQ); 
@@ -192,7 +189,7 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
     tableauQ.getTableHeader().setReorderingAllowed(false);
     tableauQ.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-          jTable1MouseClicked(evt);
+        clicSourisSurJtable(evt);
       }
     });
        
@@ -206,13 +203,13 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
     panelQl.add(new JScrollPane(tableauQ), BorderLayout.CENTER); 
     
     panelQg.setBorder(borderG);
-    panelQg.add(pTitre);
-    panelQg.add(pStitre);
-    panelQg.add(pDateDebut);
-    panelQg.add(pDateFin);
-    panelQg.add(pMessageFin);
+    panelQg.add(ptitre);
+    panelQg.add(pstitre);
+    panelQg.add(pdateDebut);
+    panelQg.add(pdateFin);
+    panelQg.add(pmessageFin);
     panelQg.add(triche);
-    panelQg.add(pBoutons);
+    panelQg.add(pboutons);
     
     panelQ.add(panelQl);
     panelQ.add(Box.createRigidArea(new Dimension(0,5)));
@@ -224,34 +221,36 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
   
   
   
-  /*
-   * Actions réalisées sur clic (quitter, créer, modifier, supprimer)
+  /** Actions réalisées lors de clic sur les différents boutons : créer/modifier/supprimer.
+   * 
    */
   public void actionPerformed(ActionEvent e) {
     Object source = e.getSource();
     
     
     /**************************** CREER QUESTIONNAIRE ********************************/
-    if(source == this.bCreer){
+    if (source == this.bcreer) {
 
-      new WindowCreerQuestionaire(this, modeleQ, this.tTitre.getText(), this.tStitre.getText(), this.tMessageFin.getText(),
-          (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
+      new WindowCreerQuestionaire(this, modeleQ, this.ttitre.getText(), this.tstitre.getText(),
+          this.tmessageFin.getText(), (Date)dateDebut.getModel().getValue(),
+          (Date)dateFin.getModel().getValue());
     }
     
     /**************************** MODIFIER QUESTIONNAIRE ********************************/
-    if(source == this.bModifier){
+    if (source == this.bmodifier) {
 
-      new WindowModifierQuestionaire(this, modeleQ, this.selectedRowQa, this.tTitre.getText(), this.tStitre.getText(), this.tMessageFin.getText(),
+      new WindowModifierQuestionaire(this, modeleQ, this.selectedRowQa, this.ttitre.getText(),
+          this.tstitre.getText(), this.tmessageFin.getText(),
           (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
     }
     
     /**************************** SUPPRIMER QUESTIONNAIRE ********************************/
-    if(source == this.bSupprimer){
+    if (source == this.bsupprimer) {
       
       int[] selections;
       int selection;
       int modelRow;
-      int replyQa;
+      final int replyQa;
       String messageSupQ;
       Date today;
       Date todayWithZeroTime;
@@ -285,16 +284,16 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
           e2.printStackTrace();
         }  
         
-        this.tTitre.setText(null);
-        this.tStitre.setText(null);
-        this.tMessageFin.setText(null);
+        this.ttitre.setText(null);
+        this.tstitre.setText(null);
+        this.tmessageFin.setText(null);
         this.dateDebut.getModel().setSelected(false);
-        this.dateDebut.getModel().setDate(anTdy, moisTdy-1, jourTdy);
+        this.dateDebut.getModel().setDate(anTdy, moisTdy - 1, jourTdy);
         this.dateFin.getModel().setSelected(false);
-        this.dateFin.getModel().setDate(anTdy, moisTdy-1, jourTdy);
-        this.bSupprimer.setEnabled(false);
-        this.bModifier.setEnabled(false);
-        this.bCreer.setEnabled(true);
+        this.dateFin.getModel().setDate(anTdy, moisTdy - 1, jourTdy);
+        this.bsupprimer.setEnabled(false);
+        this.bmodifier.setEnabled(false);
+        this.bcreer.setEnabled(true);
       } // Sinon, la fenêtre se ferme.
       
     }
@@ -303,101 +302,84 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
     
   }
   
-  private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
+  private void clicSourisSurJtable(MouseEvent evt) {
     
-   // get the model from the jtable
-   ModelTableauQa model = (ModelTableauQa)tableauQ.getModel();
-   int selectedRowIndex;
-   Date dt1;
-   Date dt2;
-   Date today;
-   Date todayWithZeroTime;
-   DateFormat formatter;
-   String reportDate;
-   int jourDate1;
-   int moisDate1;
-   int anDate1;
-   int jourDate2;
-   int moisDate2;
-   int anDate2;
-   int jourTdy = 0;
-   int moisTdy = 0;
-   int anTdy = 0;
-   
-   // Gestion des dates
-   formatter = new SimpleDateFormat("dd/MM/yyyy");
-   today = new Date();
-   try {
-     todayWithZeroTime = formatter.parse(formatter.format(today));
-     reportDate = formatter.format(todayWithZeroTime);
-     jourTdy = Integer.parseInt(reportDate.substring(0, 2));
-     moisTdy = Integer.parseInt(reportDate.substring(3, 5));
-     anTdy = Integer.parseInt(reportDate.substring(6, 10));
-   
-   } catch (ParseException e) {
-     e.printStackTrace();
-   }  
-   
-   // get the selected row index
-   int modelRow = tableauQ.getSelectedRow();
-   
-   if(modelRow != -1){
-     selectedRowIndex = tableauQ.convertRowIndexToModel(modelRow);
-     this.selectedRowQa = selectedRowIndex;
-     
-     dt1 = (Date)model.getValueAt(selectedRowIndex, 2);
-     dt2 = (Date)model.getValueAt(selectedRowIndex, 3);
-     
-     reportDate = formatter.format(dt1);
-     jourDate1 = Integer.parseInt(reportDate.substring(0, 2));
-     moisDate1 = Integer.parseInt(reportDate.substring(3, 5));
-     anDate1 = Integer.parseInt(reportDate.substring(6, 10));
-     
-     reportDate = formatter.format(dt2);
-     jourDate2 = Integer.parseInt(reportDate.substring(0, 2));
-     moisDate2 = Integer.parseInt(reportDate.substring(3, 5));
-     anDate2 = Integer.parseInt(reportDate.substring(6, 10));
-     
-     // set the selected row data into jtextfields
-     this.tTitre.setText(model.getValueAt(selectedRowIndex, 0).toString());
-     this.tStitre.setText(model.getValueAt(selectedRowIndex, 1).toString());
-     this.tMessageFin.setText(model.getValueAt(selectedRowIndex, 4).toString());
-     this.dateDebut.getModel().setDate(anDate1, moisDate1-1, jourDate1);
-     this.dateDebut.getModel().setSelected(true);
-     this.dateFin.getModel().setDate(anDate2, moisDate2-1, jourDate2);
-     this.dateFin.getModel().setSelected(true);
-     this.bSupprimer.setEnabled(true);
-     this.bModifier.setEnabled(true);
-     this.bCreer.setEnabled(false);
-   } else {
-     this.tTitre.setText(null);
-     this.tStitre.setText(null);
-     this.tMessageFin.setText(null);
-     this.dateDebut.getModel().setSelected(false);
-     this.dateDebut.getModel().setDate(anTdy, moisTdy-1, jourTdy);
-     this.dateFin.getModel().setSelected(false);
-     this.dateFin.getModel().setDate(anTdy, moisTdy-1, jourTdy);
-     this.bSupprimer.setEnabled(false);
-     this.bModifier.setEnabled(false);
-     this.bCreer.setEnabled(true);
-   }
-}               
-
-  
-  public void setUpCheckBoxColumn(JTable table, TableColumn boolCol) {
-
-    JCheckBox checkBox = new JCheckBox();
-    boolCol.setCellEditor(new DefaultCellEditor(checkBox));
+    // get the model from the jtable
+    ModelTableauQa model = (ModelTableauQa)tableauQ.getModel();
+    int selectedRowIndex;
+    Date dt1;
+    Date dt2;
+    Date today;
+    Date todayWithZeroTime;
+    DateFormat formatter;
+    String reportDate;
+    int jourDate1;
+    int moisDate1;
+    int anDate1;
+    int jourDate2;
+    int moisDate2;
+    int anDate2;
+    int jourTdy = 0;
+    int moisTdy = 0;
+    int anTdy = 0;
     
-    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-    renderer.setToolTipText("Click to check");
-    boolCol.setCellRenderer(renderer);
-  }
-
-  
+    // Gestion des dates
+    formatter = new SimpleDateFormat("dd/MM/yyyy");
+    today = new Date();
+    try {
+      todayWithZeroTime = formatter.parse(formatter.format(today));
+      reportDate = formatter.format(todayWithZeroTime);
+      jourTdy = Integer.parseInt(reportDate.substring(0, 2));
+      moisTdy = Integer.parseInt(reportDate.substring(3, 5));
+      anTdy = Integer.parseInt(reportDate.substring(6, 10));
+      
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }   
+    
+    // get the selected row index
+    int modelRow = tableauQ.getSelectedRow();
+    
+    if (modelRow != -1) {
+      selectedRowIndex = tableauQ.convertRowIndexToModel(modelRow);
+      this.selectedRowQa = selectedRowIndex;
+      
+      dt1 = (Date)model.getValueAt(selectedRowIndex, 2);
+      dt2 = (Date)model.getValueAt(selectedRowIndex, 3);
+      
+      reportDate = formatter.format(dt1);
+      jourDate1 = Integer.parseInt(reportDate.substring(0, 2));
+      moisDate1 = Integer.parseInt(reportDate.substring(3, 5));
+      anDate1 = Integer.parseInt(reportDate.substring(6, 10));
+      
+      reportDate = formatter.format(dt2);
+      jourDate2 = Integer.parseInt(reportDate.substring(0, 2));
+      moisDate2 = Integer.parseInt(reportDate.substring(3, 5));
+      anDate2 = Integer.parseInt(reportDate.substring(6, 10));
+      
+      // set the selected row data into jtextfields
+      this.ttitre.setText(model.getValueAt(selectedRowIndex, 0).toString());
+      this.tstitre.setText(model.getValueAt(selectedRowIndex, 1).toString());
+      this.tmessageFin.setText(model.getValueAt(selectedRowIndex, 4).toString());
+      this.dateDebut.getModel().setDate(anDate1, moisDate1 - 1, jourDate1);
+      this.dateDebut.getModel().setSelected(true);
+      this.dateFin.getModel().setDate(anDate2, moisDate2 - 1, jourDate2);
+      this.dateFin.getModel().setSelected(true);
+      this.bsupprimer.setEnabled(true);
+      this.bmodifier.setEnabled(true);
+      this.bcreer.setEnabled(false);
+    } else {
+      this.ttitre.setText(null);
+      this.tstitre.setText(null);
+      this.tmessageFin.setText(null);
+      this.dateDebut.getModel().setSelected(false);
+      this.dateDebut.getModel().setDate(anTdy, moisTdy - 1, jourTdy);
+      this.dateFin.getModel().setSelected(false);
+      this.dateFin.getModel().setDate(anTdy, moisTdy - 1, jourTdy);
+      this.bsupprimer.setEnabled(false);
+      this.bmodifier.setEnabled(false);
+      this.bcreer.setEnabled(true);
+    }
+  }               
   
 }
-
-
-
-

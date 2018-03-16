@@ -31,124 +31,136 @@ public class ModelTableauQa extends AbstractTableModel {
   private Date datef1;
   private Date datef2;
   
+  /** Modèle pour le tableau de questionnaires.
+  * 
+  */
   @SuppressWarnings("rawtypes")
   public ModelTableauQa() {
-      super();
+    super();
       
-      this.questionnaires = new ListeQuestionnaires();
-      this.questions = new ArrayList<Question>();
-      this.questions1 = new ArrayList<Question>();
-      this.modl = new ArrayList<DefaultListModel>();
-      
-      questions.add(new Question("Bien ?", false));
-      questions.add(new Question("Reveillé ?", true));
-      questions.add(new Question("Debout ?", true));
-      questions1.add(new Question("Good ?", false));
-      questions1.add(new Question("Awake ?", true));
-      questions1.add(new Question("Wakdsse up ?", true));
-      questions1.add(new Question("Wakedffffffffffffffffffffffffffffffffffffds up ?", false));
-      questions1.add(new Question("Waksdsde up ?", true));
-      questions1.add(new Question("Wakdsdse up ?", true));
-      
-      this.cal = Calendar.getInstance();
-      cal.set(Calendar.YEAR, 2018);
-      cal.set(Calendar.MONTH, 02);
-      cal.set(Calendar.DAY_OF_MONTH, 28);
-      dated1 = cal.getTime();
-      
-      cal.set(Calendar.YEAR, 2018);
-      cal.set(Calendar.MONTH, 03);
-      cal.set(Calendar.DAY_OF_MONTH, 01);
-      dated2 = cal.getTime();
-      
-      cal.set(Calendar.YEAR, 2018);
-      cal.set(Calendar.MONTH, 03);
-      cal.set(Calendar.DAY_OF_MONTH, 28);
-      datef1 = cal.getTime();
-      
-      cal.set(Calendar.YEAR, 2018);
-      cal.set(Calendar.MONTH, 04);
-      cal.set(Calendar.DAY_OF_MONTH, 01);
-      datef2 = cal.getTime();
-          
-      questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
+    this.questionnaires = new ListeQuestionnaires();
+    this.questions = new ArrayList<Question>();
+    this.questions1 = new ArrayList<Question>();
+    this.modl = new ArrayList<DefaultListModel>();
+    
+    questions.add(new Question("Bien ?", false));
+    questions.add(new Question("Reveillé ?", true));
+    questions.add(new Question("Debout ?", true));
+    questions1.add(new Question("Good ?", false));
+    questions1.add(new Question("Awake ?", true));
+    questions1.add(new Question("Wakdsse up ?", true));
+    questions1.add(new Question("Wakedffffffffffffffffffffffffffffffffffffds up ?", false));
+    questions1.add(new Question("Waksdsde up ?", true));
+    questions1.add(new Question("Wakdsdse up ?", true));
+    
+    this.cal = Calendar.getInstance();
+    cal.set(Calendar.YEAR, 2018);
+    cal.set(Calendar.MONTH, 02);
+    cal.set(Calendar.DAY_OF_MONTH, 28);
+    dated1 = cal.getTime();
+    
+    cal.set(Calendar.YEAR, 2018);
+    cal.set(Calendar.MONTH, 03);
+    cal.set(Calendar.DAY_OF_MONTH, 01);
+    dated2 = cal.getTime();
+    
+    cal.set(Calendar.YEAR, 2018);
+    cal.set(Calendar.MONTH, 03);
+    cal.set(Calendar.DAY_OF_MONTH, 28);
+    datef1 = cal.getTime();
+    
+    cal.set(Calendar.YEAR, 2018);
+    cal.set(Calendar.MONTH, 04);
+    cal.set(Calendar.DAY_OF_MONTH, 01);
+    datef2 = cal.getTime();
+    
+    questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
+    questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions1);
-      questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
+    questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions1);
-      questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
+    questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
+    questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
           "Merci d'avoir répondu à ce questionnaire.", questions1);
-      questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
+    questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
+    questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
+    questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
+    questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
+    questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
+    questionnaires.addQuestionnaire("Bien-être", "Soin", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
+    questionnaires.addQuestionnaire("Santé", "Pour vous", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
+    questionnaires.addQuestionnaire("Entrainement", "Quotidien", dated1, datef1, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
+    questionnaires.addQuestionnaire("Conditions", "Tenace ?", dated2, datef2, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-      questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
+    questionnaires.addQuestionnaire("Sélections", "Travail", dated2, datef2, 
           "Merci d'avoir répondu à ce questionnaire.", questions);
-
-      // Présentation sous forme de liste des questions de chaque questionnaire
-      actualiserListeQuestions();
+    
+    // Présentation sous forme de liste des questions de chaque questionnaire
+    actualiserListeQuestions();
   }
 
   public int getRowCount() {
-      return this.questionnaires.getSizeListQ();
+    return this.questionnaires.getSizeListQ();
   }
 
   public int getColumnCount() {
-      return this.entetes.length;
+    return this.entetes.length;
   }
 
   public String getColumnName(int columnIndex) {
-      return this.entetes[columnIndex];
+    return this.entetes[columnIndex];
   }
   
-  public ListeQuestionnaires getListeQuestionnaires(){
+  public ListeQuestionnaires getListeQuestionnaires() {
     return this.questionnaires;
   }
 
+  /** Permet la construction du tableau de questionnaires.
+  * Les paramètres correspondent à la colonne / ligne sélectionnées dans le tableau.
+  */
   public Object getValueAt(int rowIndex, int columnIndex) {
-    switch(columnIndex){
-        case 0:
-            return this.questionnaires.getListQ().get(rowIndex).getTitre();
-        case 1:
-            return this.questionnaires.getListQ().get(rowIndex).getSstitre();
-        case 2:
-            return this.questionnaires.getListQ().get(rowIndex).getDateD();
-        case 3:
-            return this.questionnaires.getListQ().get(rowIndex).getDateF();
-        case 4:
-            return this.questionnaires.getListQ().get(rowIndex).getMessageFin();
-        case 5:
-            return this.modl.get(rowIndex);
-        default:
-            return null; // Ne devrait jamais arriver
+    switch  (columnIndex) {
+      case 0:
+        return this.questionnaires.getListQ().get(rowIndex).getTitre();
+      case 1:
+        return this.questionnaires.getListQ().get(rowIndex).getSstitre();
+      case 2:
+        return this.questionnaires.getListQ().get(rowIndex).getDateD();
+      case 3:
+        return this.questionnaires.getListQ().get(rowIndex).getDateF();
+      case 4:
+        return this.questionnaires.getListQ().get(rowIndex).getMessageFin();
+      case 5:
+        return this.modl.get(rowIndex);
+      default:
+        return null; // Ne devrait jamais arriver
     }
   }
     
+  /** Permet d'ajouter un questionnaire dans la liste.
+  * @param quest questionnaire ajouté dans la liste
+  */
   public void addQuestionnaire(Questionnaire quest) {
     this.questionnaires.addQuestionnaire(quest.getTitre(), quest.getSstitre(), quest.getDateD(), 
         quest.getDateF(), quest.getMessageFin(), quest.getquListe());
     actualiserListeQuestions();
 
-    fireTableRowsInserted(getRowCount()-1, getRowCount()-1);
+    fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
   }
   
+  /** Permet de supprimer un questionnaire dans la liste.
+  * @param rowIndex index du questionnaire à supprimer dans la liste
+  */
   public void removeQuestionnaire(int rowIndex) {
     this.questionnaires.supprQuestionnaire(this.questionnaires.getListQ().get(rowIndex));
     this.modl.remove(rowIndex);
@@ -156,7 +168,11 @@ public class ModelTableauQa extends AbstractTableModel {
     fireTableRowsDeleted(rowIndex, rowIndex);
   }
   
-  public void modifQuestionnaire(Questionnaire quest, int indx){
+  /** Permet de modifier un questionnaire dans la liste.
+  * @param quest nouveau questionnaire
+  * @param indx index du questionnaire à modifier dans la liste
+  */
+  public void modifQuestionnaire(Questionnaire quest, int indx) {
     this.questionnaires.modifQuestionnaire(quest, indx);
     
     fireTableRowsUpdated(indx, indx);
@@ -165,23 +181,26 @@ public class ModelTableauQa extends AbstractTableModel {
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
-  public Class getColumnClass(int columnIndex){
-    switch(columnIndex){
-        case 2:
-            return Date.class;
-        case 3:
-            return Date.class;
-        default:
-            return Object.class;
+  public Class getColumnClass(int columnIndex)  {
+    switch (columnIndex) {
+      case 2:
+        return Date.class;
+      case 3:
+        return Date.class;
+      default:
+        return Object.class;
     }
   }
   
+  /** Permet d'actualiser la liste de questions dans le tableau de questionnaires.
+  * 
+  */
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public void actualiserListeQuestions(){
+  public void actualiserListeQuestions() {
     this.modl.clear();
-    for(int i = 0; i < getRowCount(); i++){
+    for (int i = 0; i < getRowCount(); i++) {
       DefaultListModel dlm = new DefaultListModel();
-      for(int j = 0; j < questionnaires.getListQ().get(i).getquListe().size(); j++){
+      for (int j = 0; j < questionnaires.getListQ().get(i).getquListe().size(); j++) {
         dlm.addElement(questionnaires.getListQ().get(i).getquListe().get(j));
       }
       this.modl.add(dlm);
