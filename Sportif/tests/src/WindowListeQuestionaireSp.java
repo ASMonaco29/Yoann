@@ -31,7 +31,6 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
   private String sportif;
   private JTable tableauQn;
   private TableRowSorter<ModelTableauQaSp> sorter;
-  //private ModelTableauQa modeleQa;
   private JButton bAnnulerQn;
   private JButton bDetailQna;
   private JButton bCreerQn;
@@ -50,12 +49,10 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
   private JPanel pFinalQn;
   private Component wind;
   private ModelTableauQaSp modeleQaSp;
-  //private ArrayList<Question> listeQuest;
-  //private int selectedRowQa;
   
   
   // CONSTRUCTEUR :
-  public WindowListeQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, int selectedRowQa, String PseudoSp){
+  public WindowListeQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, String PseudoSp){
   
     super((Frame) compo, "Questionnaires attribués", true);
     // Initilisation : 
@@ -63,7 +60,6 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
     this.sportif = PseudoSp;
     this.modeleQaSp = modeleQs;
     this.wind = compo;
-    //modeleQa = new ModelTableauQa();
     tableauQn = new JTable(modeleQaSp);
     bAnnulerQn = new JButton("Retour");
     bAnnulerQn.addActionListener(this);

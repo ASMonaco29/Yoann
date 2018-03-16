@@ -113,6 +113,10 @@ public class ModelTableauQaSp extends AbstractTableModel {
   public ListeReponses getListR(){
     return this.reponses;
   }
+  
+  public Sportif getSportif(){
+    return this.sportif;
+  }
 
   public Object getValueAt(int rowIndex, int columnIndex) {
     switch(columnIndex){
@@ -125,6 +129,11 @@ public class ModelTableauQaSp extends AbstractTableModel {
     }
   }
   
+  public void addReponse(Reponse r) {
+    this.reponses.ajouterReponse(r);
+    
+    fireTableRowsInserted(getRowCount()-1, getRowCount()-1);
+  }
   
   public void removeReponses(int rowIndex) {
     this.reponses.supprimerReponse(this.reponses.getReponses().get(rowIndex));

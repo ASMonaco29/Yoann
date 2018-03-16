@@ -120,7 +120,7 @@ public class Ihm extends JFrame implements ActionListener {
 
   
   public static void main(String[] args) {
-    Ihm ihm = new Ihm("Application Sportif");
+    Ihm ihm = new Ihm("Application Sportifs");
     ihm.setVisible(true);
     
   }
