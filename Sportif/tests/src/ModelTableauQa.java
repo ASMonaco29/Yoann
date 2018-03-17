@@ -146,6 +146,16 @@ public class ModelTableauQa extends AbstractTableModel {
         return null; // Ne devrait jamais arriver
     }
   }
+  
+  @Override  
+  public boolean isCellEditable(int rowIndex, int columnIndex) { 
+    if (columnIndex == 5) {
+      return true; // permet au JScrollPane de fonctionner !
+    } else {
+      return false;
+    }
+    
+  }
     
   /** Permet d'ajouter un questionnaire dans la liste.
   * @param quest questionnaire ajouté dans la liste

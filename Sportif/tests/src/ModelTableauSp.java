@@ -162,6 +162,16 @@ public class ModelTableauSp extends AbstractTableModel {
     }
   }
   
+  @Override  
+  public boolean isCellEditable(int rowIndex, int columnIndex) { 
+    if (columnIndex == 5) {
+      return true; // permet au JScrollPane de fonctionner !
+    } else {
+      return false;
+    }
+    
+  }
+  
   
   /** Permet d'ajouter un sportif dans la liste.
   * les paramètres correspondent aux informations du nouveau sportif

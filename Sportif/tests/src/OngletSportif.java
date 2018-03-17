@@ -262,15 +262,57 @@ public class OngletSportif extends JFrame implements ActionListener {
     
     /**************************** CREER SPORTIF ********************************/
     if (source == this.bcreer) {
-      modeleS.creerSportif(this.tnom.getText(), this.tprenom.getText(), this.tpseudo.getText(),
-          (Date)dateNaissance.getModel().getValue(), (Sport)this.jsport.getSelectedItem());
+      
+      if (this.tpseudo.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un pseudo.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if (this.tnom.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un nom.", "Erreur",  JOptionPane.ERROR_MESSAGE);
+      } else if (this.tprenom.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un prénom.", "Erreur",  JOptionPane.ERROR_MESSAGE);      
+      } else if ((Date)dateNaissance.getModel().getValue() == null) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer une date de naissance.", "Erreur",
+            JOptionPane.ERROR_MESSAGE);      
+      } else if ((Sport)this.jsport.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un sport.", "Erreur",
+            JOptionPane.ERROR_MESSAGE);      
+      
+      } else {
+        modeleS.creerSportif(this.tnom.getText(), this.tprenom.getText(), this.tpseudo.getText(),
+            (Date)dateNaissance.getModel().getValue(), (Sport)this.jsport.getSelectedItem());
+      }
     }
     
     /**************************** MODIFIER SPORTIF ********************************/
     if (source == this.bmodifier) {
+      
+      if (this.tpseudo.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un pseudo.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if (this.tnom.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un nom.", "Erreur",  JOptionPane.ERROR_MESSAGE);
+      } else if (this.tprenom.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un prénom.", "Erreur",  JOptionPane.ERROR_MESSAGE);      
+      } else if ((Date)dateNaissance.getModel().getValue() == null) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer une date de naissance.", "Erreur",
+            JOptionPane.ERROR_MESSAGE);      
+      } else if ((Sport)this.jsport.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
+            + "Vous devez rentrer un sport.", "Erreur",
+            JOptionPane.ERROR_MESSAGE);      
+      
+      } else {
       modeleS.modifSportif(this.tnom.getText(), this.tprenom.getText(), 
           this.tpseudo.getText(), (Date)dateNaissance.getModel().getValue(), 
           (Sport)this.jsport.getSelectedItem(), this.selectedRowQa);
+      }
     }
     
     /**************************** SUPPRIMER SPORTIF ********************************/

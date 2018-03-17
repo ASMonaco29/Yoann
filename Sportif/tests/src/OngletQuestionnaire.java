@@ -231,17 +231,48 @@ public class OngletQuestionnaire extends JFrame implements ActionListener {
     /**************************** CREER QUESTIONNAIRE ********************************/
     if (source == this.bcreer) {
 
-      new WindowCreerQuestionaire(this, modeleQ, this.ttitre.getText(), this.tstitre.getText(),
-          this.tmessageFin.getText(), (Date)dateDebut.getModel().getValue(),
-          (Date)dateFin.getModel().getValue());
+      if (this.ttitre.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer un titre.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if (this.tstitre.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer un sous-titre.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if ((Date)dateDebut.getModel().getValue() == null) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer une date de début.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if ((Date)dateFin.getModel().getValue() == null) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer une date de fin.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      
+      } else {
+        new WindowCreerQuestionaire(this, modeleQ, this.ttitre.getText(), this.tstitre.getText(),
+            this.tmessageFin.getText(), (Date)dateDebut.getModel().getValue(),
+            (Date)dateFin.getModel().getValue());
+      }
     }
     
     /**************************** MODIFIER QUESTIONNAIRE ********************************/
     if (source == this.bmodifier) {
 
-      new WindowModifierQuestionaire(this, modeleQ, this.selectedRowQa, this.ttitre.getText(),
-          this.tstitre.getText(), this.tmessageFin.getText(),
-          (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
+      if (this.ttitre.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer un titre.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if (this.tstitre.getText().length() == 0) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer un sous-titre.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if ((Date)dateDebut.getModel().getValue() == null) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer une date de début.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      } else if ((Date)dateFin.getModel().getValue() == null) {
+        JOptionPane.showMessageDialog(this, "Certains champs sont obligatoires :\n"
+            + "Vous devez rentrer une date de fin.", "Erreur",  JOptionPane.ERROR_MESSAGE);   
+      
+      } else {
+        new WindowModifierQuestionaire(this, modeleQ, this.selectedRowQa, this.ttitre.getText(),
+            this.tstitre.getText(), this.tmessageFin.getText(),
+            (Date)dateDebut.getModel().getValue(), (Date)dateFin.getModel().getValue());
+      }
+      
     }
     
     /**************************** SUPPRIMER QUESTIONNAIRE ********************************/
