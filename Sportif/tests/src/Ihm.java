@@ -29,6 +29,9 @@ public class Ihm extends JFrame implements ActionListener {
   private JComponent panelS; 
   
   
+  // ONGLET GENERAL
+  private JComponent panelG; 
+  
   // Bouton QUITTER
   private JButton quitter;
   private JPanel panelQuitter;
@@ -64,11 +67,14 @@ public class Ihm extends JFrame implements ActionListener {
    
     tabbedPane = new JTabbedPane();
     
+    // Création de l'onglet Général
+    new OngletGeneral(tabbedPane, panelG);
+    
     // Création de l'onglet Questionnaires
     new OngletQuestionnaire(tabbedPane, panelQ);
     
     // Création de l'onglet Sportif
-    new OngletSportif(tabbedPane, panelS);    
+    new OngletSportif(tabbedPane, panelS);  
     
     // Ajoute les (panels) onglets à la fenêtre principale
     this.add(tabbedPane, BorderLayout.CENTER); 

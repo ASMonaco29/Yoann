@@ -208,7 +208,7 @@ public class OngletSportif extends JFrame implements ActionListener {
     // Paramètres de l'onglet Questionnaires
     
     tabbedPane.addTab("Sportifs", panelQ);
-    tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);  
+    tabbedPane.setMnemonicAt(2, KeyEvent.VK_1);  
     
     // Ajout des attributs au contenu de l'onglet Questionnaires    
     panelQl.setBorder(borderL);
