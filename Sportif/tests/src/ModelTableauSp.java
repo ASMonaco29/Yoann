@@ -3,6 +3,7 @@ package src;
 import cda.ListeQuestionnaires;
 import cda.ListeSportifs;
 import cda.Question;
+import cda.Questionnaire;
 import cda.Sport;
 
 import java.util.ArrayList;
@@ -190,6 +191,7 @@ public class ModelTableauSp extends AbstractTableModel {
   public void supprimerSportif(int rowIndex) {
     this.sportifs.supprimerSportif(this.sportifs.getListeS().get(rowIndex).getPseudo());
     this.modl.remove(rowIndex);
+    actualiserListeQuestionnaires();
     
     fireTableRowsDeleted(rowIndex, rowIndex);
   }
@@ -201,6 +203,17 @@ public class ModelTableauSp extends AbstractTableModel {
   public void modifSportif(String nom, String prenom, String pseudo, Date date, 
       Sport sport, int indx) {
     this.sportifs.modifierSportif(nom, prenom, pseudo, date, sport);
+    
+    fireTableRowsUpdated(indx, indx);
+  }
+  
+  /** Permet de modifier la liste des questionnaires d'un sportif dans la liste.
+  * les paramètres correspondent aux informations du nouveau sportif
+  * @param indx index du sportif à modifier dans la liste
+  */
+  public void modifQuestSportif(String pseudo, ArrayList<Questionnaire> quest, int indx) {
+    this.sportifs.modifierQuestSportif(pseudo, quest);
+    actualiserListeQuestionnaires();
     
     fireTableRowsUpdated(indx, indx);
   }

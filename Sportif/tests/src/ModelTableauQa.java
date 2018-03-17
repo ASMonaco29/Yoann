@@ -184,6 +184,7 @@ public class ModelTableauQa extends AbstractTableModel {
   */
   public void modifQuestionnaire(Questionnaire quest, int indx) {
     this.questionnaires.modifQuestionnaire(quest, indx);
+    actualiserListeQuestions();
     
     fireTableRowsUpdated(indx, indx);
   }

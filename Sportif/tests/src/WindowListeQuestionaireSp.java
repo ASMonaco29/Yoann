@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -22,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableRowSorter;
+
+import cda.Questionnaire;
 
 
 @SuppressWarnings("serial")
@@ -49,6 +52,8 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
   private JPanel pfinalQn;
   private Component wind;
   private ModelTableauQaSp modeleQaSp;
+  private ModelTableauSp modeleSp;
+  private int selectedRowQa;
   
   
   /** Constructeur.
@@ -56,13 +61,16 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
   * 
     Les autres paramètres : récupèrent les informations pour un sportif
   */
-  public WindowListeQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, String pseudoSp) {
+  public WindowListeQuestionaireSp(Component compo, ModelTableauQaSp modeleQs, String pseudoSp, 
+      ModelTableauSp mtsp, int selectedRowQa) {
   
     super((Frame) compo, "Questionnaires attribués", true);
+    
     // Initilisation : 
-    //this.selectedRowQa = selectedRowQa;
     this.sportif = pseudoSp;
     this.modeleQaSp = modeleQs;
+    this.modeleSp = mtsp;
+    this.selectedRowQa = selectedRowQa;
     this.wind = compo;
     tableauQn = new JTable(modeleQaSp);
     bannulerQn = new JButton("Retour");
@@ -181,6 +189,10 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
     
       int[] selections;
       int selection;
+      ArrayList<Questionnaire> quest2;
+      
+      quest2 = new ArrayList<Questionnaire>();
+      
       selections = tableauQn.getSelectedRows();
       selection = tableauQn.convertRowIndexToModel(selections[0]);
       
@@ -188,15 +200,22 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
       this.bsupprQn.setEnabled(false);
       this.bdetailQna.setEnabled(false);
       
+      for (int i = 0; i < modeleQaSp.getListR().getSizeListR(); i++) {
+        quest2.add(modeleQaSp.getListR().getReponses().get(i).getQuestionnaire());
+      }
+      modeleSp.modifQuestSportif(this.sportif, quest2, selectedRowQa);
+      
     } else if (source == bsupprQn) {
     
       /***************** SUPPRIMER REPONSES AU QUESTIONNAIRE *********************/
-    
    
       int[] selections;
       int selection;
       final int replyR;
       String messageSupR;
+      ArrayList<Questionnaire> quest;
+      
+      quest = new ArrayList<Questionnaire>();
       
       selections = tableauQn.getSelectedRows();
       selection = tableauQn.convertRowIndexToModel(selections[0]);
@@ -208,13 +227,30 @@ public class WindowListeQuestionaireSp extends JDialog implements ActionListener
       
       if (replyR == JOptionPane.YES_OPTION) {
         modeleQaSp.removeReponses(selection);
+        
+        for (int i = 0; i < modeleQaSp.getListR().getSizeListR(); i++) {
+          quest.add(modeleQaSp.getListR().getReponses().get(i).getQuestionnaire());
+        }
+        
+        modeleSp.modifQuestSportif(this.sportif, quest, selectedRowQa);
       }
       
-    } else if (source == bdetailQna) {
+      this.bsupprQn.setEnabled(false);
+      this.bdetailQna.setEnabled(false);
+      
+    } else if (source == bcreerQn) {
     
       /****************** AJOUTER REPONSES AU QUESTIONNAIRE ***********************/
     
+      ArrayList<Questionnaire> quest1;
+      
+      quest1 = new ArrayList<Questionnaire>();
       new WindowAjoutReponsesQuestionaireSp(this.wind, this.modeleQaSp);
+      for (int i = 0; i < modeleQaSp.getListR().getSizeListR(); i++) {
+        quest1.add(modeleQaSp.getListR().getReponses().get(i).getQuestionnaire());
+      }
+      
+      modeleSp.modifQuestSportif(this.sportif, quest1, selectedRowQa);
     }
     
   }

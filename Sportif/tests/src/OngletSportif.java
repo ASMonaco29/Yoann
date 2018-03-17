@@ -256,7 +256,7 @@ public class OngletSportif extends JFrame implements ActionListener {
       }
       
       new WindowListeQuestionaireSp(this, new ModelTableauQaSp(s), 
-      (String)modeleS.getValueAt(selection, 0));
+      (String)modeleS.getValueAt(selection, 0), this.modeleS, selection);
       
     }
     

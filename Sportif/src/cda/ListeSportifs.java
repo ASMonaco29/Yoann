@@ -119,6 +119,15 @@ public class ListeSportifs {
     return result;
   }
   
+  public void modifierQuestSportif(String pseudo, ArrayList<Questionnaire> quest) {
+    
+    for (int i = 0; i < this.getListeS().size(); i++) {
+      if (this.getListeS().get(i).getPseudo() == pseudo) {
+        this.getListeS().get(i).ajouterListQ(quest);
+      }
+    }
+    
+  }
   
   public int supprimerSportif(String pseudo) {
     int result = 0;
