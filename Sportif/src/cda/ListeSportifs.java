@@ -42,7 +42,7 @@ public class ListeSportifs {
    * @return
    */
   
-  public int creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+  public int creerSportif(String nom, String prenom, String pseudo, Date date, String sport) {
     int result = 0;
     Sportif sportif;
     
@@ -80,7 +80,7 @@ public class ListeSportifs {
    * @param sport   le nouveau sport du sportif
    * @return
    */
-  public int modifierSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+  public int modifierSportif(String nom, String prenom, String pseudo, Date date, String sport) {
     int result = 0;
     Sportif sportif1 = null;
     

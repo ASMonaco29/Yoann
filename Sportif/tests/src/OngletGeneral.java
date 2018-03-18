@@ -63,7 +63,6 @@ public class OngletGeneral extends ApplicationFrame {
         Number n0 = this.getDataset().getValue(section);
         Number n1 = this.getDataset().getValue(section+1);
         String affich = ""+n0.intValue() +" \"oui\"" + " - "+ n1.intValue() +" \"non\"";
-        System.out.println(affich);
         g2.setFont(this.centerTextFont);
         g2.setPaint(this.centerTextColor);
         TextUtilities.drawAlignedString(affich, g2, 

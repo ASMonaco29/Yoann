@@ -2,6 +2,7 @@ package src;
 
 import cda.ListeQuestionnaires;
 import cda.ListeSportifs;
+import cda.ListeSports;
 import cda.Question;
 import cda.Questionnaire;
 import cda.Sport;
@@ -19,6 +20,7 @@ public class ModelTableauSp extends AbstractTableModel {
   
   private final ListeSportifs sportifs;
   private ListeQuestionnaires questionnaires;
+  private ListeSports sports;
 
   private final String[] entetes = {"Pseudo", "Nom", "Prénom", "Date de naissance", 
       "Sport", "Questionnaire(s) attribué(s)"};
@@ -47,6 +49,7 @@ public class ModelTableauSp extends AbstractTableModel {
       
     this.sportifs = new ListeSportifs();
     this.questionnaires = new ListeQuestionnaires();
+    this.sports = new ListeSports();
     this.modl = new ArrayList<DefaultListModel>();
     
     this.questions = new ArrayList<Question>();
@@ -75,6 +78,22 @@ public class ModelTableauSp extends AbstractTableModel {
     questions5.add(new Question("Souriez-vous assez ?", true));
     questions5.add(new Question("Vous levez-vous du bon pied ?", false));
     
+    sports.addSport("Handball");
+    sports.addSport("Basketball");
+    sports.addSport("Natation");
+    sports.addSport("Rugby");
+    sports.addSport("Cyclisme");
+    sports.addSport("Patinage_artistique");
+    sports.addSport("Surf");
+    sports.addSport("Ski_de_fond");
+    sports.addSport("Ju_Jitsu");
+    sports.addSport("Billard");
+    sports.addSport("Kite_surf");
+    sports.addSport("Pétanque");
+    sports.addSport("Escrime");
+    sports.addSport("Golf");
+    sports.addSport("Football");
+     
     
     this.cal = Calendar.getInstance();
     cal.set(Calendar.YEAR, 1996);
@@ -110,10 +129,10 @@ public class ModelTableauSp extends AbstractTableModel {
     questionnaires.addQuestionnaire("La joie", "Heureux ?", date3, date4, 
           "Merci d'avoir répondu à ce questionnaire.", questions5);
           
-    sportifs.creerSportif("Alleno", "Malou", "Malou22", date2, Sport.Basketball);
-    sportifs.creerSportif("Mestre", "Quentin", "Quentin974", date4, Sport.Billard);
-    sportifs.creerSportif("Le Pape", "Rémi", "Rems56", date3, Sport.Golf);
-    sportifs.creerSportif("Amicel", "Yoann", "Yoyo22", date1, Sport.Football);
+    sportifs.creerSportif("Alleno", "Malou", "Malou22", date2, sports.getListSports().get(0));
+    sportifs.creerSportif("Mestre", "Quentin", "Quentin974", date4, sports.getListSports().get(1));
+    sportifs.creerSportif("Le Pape", "Rémi", "Rems56", date3, sports.getListSports().get(2));
+    sportifs.creerSportif("Amicel", "Yoann", "Yoyo22", date1, sports.getListSports().get(3));
     
     sportifs.getListeS().get(0).ajouterListQ(questionnaires.getListQ());
     sportifs.getListeS().get(1).ajouterListQ(questionnaires.getListQ());
@@ -135,6 +154,10 @@ public class ModelTableauSp extends AbstractTableModel {
   
   public ListeSportifs getListeSportifs() {
     return this.sportifs;
+  }
+  
+  public ListeSports getListeSports() {
+    return this.sports;
   }
 
   public String getColumnName(int columnIndex) {
@@ -177,7 +200,7 @@ public class ModelTableauSp extends AbstractTableModel {
   /** Permet d'ajouter un sportif dans la liste.
   * les paramètres correspondent aux informations du nouveau sportif
   */
-  public void creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+  public void creerSportif(String nom, String prenom, String pseudo, Date date, String sport) {
     this.sportifs.creerSportif(nom, prenom, pseudo, date, sport);
     actualiserListeQuestionnaires();
     
@@ -201,7 +224,7 @@ public class ModelTableauSp extends AbstractTableModel {
   * @param indx index du sportif à modifier dans la liste
   */
   public void modifSportif(String nom, String prenom, String pseudo, Date date, 
-      Sport sport, int indx) {
+      String sport, int indx) {
     this.sportifs.modifierSportif(nom, prenom, pseudo, date, sport);
     
     fireTableRowsUpdated(indx, indx);
@@ -216,6 +239,20 @@ public class ModelTableauSp extends AbstractTableModel {
     actualiserListeQuestionnaires();
     
     fireTableRowsUpdated(indx, indx);
+  }
+  
+  
+  /****************** SPORTS ****************************/
+  public void ajouterSport(String sp) {
+    this.sports.addSport(sp);
+  }
+  
+  public void supprimerSport(int indx) {
+    this.sports.removeSport(indx);
+  }
+  
+  public void modifierSport(String sp, int indx) {
+    this.sports.updateSport(sp, indx);
   }
   
   

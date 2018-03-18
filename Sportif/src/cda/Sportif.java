@@ -8,7 +8,7 @@ public class Sportif {
   private String prenom;
   private String pseudo;
   private Date naissance;
-  private Sport sport;
+  private String sport;
   private ArrayList<Questionnaire> listQ;
 
   
@@ -30,7 +30,7 @@ public class Sportif {
    * @param date date de naissance du sportif
    * @param sport le sport du sportif
    */
-  public static Sportif creerSportif(String nom, String prenom, String pseudo, Date date, Sport sport) {
+  public static Sportif creerSportif(String nom, String prenom, String pseudo, Date date, String sport) {
     Sportif sp = new Sportif();
     
     if (!sp.setNom(nom)) {
@@ -157,11 +157,11 @@ public class Sportif {
     return verifdate;
   }
 
-  public Sport getSport() {
+  public String getSport() {
     return sport;
   }
 
-  public void setSport(Sport sport) {
+  public void setSport(String sport) {
     this.sport = sport;
   }
 

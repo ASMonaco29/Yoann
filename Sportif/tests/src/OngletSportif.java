@@ -19,6 +19,7 @@ import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -62,8 +63,8 @@ public class OngletSportif extends JFrame implements ActionListener {
   private JTextField tpseudo; 
   private JTextField tnom;
   private JTextField tprenom;
-  @SuppressWarnings("rawtypes")
-  private JComboBox jsport;
+  private JComboBox<Object> jsport;
+  private DefaultComboBoxModel<Object> model;
   private JLabel lpseudo;
   private JLabel lnom;
   private JLabel lprenom;
@@ -74,6 +75,7 @@ public class OngletSportif extends JFrame implements ActionListener {
   private JButton bcreer;
   private JButton bmodifier;
   private JButton bsupprimer;
+  private JButton bsport;
   private JTable tableauS;
   private TableRowSorter<ModelTableauSp> sorter;
   private Properties pr;
@@ -98,7 +100,6 @@ public class OngletSportif extends JFrame implements ActionListener {
   /** Construire.
   * Permet de construire la fenêtre
   */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
   public void construire() { 
        
     this.panelQ = new JPanel();
@@ -124,6 +125,8 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.bsupprimer = new JButton("Supprimer");
     this.bsupprimer.addActionListener(this);
     this.bsupprimer.setEnabled(false);
+    this.bsport = new JButton("Gérer sports");
+    this.bsport.addActionListener(this);
             
     this.tpseudo = new JTextField(); 
     this.tpseudo.setPreferredSize(new Dimension(250, 25));
@@ -144,7 +147,9 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.dateNaissance = new JDatePickerImpl(datePanel, new DateLabelFormatter());
     this.dateNaissance.setPreferredSize(new Dimension(120, 25));
     
-    this.jsport = new JComboBox(Sport.values());
+    model = new DefaultComboBoxModel<>(modeleS
+        .getListeSports().getListSports().toArray());
+    this.jsport = new JComboBox<>(model);
     this.jsport.setPreferredSize(new Dimension(250, 25));
     this.jsport.setSelectedIndex(-1);
     
@@ -152,7 +157,7 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.lnom = new JLabel("Nom : ");
     this.lprenom = new JLabel("Prénom : ");
     this.ldateNaissance = new JLabel("Date de naissance : ");
-    this.lsport = new JLabel("Sport : ");
+    this.lsport = new JLabel("  Sport : ");
     this.triche = new JLabel("                                                               "
         + "                                                                                   "
         + "                                                                                   "
@@ -178,7 +183,8 @@ public class OngletSportif extends JFrame implements ActionListener {
     this.pprenom.add(this.tprenom, BorderLayout.EAST);
     this.pdateNaissance.add(this.ldateNaissance, BorderLayout.WEST);
     this.pdateNaissance.add(this.dateNaissance, BorderLayout.EAST);
-    this.psport.add(this.lsport, BorderLayout.WEST);
+    this.psport.add(this.bsport, BorderLayout.WEST);
+    this.psport.add(this.lsport, BorderLayout.CENTER);
     this.psport.add(this.jsport, BorderLayout.EAST);
     this.pquestionnaire.add(this.bquestionnaire);
     this.triche.setPreferredSize(new Dimension(0, 50));
@@ -260,6 +266,11 @@ public class OngletSportif extends JFrame implements ActionListener {
       
     }
     
+    /**************************** GERER SPORTS ********************************/
+    if (source == this.bsport) {
+      new WindowGererSports(modeleS, this.model);
+    }
+    
     /**************************** CREER SPORTIF ********************************/
     if (source == this.bcreer) {
       
@@ -283,7 +294,7 @@ public class OngletSportif extends JFrame implements ActionListener {
       
       } else {
         modeleS.creerSportif(this.tnom.getText(), this.tprenom.getText(), this.tpseudo.getText(),
-            (Date)dateNaissance.getModel().getValue(), (Sport)this.jsport.getSelectedItem());
+            (Date)dateNaissance.getModel().getValue(), (String)this.jsport.getSelectedItem());
       }
     }
     
@@ -309,9 +320,9 @@ public class OngletSportif extends JFrame implements ActionListener {
             JOptionPane.ERROR_MESSAGE);      
       
       } else {
-      modeleS.modifSportif(this.tnom.getText(), this.tprenom.getText(), 
-          this.tpseudo.getText(), (Date)dateNaissance.getModel().getValue(), 
-          (Sport)this.jsport.getSelectedItem(), this.selectedRowQa);
+        modeleS.modifSportif(this.tnom.getText(), this.tprenom.getText(), 
+            this.tpseudo.getText(), (Date)dateNaissance.getModel().getValue(), 
+            (String)this.jsport.getSelectedItem(), this.selectedRowQa);
       }
     }
     
