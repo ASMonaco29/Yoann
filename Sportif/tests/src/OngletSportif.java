@@ -1,6 +1,5 @@
 package src;
 
-import cda.Sport;
 import cda.Sportif;
 
 import java.awt.BorderLayout;
@@ -287,7 +286,7 @@ public class OngletSportif extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
             + "Vous devez rentrer une date de naissance.", "Erreur",
             JOptionPane.ERROR_MESSAGE);      
-      } else if ((Sport)this.jsport.getSelectedItem() == null) {
+      } else if ((String)this.jsport.getSelectedItem() == null) {
         JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
             + "Vous devez rentrer un sport.", "Erreur",
             JOptionPane.ERROR_MESSAGE);      
@@ -314,7 +313,7 @@ public class OngletSportif extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
             + "Vous devez rentrer une date de naissance.", "Erreur",
             JOptionPane.ERROR_MESSAGE);      
-      } else if ((Sport)this.jsport.getSelectedItem() == null) {
+      } else if ((String)this.jsport.getSelectedItem() == null) {
         JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires :\n"
             + "Vous devez rentrer un sport.", "Erreur",
             JOptionPane.ERROR_MESSAGE);      
@@ -432,9 +431,10 @@ public class OngletSportif extends JFrame implements ActionListener {
       anDate2 = Integer.parseInt(reportDate.substring(6, 10));
      
       combo = model.getValueAt(selectedRowIndex, 4).toString();
+      
       int i = 0;
-      for (Sport sp : Sport.values()) {
-        if (combo.equalsIgnoreCase(sp.name())) {
+      for (int y = 0; y < this.modeleS.getListeSports().getListSports().size(); y++) {
+        if (this.modeleS.getListeSports().getListSports().get(y) == combo) {
           break;
         }
         i++;

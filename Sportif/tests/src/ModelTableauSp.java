@@ -5,7 +5,6 @@ import cda.ListeSportifs;
 import cda.ListeSports;
 import cda.Question;
 import cda.Questionnaire;
-import cda.Sport;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -263,8 +262,6 @@ public class ModelTableauSp extends AbstractTableModel {
     switch (columnIndex) {
       case 3:
         return Date.class;
-      case 4:
-        return Sport.class;
       default:
         return Object.class;
     }
